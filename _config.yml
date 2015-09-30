@@ -1,0 +1,31 @@
+permalink: /:year/:month/:day/:title.html
+markdown: kramdown
+highlighter: true
+url: http://datavalley.github.io
+kramdown:
+  input: GFM
+
+# 作者信息
+author: 
+  name: zmz
+  email: tem
+  link: ttp://datavalley.github.io
+
+# 站点信息
+title: 小z的博客 
+description: 小z的博客
+url: http://datavalley.github.io
+rss_url: /pages/atom.xml
+
+# avatar头像及Favicon
+avatar: http://7u2ho6.com1.z0.glb.clouddn.com/site-avatar.png
+favicon: http://7u2ho6.com1.z0.glb.clouddn.com/site-favicon.ico
+
+# google analytics 设置
+ga:
+  id: UA-54767140-1
+  url: datavalley.github.io
+
+# disqus 设置
+disqus:
+  shortname: zmz-zh
