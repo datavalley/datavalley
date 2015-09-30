@@ -19,7 +19,7 @@ rss_url: /pages/atom.xml
 
 # avatar头像及Favicon
 avatar: /img/hello.jpg
-favicon: http://7u2ho6.com1.z0.glb.clouddn.com/site-favicon.ico
+favicon: http://datavalley.github.io/img/hello.jpg
 
 # google analytics 设置
 ga:
@@ -28,4 +28,4 @@ ga:
 
 # disqus 设置
 disqus:
-  shortname: zmz-zh
+  shortname: datavalley
