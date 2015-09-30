@@ -14,6 +14,7 @@ Python本身不提供抽象类和接口机制，要想实现抽象类，可以�
 #### abc.ABCMeta
 这是用来生成抽象基础类的元类。由它生成的类可以被直接继承。
 
+
     from abc import ABCMeta
 
     class MyABC:

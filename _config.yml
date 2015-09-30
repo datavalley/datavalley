@@ -8,8 +8,8 @@ kramdown:
 # 作者信息
 author: 
   name: zmz
-  email: 1064328629@qq.com
-  link: ttp://datavalley.github.io
+  email: zmz@mail.dlut.edu.cn
+  link: http://datavalley.github.io
 
 # 站点信息
 title: 小z的博客 
@@ -18,7 +18,7 @@ url: http://datavalley.github.io
 rss_url: /pages/atom.xml
 
 # avatar头像及Favicon
-avatar: http://7u2ho6.com1.z0.glb.clouddn.com/site-avatar.png
+avatar: /img/hello.jpg
 favicon: http://7u2ho6.com1.z0.glb.clouddn.com/site-favicon.ico
 
 # google analytics 设置
