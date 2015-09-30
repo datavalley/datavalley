@@ -18,8 +18,8 @@ url: http://datavalley.github.io
 rss_url: /pages/atom.xml
 
 # avatar头像及Favicon
-avatar: /img/hello.jpg
-favicon: http://datavalley.github.io/img/hello.jpg
+avatar: /img/logo.jpg
+favicon: http://datavalley.github.io/img/logo.jpg
 
 # google analytics 设置
 ga:
