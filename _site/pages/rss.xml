@@ -10,7 +10,13 @@
         <link>http://datavalley.github.io/2015/10/01/data_warehousing.html</link>
         <guid isPermaLink="true">http://datavalley.github.io/2015/10/01/data_warehousing.html</guid>
         <pubDate>Thu, 01 Oct 2015 00:00:00 +0800</pubDate>
-        <description>&lt;p&gt;引子：本文是小z在学习&lt;a href=&quot;http://www.tutorialspoint.com/dwh/dwh_tutorial.pdf&quot;&gt;Data Warehousing&lt;/a&gt;时做的笔记，主要是对原文的翻译。由于刚接触数据仓库，很多概念理解的有偏差，希望大家谅解，如有不当，欢迎大家指出，谢谢。&lt;/p&gt;
+        <description>&lt;p&gt;原文地址：http://www.tutorialspoint.com/dwh/dwh_tutorial.pdf&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;引子：本文是小z在学习&lt;a href=&quot;http://www.tutorialspoint.com/dwh/dwh_tutorial.pdf&quot;&gt;Data Warehousing&lt;/a&gt;时做的笔记，主要是对原文的翻译。由于刚接触数据仓库，很多概念理解的有偏差，希望大家谅解，如有不当，欢迎大家指出，谢谢。&lt;/p&gt;
+
+&lt;hr /&gt;
 
 &lt;h1 id=&quot;section&quot;&gt;1. 概述&lt;/h1&gt;
 
@@ -254,10 +260,42 @@
 
 &lt;hr /&gt;
 
-&lt;p&gt;数据立方体通过纬度和事实定义，帮助分析师从多维度展示数据。&lt;/p&gt;
+&lt;p&gt;数据立方体帮助分析师从多维度展示数据。我们可以通过维度和事实来定义数据立方体，其中维度是企业保存数据的实体。&lt;/p&gt;
 
-&lt;h3 id=&quot;section-17&quot;&gt;数据立方体例证&lt;/h3&gt;
+&lt;h3 id=&quot;section-17&quot;&gt;数据立方体举例&lt;/h3&gt;
 
+&lt;p&gt;假设公司想要从销售数据仓库中跟踪关于时间、产品、分公司和地理位置的销售记录。我们可以跟踪这些维度的月度销售额，以及跟踪每个分公司的销售记录。每个维度对应一个维度表。例如，“产品”维表拥有产品名称、产品类型和产品分公司等属性。&lt;/p&gt;
+
+&lt;p&gt;下图给出了某个公司关于时间（季度）、产品和地理位置的2-D销售数据视图。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://datavalley.github.io/img/data_warehousing/2d_table.png&quot; alt=&quot;2维销售数据表&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;但是在这种2-d表中，我们只能看到关于时间和产品的记录。上表给出了“New Delpi”每个产品在每个季度的销售额。但是如果我们想指导地理位置这一维度的信息，我们就会需要3-d的表。下表展示了在时间、产品和地理位置三个维度上销售额数据：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://datavalley.github.io/img/data_warehousing/3d_table.png&quot; alt=&quot;3维销售数据表&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;上面的3-d表可以使用3-d数据立方体表示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://datavalley.github.io/img/data_warehousing/data_cube.png&quot; alt=&quot;3维销售数据表&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-18&quot;&gt;数据集市&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;数据集市是企业数据的一个子集，而且数据集市对特定的群体非常有用。也就是说，数据集市中的数据只对特定的群体有意义。例如，市场数据集市只包含与产品、顾客和销售相关的数据。数据集市限制与主题之内。&lt;/p&gt;
+
+&lt;p&gt;关于数据集市的几点说明：&lt;br /&gt;
++ 数据集市通常部署在windows或者unix/linux的廉价服务器上。&lt;br /&gt;
++ 数据集市的开发周期相对较短，一般几周。&lt;br /&gt;
++ 如果数据集市不是企业范围内的话，长远来看数据集市的生命周期会比较复杂。&lt;br /&gt;
++ 数据集市规模较小。&lt;br /&gt;
++ 数据集市是部门定制的。&lt;br /&gt;
++ 数据集市的数据源是结构化的数据仓库。&lt;br /&gt;
++ 数据集市非常灵活。&lt;/p&gt;
+
+&lt;p&gt;下图是数据集市的图形化表示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://datavalley.github.io/img/data_warehousing/data_mart.png&quot; alt=&quot;数据集市&quot; /&gt;&lt;/p&gt;
 </description>
       </item>
     
