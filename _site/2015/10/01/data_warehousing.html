@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
+
+<title>Data Warehousing学习笔记 | 小z的博客</title>
+<meta name="author" content="zmz">
+
+
+
+  <meta name="description " content="在这个博客里，我使用了bootstrap作为前端框架，另外通过比较选择了一个还算满意的代码高亮方式">
+
+
+<link rel="shortcut icon" href="http://datavalley.github.io/img/logo.jpg" />
+
+<link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+
+<link href="/pages/rss.xml" rel="alternate" title="小z的博客" type="application/atom+xml">
+  </head>
+  <body>
+    <aside id="sidebar">
+  <nav id="tags">
+    <a href="/index.html" id="avatar" style="background-image:url(/img/logo.jpg)"></a>
+
+    <ul id="tags__ul">
+      <li id="pl__all" class="tags__li tags-btn active">全部</li>
+       
+        <li id="python" class="tags__li tags-btn">python</li>
+       
+        <li id="mysql" class="tags__li tags-btn">mysql</li>
+       
+        <li id="git" class="tags__li tags-btn">git</li>
+       
+        <li id="linux" class="tags__li tags-btn">linux</li>
+       
+        <li id="mac" class="tags__li tags-btn">mac</li>
+       
+        <li id="数据仓库" class="tags__li tags-btn">数据仓库</li>
+      
+    </ul>
+
+    <div id="tags__bottom">
+      <a href="mailto:zmz@mail.dlut.edu.cn" id="icon-email" class="tags-btn fontello"></a>
+      <a href="/pages/rss.xml" id="icon-feed" class="tags-btn fontello"></a>
+    </div>
+  </nav> <!-- end #tags -->
+
+  <div id="posts-list">
+    <form action="" id="search-form">
+      <a href="/index.html" id="mobile-avatar" style="background-image:url(/img/logo.jpg)"></a>
+      <!-- NOTE: input field is disabled by default -->
+      <input id="search-input" type="text" placeholder="Search..." disabled >
+    </form>
+
+    <nav id="pl__container">
+    
+      <a class="数据仓库 pl__all" href="/2015/10/01/data_warehousing.html"><span class="pl__circle"></span><span class="pl__title">Data Warehousing学习笔记</span><span class="pl__date">Oct 2015</span></a>
+    
+      <a class="mac pl__all" href="/2014/08/03/general-mac-resources.html"><span class="pl__circle"></span><span class="pl__title">Mac 常用资源</span><span class="pl__date">Aug 2014</span></a>
+    
+      <a class="mysql pl__all" href="/2014/05/11/general-mysql-resources.html"><span class="pl__circle"></span><span class="pl__title">MySQL常用资源</span><span class="pl__date">May 2014</span></a>
+    
+      <a class="git pl__all" href="/2014/02/12/how-to-deploy-a-blog-on-github-by-jekyll.html"><span class="pl__circle"></span><span class="pl__title">在Github上搭建Jekyll博客和创建主题</span><span class="pl__date">Feb 2014</span></a>
+    
+      <a class="python pl__all" href="/2014/01/17/python-script-of-sae-log-download.html"><span class="pl__circle"></span><span class="pl__title">Python脚本--下载合并SAE日志</span><span class="pl__date">Jan 2014</span></a>
+    
+      <a class="linux pl__all" href="/2014/01/15/general-shell-resources.html"><span class="pl__circle"></span><span class="pl__title">Shell 常用资源</span><span class="pl__date">Jan 2014</span></a>
+    
+      <a class="python pl__all" href="/2014/01/15/general-python-resources.html"><span class="pl__circle"></span><span class="pl__title">Python 常用资源</span><span class="pl__date">Jan 2014</span></a>
+    
+      <a class="git pl__all" href="/2014/01/15/general-git-resources.html"><span class="pl__circle"></span><span class="pl__title">Git 常用资源</span><span class="pl__date">Jan 2014</span></a>
+    
+      <a class="linux pl__all" href="/2013/12/08/linux-command-continue.html"><span class="pl__circle"></span><span class="pl__title">Linux下多个命令连续执行方法</span><span class="pl__date">Dec 2013</span></a>
+    
+      <a class="python pl__all" href="/2013/06/09/learn-python-stevedore-module-in-detail.html"><span class="pl__circle"></span><span class="pl__title">学习Python动态扩展包stevedore</span><span class="pl__date">Jun 2013</span></a>
+    
+      <a class="python pl__all" href="/2013/06/09/learn-python-abc-module.html"><span class="pl__circle"></span><span class="pl__title">学习Python的ABC模块</span><span class="pl__date">Jun 2013</span></a>
+    
+      <a class="python pl__all" href="/2013/06/07/learn-python-setuptools-in-detail.html"><span class="pl__circle"></span><span class="pl__title">Python包管理工具setuptools详解</span><span class="pl__date">Jun 2013</span></a>
+    
+      <a class="mysql pl__all" href="/2013/05/23/install-mysql-and-mongo-web-admin.html"><span class="pl__circle"></span><span class="pl__title">安装MySQL和MongoDB的WEB管理界面</span><span class="pl__date">May 2013</span></a>
+    
+      <a class="git pl__all" href="/2013/04/23/deploy-jeklly-blog.html"><span class="pl__circle"></span><span class="pl__title">在GitHub上搭建自己的Jekyll博客--了解环境</span><span class="pl__date">Apr 2013</span></a>
+    
+      <a class="git pl__all" href="/2013/04/22/wordpress-to-jekyll.html"><span class="pl__circle"></span><span class="pl__title">博客迁移完成</span><span class="pl__date">Apr 2013</span></a>
+    
+      <a class="git pl__all" href="/2013/04/22/ignore-password-in-git-push.html"><span class="pl__circle"></span><span class="pl__title">让git push命令不再需要密码</span><span class="pl__date">Apr 2013</span></a>
+    
+      <a class="git pl__all" href="/2013/04/22/highlight-of-jekyll.html"><span class="pl__circle"></span><span class="pl__title">Jekyll的中的代码高亮</span><span class="pl__date">Apr 2013</span></a>
+    
+      <a class="mysql pl__all" href="/2013/01/09/remote-access-of-mysql.html"><span class="pl__circle"></span><span class="pl__title">MySQL远程访问</span><span class="pl__date">Jan 2013</span></a>
+    
+      <a class="python pl__all" href="/2012/12/31/python-development-of-sae.html"><span class="pl__circle"></span><span class="pl__title">sae下的python开发部署和一个简单例子</span><span class="pl__date">Dec 2012</span></a>
+    
+    </nav>
+  </div> <!-- end #posts-list -->
+</aside> <!-- end #sidebar -->
+    <div id="post">
+      <div id="pjax">
+        <article id="post__content">
+  <h1 id="post__title" data-identifier="20151001">Data Warehousing学习笔记</h1>
+  <p>引子：本文是小z在学习<a href="http://www.tutorialspoint.com/dwh/dwh_tutorial.pdf">Data Warehousing</a>时做的笔记，主要是对原文的翻译。由于刚接触数据仓库，很多概念理解的有偏差，希望大家谅解，如有不当，欢迎大家指出，谢谢。</p>
+
+<h1 id="section">1. 概述</h1>
+
+<p>“数据仓库”（Data Warehouse）这一术语由Bill Inmon与1991年提出。根据Inmon的定义，数据仓库是面向主题的、集成的、随时间变化而又稳定的数据集合。数据仓库可以辅助数据分析人员做出明智的决策。</p>
+
+<p>操作性数据库每天都会因为事务的发生而随之改变。如果一个商业经理想要分析之前的产品数据或者供应商数据或者消费数据，那么他会因为没有可用的数据而变得抓狂————历史数据已经由于事务的发生而被覆盖了。</p>
+
+<p>数据仓库从多个维度想我们提供通用和整合的数据，同时，数据仓库也会提供Online Analytical Processing (OLAP)工具。这些工具辅助我们在高维空间中对数据进行有效的交互式分析。</p>
+
+<p>关联规则、聚类、分类和预测分析等数据挖掘方法可以集成到OLAP工具中，从而增强交互式知识挖掘。这就是数据仓库变为当前重要的数据分析平台和在线分析处理平台的原因。</p>
+
+<h2 id="section-1">理解数据仓库</h2>
+
+<hr />
+
+<ul>
+  <li>数据仓库本身是一个<strong>数据库</strong>，但独立于企业或组织的操作型数据库</li>
+  <li>数据仓库中的数据不会频繁的更新</li>
+  <li>数据仓库存储整合的历史数据，有助于企业或组织分析业务</li>
+  <li>数据仓库辅助经理组织、分析和使用历史数据进行决策</li>
+  <li>数据仓库有助于多种应用系统的集成</li>
+</ul>
+
+<h2 id="section-2">为什么数据仓库独立于操作性数据库</h2>
+
+<hr />
+
+<ul>
+  <li>操作型数据仓库用于常规任务，例如检索某条记录和索引。数据仓库中的查询通常会很复杂。</li>
+  <li>操作型数据仓库支持多事务的并发处理。并发控制和恢复机制是操作型数据库必需的功能，从而确保数据库鲁棒性和一致性。</li>
+  <li>操作型数据库的检索支持读和修改操作。而OLAP检索通常只涉及读操作。</li>
+  <li>操作型数据库通常仅保存当前数据，而数据仓库存储历史数据。</li>
+</ul>
+
+<h2 id="section-3">数据仓库的特点</h2>
+
+<hr />
+
+<p>数据仓库的主要特点是：</p>
+
+<ul>
+  <li><strong>面向主题</strong>：数据仓库围绕某个主题而不是公司当前的操作进行组织。这些主题可以是产品、客户、供应商、销售、利润等等。数据仓库并不关心当前的操作，而聚焦于对数据进行建模和分析，用于决策支持</li>
+  <li><strong>集成</strong>：数据仓库构建于对多种异质数据源（如关系型数据库、文件）进行整合的基础之上。这些集成增强了数据分析的有效性</li>
+  <li>随着时间变化：数据仓库中存储某个时间段内的数据，从历史的角度提供数据</li>
+  <li><strong>不变性</strong>：不变性是指数据仓库中的历史数据不会因为新数据的增加而被擦除。数据仓库独立于操作型数据库，因此操作型数据库中频繁的更新不会反馈到数据仓库中</li>
+</ul>
+
+<p><strong>注意</strong>：数据仓库不需要事务处理、并发控制和恢复，因为在物理上它独立于操作型数据库。</p>
+
+<h2 id="section-4">数据仓库的应用</h2>
+
+<hr />
+
+<p>就像前面讨论的那样，数据仓库辅助经理人组织、分析数据，从而进行更好的决策。数据仓库在以下领域有着广泛的应用：</p>
+
+<ul>
+  <li>金融服务</li>
+  <li>银行服务</li>
+  <li>消费品</li>
+  <li>零售部门</li>
+  <li>制造业</li>
+</ul>
+
+<h2 id="section-5">数据仓库的类型</h2>
+
+<hr />
+
+<p>信息处理、分析处理和数据挖掘是数据仓库的三大应用：</p>
+
+<ul>
+  <li>信息处理：数据仓库支持数据处理，例如检索、基本的统计分析以及报表等。</li>
+  <li>分析处理：数据仓库也支持分析处理，数据仓库中的数据可以通过基本的OLAP操作进行分析,例如切片、上卷、下钻和旋转。</li>
+  <li>数据挖掘：通过发现隐藏的模式和关联，构建分析模型，执行分类和预测，数据仓库也支持知识发现。数据挖掘的结果也可以使用可视化工具进行展示。</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>数据仓库(OLAP)</th>
+      <th>操作型数据库(OLTP)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>处理历史信息</td>
+      <td>处理日常信息</td>
+    </tr>
+    <tr>
+      <td>OLAP系统被经理、管理者以及分析人员所使用</td>
+      <td>OLTP系统被职员、DBA或者数据库专家所使用</td>
+    </tr>
+    <tr>
+      <td>用于分析业务</td>
+      <td>用于运行业务</td>
+    </tr>
+    <tr>
+      <td>关注信息的输出</td>
+      <td>关注数据输入，面向应用</td>
+    </tr>
+    <tr>
+      <td>星型模型，雪花模型</td>
+      <td>ER关系模型</td>
+    </tr>
+    <tr>
+      <td>存储历史数据</td>
+      <td>存储当前数据</td>
+    </tr>
+    <tr>
+      <td>提供汇总和整合的数据</td>
+      <td>提供原子的、具体的数据</td>
+    </tr>
+    <tr>
+      <td>提供多视图数据</td>
+      <td>提供具体的、关联数据</td>
+    </tr>
+    <tr>
+      <td>数据大小：100G-100TB</td>
+      <td>100MB-100GB</td>
+    </tr>
+    <tr>
+      <td>处理历史信息</td>
+      <td>处理日常信息</td>
+    </tr>
+    <tr>
+      <td>灵活性高</td>
+      <td>性能高</td>
+    </tr>
+  </tbody>
+</table>
+
+<h1 id="section-6">概念</h1>
+
+<h2 id="data-warehousing">什么是Data Warehousing?</h2>
+
+<hr />
+
+<p>Data Warehousing就构建和使用数据仓库的过程。数据仓库集成了多种异质数据源的数据，其中每一个数据源都支持分析报告、结构化查询或即时查询以及决策支持。Data Warehousing包括数据清洗、数据集成和数据整合等过程。</p>
+
+<h2 id="section-7">使用数据仓库中的信息</h2>
+
+<hr />
+
+<p>一些决策支持技术可以辅助利用数据仓库中的数据。这些技术帮助高管更加快速和高效的利用数据仓库。高管们可以从数据仓库中�收集数据，并加以分析，在此基础上进行决策。数据仓库中获取的信息可以用于以下领域：</p>
+
+<ul>
+  <li>调整产品战略：通过比较季度或者年份之间的销售额，对产品进行重定位，并且产品投资组合，实现良好的产品战略调整</li>
+  <li>顾客分析：通过分析顾客的购买偏好、购买时间以及预算周期，实现顾客分析</li>
+  <li>操作分析：Data Warehousing也可以辅助进行顾客关系管理和环境校正。数据仓库中的信息也允许分析商业操作。</li>
+</ul>
+
+<h2 id="section-8">集成异质数据源</h2>
+
+<hr />
+
+<p>有两种方法集成异质数据源：</p>
+
+<ul>
+  <li>查询驱动的方法</li>
+  <li>更新驱动的方法</li>
+</ul>
+
+<h3 id="section-9">查询驱动的方法</h3>
+
+<p>查询驱动是集成异质数据源的传统方法，该方法在异质数据源之上构建包装器和集成器（wrappers and integrators），即中介程序（mediators）。</p>
+
+<h4 id="section-10">查询驱动方法的过程</h4>
+
+<ol>
+  <li>当一个查询被提交到某个客户端后，利用元数据字典将该查询转换为适用于该客户端的形式。</li>
+  <li>将转换形式后的查询发送到本地查询处理器</li>
+  <li>该客户端返回的结果集成到全局结果集中。</li>
+</ol>
+
+<h4 id="section-11">缺点</h4>
+
+<ol>
+  <li>查询驱动的方法需要复杂的集成和过滤处理</li>
+  <li>效率低</li>
+  <li>对于频繁查询，代价高</li>
+  <li>对于需要聚合的查询代价也很高</li>
+</ol>
+
+<h3 id="section-12">更新驱动的方法</h3>
+
+<p>当前的数据仓库系统更加倾向于更新驱动的方法。在该方法中，异质数据源中的信息首先被集成、存储到仓库中，用于直接查询和分析。</p>
+
+<h4 id="section-13">优点</h4>
+
+<p>更新驱动的优点</p>
+
+<ol>
+  <li>性能高</li>
+  <li>数据首先在语义层被拷贝、处理、集成、标记、汇总和重构</li>
+  <li>对于查询处理，不需要针对每个数据源提供接口处理数据</li>
+</ol>
+
+<h2 id="section-14">数据仓库工具的作用</h2>
+
+<ul>
+  <li><strong>数据抽取</strong>：从多种异质数据源中收集数据</li>
+  <li><strong>数据清洗</strong>：发现并校正数据中的错误</li>
+  <li><strong>数据转换</strong>：将数据从原始格式转换到适用于数据仓库的格式</li>
+  <li><strong>数据装载</strong>：对数据进行排序、汇总、整合、检验一致性、构建索引和分区</li>
+  <li><strong>刷新</strong>：更新数据仓库</li>
+</ul>
+
+<p><strong>注意</strong>：数据清洗和数据转换是改善数据质量和数据挖掘结果的重要步骤</p>
+
+<h1 id="section-15">术语</h1>
+
+<p>本章我们将讨论数据仓库中经常使用的术语。</p>
+
+<h2 id="metadata">元数据（Metadata）</h2>
+
+<hr />
+
+<p>简单来说，元数据就是关于数据的数据，也就是描述数据的数据。例如，一本书的目录就是关于内容的元数据。换句话说，元数据是概括性的数据，可以指导我们找到具体的数据（好恶心的翻译）。</p>
+
+<p>在数据仓库中，我们可以定义元数据为：</p>
+
+<ul>
+  <li>元数据是数据仓库的导航数据</li>
+  <li>元数据定义了数据仓库中的实体</li>
+  <li>元数据就像一个目录，帮助决策支持系统定位数据仓库的内容</li>
+</ul>
+
+<h2 id="metadata-repository">元数据库（Metadata Repository）</h2>
+
+<hr />
+
+<p>元数据库是数据仓库的一部分，包含以下元数据：</p>
+
+<ul>
+  <li>商业元数据：包括数据拥有者信息、业务定义和变化规则</li>
+  <li>操作元数据：It includes currency of data and data lineage. Currency of data refers to the data being active, archived, or purged. Lineage of data means history of data migrated and transformation applied on it.（不会翻译）</li>
+  <li>从操作环境到数据仓库的映射数据：这种元数据包括源数据库及其内容、数据抽取、数据分析、清洗、转换规则、数据刷新和清洗规则。</li>
+  <li>汇总算法：包括纬度算法、粒度数据、聚合和汇总等</li>
+</ul>
+
+<h2 id="section-16">数据立方体</h2>
+
+<hr />
+
+<p>数据立方体通过纬度和事实定义，帮助分析师从多维度展示数据。</p>
+
+<h3 id="section-17">数据立方体例证</h3>
+
+
+</article> <!-- end #post__content -->
+
+<div id="post__share">
+  <a id="icon-twitter" class="fontello" href="https://twitter.com/intent/tweet?url=http://datavalley.github.io/2015/10/01/data_warehousing.html&text=Data Warehousing学习笔记" target="_blank"></a>
+  <a id="icon-cc" class="fontello" href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"></a>
+  <a id="icon-weibo" class="fontello" href="http://v.t.sina.com.cn/share/share.php?url=http://datavalley.github.io/2015/10/01/data_warehousing.html&title=Data Warehousing学习笔记" target="_blank"></a>
+</div> <!-- end #post__share -->
+<div id="disqus_thread"></div>
+
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
+        <p id="copyright">Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Theme <a href="https://github.com/P233/3-Jekyll" target="_blank">3-Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Hosted on <a href="https://pages.github.com" target="_blank">Github</a></p>
+      </div> <!-- end #pjax -->
+
+      <div id="post__toc-trigger">
+        <div id="post__toc">
+          <span id="post__toc-title">Table of Contents</span>
+          <ul id="post__toc-ul"></ul>
+        </div>
+      </div>
+    </div> <!-- end #post -->
+
+    <button id="js-fullscreen"><span id="icon-arrow" class="fontello"></span></button>
+
+<script src="/assets/js/jquery.js"></script>
+<script src="/assets/js/jquery.pjax.js"></script>
+<script src="/assets/js/nprogress.js"></script>
+<script src="/assets/js/script.js"></script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-54767140-1', 'datavalley.github.io');
+  ga('send', 'pageview');
+</script>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = 'datavalley';
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  </body>
+</html>

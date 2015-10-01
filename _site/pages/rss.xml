@@ -6,6 +6,262 @@
     <description>小z的博客</description>
     
       <item>
+        <title>Data Warehousing学习笔记</title>
+        <link>http://datavalley.github.io/2015/10/01/data_warehousing.html</link>
+        <guid isPermaLink="true">http://datavalley.github.io/2015/10/01/data_warehousing.html</guid>
+        <pubDate>Thu, 01 Oct 2015 00:00:00 +0800</pubDate>
+        <description>&lt;p&gt;引子：本文是小z在学习&lt;a href=&quot;http://www.tutorialspoint.com/dwh/dwh_tutorial.pdf&quot;&gt;Data Warehousing&lt;/a&gt;时做的笔记，主要是对原文的翻译。由于刚接触数据仓库，很多概念理解的有偏差，希望大家谅解，如有不当，欢迎大家指出，谢谢。&lt;/p&gt;
+
+&lt;h1 id=&quot;section&quot;&gt;1. 概述&lt;/h1&gt;
+
+&lt;p&gt;“数据仓库”（Data Warehouse）这一术语由Bill Inmon与1991年提出。根据Inmon的定义，数据仓库是面向主题的、集成的、随时间变化而又稳定的数据集合。数据仓库可以辅助数据分析人员做出明智的决策。&lt;/p&gt;
+
+&lt;p&gt;操作性数据库每天都会因为事务的发生而随之改变。如果一个商业经理想要分析之前的产品数据或者供应商数据或者消费数据，那么他会因为没有可用的数据而变得抓狂————历史数据已经由于事务的发生而被覆盖了。&lt;/p&gt;
+
+&lt;p&gt;数据仓库从多个维度想我们提供通用和整合的数据，同时，数据仓库也会提供Online Analytical Processing (OLAP)工具。这些工具辅助我们在高维空间中对数据进行有效的交互式分析。&lt;/p&gt;
+
+&lt;p&gt;关联规则、聚类、分类和预测分析等数据挖掘方法可以集成到OLAP工具中，从而增强交互式知识挖掘。这就是数据仓库变为当前重要的数据分析平台和在线分析处理平台的原因。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;理解数据仓库&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;数据仓库本身是一个&lt;strong&gt;数据库&lt;/strong&gt;，但独立于企业或组织的操作型数据库&lt;/li&gt;
+  &lt;li&gt;数据仓库中的数据不会频繁的更新&lt;/li&gt;
+  &lt;li&gt;数据仓库存储整合的历史数据，有助于企业或组织分析业务&lt;/li&gt;
+  &lt;li&gt;数据仓库辅助经理组织、分析和使用历史数据进行决策&lt;/li&gt;
+  &lt;li&gt;数据仓库有助于多种应用系统的集成&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;为什么数据仓库独立于操作性数据库&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;操作型数据仓库用于常规任务，例如检索某条记录和索引。数据仓库中的查询通常会很复杂。&lt;/li&gt;
+  &lt;li&gt;操作型数据仓库支持多事务的并发处理。并发控制和恢复机制是操作型数据库必需的功能，从而确保数据库鲁棒性和一致性。&lt;/li&gt;
+  &lt;li&gt;操作型数据库的检索支持读和修改操作。而OLAP检索通常只涉及读操作。&lt;/li&gt;
+  &lt;li&gt;操作型数据库通常仅保存当前数据，而数据仓库存储历史数据。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;数据仓库的特点&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;数据仓库的主要特点是：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;面向主题&lt;/strong&gt;：数据仓库围绕某个主题而不是公司当前的操作进行组织。这些主题可以是产品、客户、供应商、销售、利润等等。数据仓库并不关心当前的操作，而聚焦于对数据进行建模和分析，用于决策支持&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;集成&lt;/strong&gt;：数据仓库构建于对多种异质数据源（如关系型数据库、文件）进行整合的基础之上。这些集成增强了数据分析的有效性&lt;/li&gt;
+  &lt;li&gt;随着时间变化：数据仓库中存储某个时间段内的数据，从历史的角度提供数据&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;不变性&lt;/strong&gt;：不变性是指数据仓库中的历史数据不会因为新数据的增加而被擦除。数据仓库独立于操作型数据库，因此操作型数据库中频繁的更新不会反馈到数据仓库中&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：数据仓库不需要事务处理、并发控制和恢复，因为在物理上它独立于操作型数据库。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-4&quot;&gt;数据仓库的应用&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;就像前面讨论的那样，数据仓库辅助经理人组织、分析数据，从而进行更好的决策。数据仓库在以下领域有着广泛的应用：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;金融服务&lt;/li&gt;
+  &lt;li&gt;银行服务&lt;/li&gt;
+  &lt;li&gt;消费品&lt;/li&gt;
+  &lt;li&gt;零售部门&lt;/li&gt;
+  &lt;li&gt;制造业&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-5&quot;&gt;数据仓库的类型&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;信息处理、分析处理和数据挖掘是数据仓库的三大应用：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;信息处理：数据仓库支持数据处理，例如检索、基本的统计分析以及报表等。&lt;/li&gt;
+  &lt;li&gt;分析处理：数据仓库也支持分析处理，数据仓库中的数据可以通过基本的OLAP操作进行分析,例如切片、上卷、下钻和旋转。&lt;/li&gt;
+  &lt;li&gt;数据挖掘：通过发现隐藏的模式和关联，构建分析模型，执行分类和预测，数据仓库也支持知识发现。数据挖掘的结果也可以使用可视化工具进行展示。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;数据仓库(OLAP)&lt;/th&gt;
+      &lt;th&gt;操作型数据库(OLTP)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;处理历史信息&lt;/td&gt;
+      &lt;td&gt;处理日常信息&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;OLAP系统被经理、管理者以及分析人员所使用&lt;/td&gt;
+      &lt;td&gt;OLTP系统被职员、DBA或者数据库专家所使用&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;用于分析业务&lt;/td&gt;
+      &lt;td&gt;用于运行业务&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;关注信息的输出&lt;/td&gt;
+      &lt;td&gt;关注数据输入，面向应用&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;星型模型，雪花模型&lt;/td&gt;
+      &lt;td&gt;ER关系模型&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;存储历史数据&lt;/td&gt;
+      &lt;td&gt;存储当前数据&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;提供汇总和整合的数据&lt;/td&gt;
+      &lt;td&gt;提供原子的、具体的数据&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;提供多视图数据&lt;/td&gt;
+      &lt;td&gt;提供具体的、关联数据&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;数据大小：100G-100TB&lt;/td&gt;
+      &lt;td&gt;100MB-100GB&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;处理历史信息&lt;/td&gt;
+      &lt;td&gt;处理日常信息&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;灵活性高&lt;/td&gt;
+      &lt;td&gt;性能高&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&quot;section-6&quot;&gt;概念&lt;/h1&gt;
+
+&lt;h2 id=&quot;data-warehousing&quot;&gt;什么是Data Warehousing?&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Data Warehousing就构建和使用数据仓库的过程。数据仓库集成了多种异质数据源的数据，其中每一个数据源都支持分析报告、结构化查询或即时查询以及决策支持。Data Warehousing包括数据清洗、数据集成和数据整合等过程。&lt;/p&gt;
+
+&lt;h2 id=&quot;section-7&quot;&gt;使用数据仓库中的信息&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;一些决策支持技术可以辅助利用数据仓库中的数据。这些技术帮助高管更加快速和高效的利用数据仓库。高管们可以从数据仓库中�收集数据，并加以分析，在此基础上进行决策。数据仓库中获取的信息可以用于以下领域：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;调整产品战略：通过比较季度或者年份之间的销售额，对产品进行重定位，并且产品投资组合，实现良好的产品战略调整&lt;/li&gt;
+  &lt;li&gt;顾客分析：通过分析顾客的购买偏好、购买时间以及预算周期，实现顾客分析&lt;/li&gt;
+  &lt;li&gt;操作分析：Data Warehousing也可以辅助进行顾客关系管理和环境校正。数据仓库中的信息也允许分析商业操作。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-8&quot;&gt;集成异质数据源&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;有两种方法集成异质数据源：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;查询驱动的方法&lt;/li&gt;
+  &lt;li&gt;更新驱动的方法&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;section-9&quot;&gt;查询驱动的方法&lt;/h3&gt;
+
+&lt;p&gt;查询驱动是集成异质数据源的传统方法，该方法在异质数据源之上构建包装器和集成器（wrappers and integrators），即中介程序（mediators）。&lt;/p&gt;
+
+&lt;h4 id=&quot;section-10&quot;&gt;查询驱动方法的过程&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;当一个查询被提交到某个客户端后，利用元数据字典将该查询转换为适用于该客户端的形式。&lt;/li&gt;
+  &lt;li&gt;将转换形式后的查询发送到本地查询处理器&lt;/li&gt;
+  &lt;li&gt;该客户端返回的结果集成到全局结果集中。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;section-11&quot;&gt;缺点&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;查询驱动的方法需要复杂的集成和过滤处理&lt;/li&gt;
+  &lt;li&gt;效率低&lt;/li&gt;
+  &lt;li&gt;对于频繁查询，代价高&lt;/li&gt;
+  &lt;li&gt;对于需要聚合的查询代价也很高&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;section-12&quot;&gt;更新驱动的方法&lt;/h3&gt;
+
+&lt;p&gt;当前的数据仓库系统更加倾向于更新驱动的方法。在该方法中，异质数据源中的信息首先被集成、存储到仓库中，用于直接查询和分析。&lt;/p&gt;
+
+&lt;h4 id=&quot;section-13&quot;&gt;优点&lt;/h4&gt;
+
+&lt;p&gt;更新驱动的优点&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;性能高&lt;/li&gt;
+  &lt;li&gt;数据首先在语义层被拷贝、处理、集成、标记、汇总和重构&lt;/li&gt;
+  &lt;li&gt;对于查询处理，不需要针对每个数据源提供接口处理数据&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;section-14&quot;&gt;数据仓库工具的作用&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;数据抽取&lt;/strong&gt;：从多种异质数据源中收集数据&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;数据清洗&lt;/strong&gt;：发现并校正数据中的错误&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;数据转换&lt;/strong&gt;：将数据从原始格式转换到适用于数据仓库的格式&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;数据装载&lt;/strong&gt;：对数据进行排序、汇总、整合、检验一致性、构建索引和分区&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;刷新&lt;/strong&gt;：更新数据仓库&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：数据清洗和数据转换是改善数据质量和数据挖掘结果的重要步骤&lt;/p&gt;
+
+&lt;h1 id=&quot;section-15&quot;&gt;术语&lt;/h1&gt;
+
+&lt;p&gt;本章我们将讨论数据仓库中经常使用的术语。&lt;/p&gt;
+
+&lt;h2 id=&quot;metadata&quot;&gt;元数据（Metadata）&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;简单来说，元数据就是关于数据的数据，也就是描述数据的数据。例如，一本书的目录就是关于内容的元数据。换句话说，元数据是概括性的数据，可以指导我们找到具体的数据（好恶心的翻译）。&lt;/p&gt;
+
+&lt;p&gt;在数据仓库中，我们可以定义元数据为：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;元数据是数据仓库的导航数据&lt;/li&gt;
+  &lt;li&gt;元数据定义了数据仓库中的实体&lt;/li&gt;
+  &lt;li&gt;元数据就像一个目录，帮助决策支持系统定位数据仓库的内容&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;metadata-repository&quot;&gt;元数据库（Metadata Repository）&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;元数据库是数据仓库的一部分，包含以下元数据：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;商业元数据：包括数据拥有者信息、业务定义和变化规则&lt;/li&gt;
+  &lt;li&gt;操作元数据：It includes currency of data and data lineage. Currency of data refers to the data being active, archived, or purged. Lineage of data means history of data migrated and transformation applied on it.（不会翻译）&lt;/li&gt;
+  &lt;li&gt;从操作环境到数据仓库的映射数据：这种元数据包括源数据库及其内容、数据抽取、数据分析、清洗、转换规则、数据刷新和清洗规则。&lt;/li&gt;
+  &lt;li&gt;汇总算法：包括纬度算法、粒度数据、聚合和汇总等&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;section-16&quot;&gt;数据立方体&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;数据立方体通过纬度和事实定义，帮助分析师从多维度展示数据。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-17&quot;&gt;数据立方体例证&lt;/h3&gt;
+
+</description>
+      </item>
+    
+      <item>
         <title>Mac 常用资源</title>
         <link>http://datavalley.github.io/2014/08/03/general-mac-resources.html</link>
         <guid isPermaLink="true">http://datavalley.github.io/2014/08/03/general-mac-resources.html</guid>
