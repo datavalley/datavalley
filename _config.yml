@@ -1,6 +1,6 @@
 permalink: /:year/:month/:day/:title.html
 markdown: kramdown
-highlighter: true
+highlighter: pygments
 url: "http://datavalley.github.io"
 kramdown:
   input: GFM
@@ -12,7 +12,7 @@ author:
   link: http://datavalley.github.io
 
 # 站点信息
-title: 小z的博客 
+title: 数据谷
 description: 小z的博客
 url: http://datavalley.github.io
 rss_url: /pages/atom.xml

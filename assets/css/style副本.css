@@ -923,6 +923,52 @@ iframe {
 .highlight {
   margin: 1.715em 0; }
 
+pre {
+  padding: 1em;
+  font: .9em/1.5 Consolas, Monaco, 'Andale Mono', monospace;
+  border: 1px solid #e5e8ec;
+  border-radius: 3px;
+  background-color: #fdfdfd;
+  background-image: -webkit-linear-gradient(transparent 50%, rgba(69, 142, 209, 0.04) 50%);
+  background-image: -moz-linear-gradient(transparent 50%, rgba(69, 142, 209, 0.04) 50%);
+  background-image: -ms-linear-gradient(transparent 50%, rgba(69, 142, 209, 0.04) 50%);
+  background-image: -o-linear-gradient(transparent 50%, rgba(69, 142, 209, 0.04) 50%);
+  background-image: linear-gradient(transparent 50%, rgba(69, 142, 209, 0.04) 50%);
+  background-size: 3em 3em;
+  background-origin: content-box;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch; }
+  pre::-webkit-scrollbar {
+    height: 7px; }
+  pre::-webkit-scrollbar-thumb {
+    background: #e5e8ec; }
+    pre::-webkit-scrollbar-thumb:hover {
+      background: #d6dbe1; }
+
+pre > code {
+  font-family: inherit;
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none; }
+
+/* Inline code */
+:not(pre) > code {
+  padding: .25em .5em .1em;
+  color: black;
+  font: .85em Consolas, Monaco, 'Andale Mono', monospace;
+  background: #fafafa;
+  border: 1px solid #e5e8ec;
+  border-radius: .25em;
+  vertical-align: 2px; }
+
 .highlight .c {
   color: #586e75; }
 
