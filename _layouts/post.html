@@ -7,6 +7,13 @@ layout: base
   {{ content }}
 </article> <!-- end #post__content -->
 
+    <script type="text/javascript">
+        $(function() {
+           $('pre').addClass('prettyprint').attr('style', 'overflow:auto');
+           prettyPrint();
+        });
+    </script>>
+    
 {% include share.html %}
 {% include disqus.html %}
 

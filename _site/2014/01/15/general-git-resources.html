@@ -15,9 +15,11 @@
 
 <link rel="shortcut icon" href="http://datavalley.github.io/img/logo.jpg" />
 
+<link rel="stylesheet" type="text/css" href="/assets/css/prettify.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
-<link rel="stylesheet" type="text/css" href="/assets/css/sunburst.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/prettify.css">
 <link href="/pages/rss.xml" rel="alternate" title="数据谷" type="application/atom+xml">
+
   </head>
   <body>
     <aside id="sidebar">
@@ -101,161 +103,128 @@
       <div id="pjax">
         <article id="post__content">
   <h1 id="post__title" data-identifier="20140115">Git 常用资源</h1>
-  <h2 id="section">库管理</h2>
+  <h2>库管理</h2>
 
-<h3 id="section-1">克隆库</h3>
+<h3>克隆库</h3>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git clone https://github.com/php/php-src.git
+git clone --depth<span class="o">=</span><span class="m">1</span> https://github.com/php/php-src.git <span class="c"># 只抓取最近的一次 commit</span>
+</code></pre></div>
+<h2>历史管理</h2>
 
-<pre><code class="language-bash">git clone https://github.com/php/php-src.git
-git clone --depth=1 https://github.com/php/php-src.git # 只抓取最近的一次 commit
-</code></pre>
+<h3>查看历史</h3>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git log --pretty<span class="o">=</span>oneline filename <span class="c"># 一行显示</span>
+git show xxxx <span class="c"># 查看某次修改</span>
+</code></pre></div>
+<h3>标签功能</h3>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git tag <span class="c"># 显示所有标签</span>
+git tag -l <span class="s1">&#39;v1.4.2.*&#39;</span> <span class="c"># 显示 1.4.2 开头标签</span>
+git tag v1.3 <span class="c"># 简单打标签   </span>
+git tag -a v1.2 9fceb02 <span class="c"># 后期加注标签</span>
+git tag -a v1.4 -m <span class="s1">&#39;my version 1.4&#39;</span> <span class="c"># 增加标签并注释， -a 为 annotated 缩写</span>
+git show v1.4 <span class="c"># 看某一标签详情</span>
+git push origin v1.5 <span class="c"># 分享某个标签</span>
+git push origin --tags <span class="c"># 分享所有标签</span>
+</code></pre></div>
+<h3>回滚操作</h3>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git reset 9fceb02 <span class="c"># 保留修改</span>
+git reset 9fceb02 --hard <span class="c"># 删除之后的修改</span>
+</code></pre></div>
+<h3>取消文件的修改</h3>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git checkout -- a.php <span class="c">#  取消单个文件</span>
+git checkout -- <span class="c"># 取消所有文件的修改</span>
+</code></pre></div>
+<h3>删除文件</h3>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git rm a.php  <span class="c"># 直接删除文件</span>
+git rm --cached a.php <span class="c"># 删除文件暂存状态</span>
+</code></pre></div>
+<h3>移动文件</h3>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git mv a.php ./test/a.php
+</code></pre></div>
+<h3>查看文件修改</h3>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git diff          <span class="c"># 查看未暂存的文件更新 </span>
+git diff --cached <span class="c"># 查看已暂存文件的更新 </span>
+</code></pre></div>
+<h3>暂存和恢复当前staging</h3>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git stash <span class="c"># 暂存当前分支的修改</span>
+git stash apply <span class="c"># 恢复最近一次暂存</span>
+git stash list <span class="c"># 查看暂存内容</span>
+git stash apply stash@<span class="o">{</span>2<span class="o">}</span> <span class="c"># 指定恢复某次暂存内容</span>
+git stash drop stash@<span class="o">{</span>0<span class="o">}</span> <span class="c"># 删除某次暂存内容</span>
+</code></pre></div>
+<h3>修改 commit 历史纪录</h3>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git rebase -i 0580eab8
+</code></pre></div>
+<h2>分支管理</h2>
 
-<h2 id="section-2">历史管理</h2>
-
-<h3 id="section-3">查看历史</h3>
-
-<pre><code class="language-bash">git log --pretty=oneline filename # 一行显示
-git show xxxx # 查看某次修改
-</code></pre>
-
-<h3 id="section-4">标签功能</h3>
-
-<pre><code class="language-bash">git tag # 显示所有标签
-git tag -l 'v1.4.2.*' # 显示 1.4.2 开头标签
-git tag v1.3 # 简单打标签   
-git tag -a v1.2 9fceb02 # 后期加注标签
-git tag -a v1.4 -m 'my version 1.4' # 增加标签并注释， -a 为 annotated 缩写
-git show v1.4 # 看某一标签详情
-git push origin v1.5 # 分享某个标签
-git push origin --tags # 分享所有标签
-</code></pre>
-
-<h3 id="section-5">回滚操作</h3>
-
-<pre><code class="language-bash">git reset 9fceb02 # 保留修改
-git reset 9fceb02 --hard # 删除之后的修改
-</code></pre>
-
-<h3 id="section-6">取消文件的修改</h3>
-
-<pre><code class="language-bash">git checkout -- a.php #  取消单个文件
-git checkout -- # 取消所有文件的修改
-</code></pre>
-
-<h3 id="section-7">删除文件</h3>
-
-<pre><code class="language-bash">git rm a.php  # 直接删除文件
-git rm --cached a.php # 删除文件暂存状态
-</code></pre>
-
-<h3 id="section-8">移动文件</h3>
-
-<pre><code class="language-bash">git mv a.php ./test/a.php
-</code></pre>
-
-<h3 id="section-9">查看文件修改</h3>
-
-<pre><code class="language-bash">git diff          # 查看未暂存的文件更新 
-git diff --cached # 查看已暂存文件的更新 
-</code></pre>
-
-<h3 id="staging">暂存和恢复当前staging</h3>
-
-<pre><code class="language-bash">git stash # 暂存当前分支的修改
-git stash apply # 恢复最近一次暂存
-git stash list # 查看暂存内容
-git stash apply stash@{2} # 指定恢复某次暂存内容
-git stash drop stash@{0} # 删除某次暂存内容
-</code></pre>
-
-<h3 id="commit-">修改 commit 历史纪录</h3>
-
-<pre><code class="language-bash">git rebase -i 0580eab8
-</code></pre>
-
-<h2 id="section-10">分支管理</h2>
-
-<h3 id="section-11">创建分支</h3>
-
-<pre><code class="language-bash">git branch develop # 只创建分支
-git checkout -b master develop # 创建并切换到 develop 分支
-</code></pre>
-
-<h3 id="section-12">合并分支</h3>
-
-<pre><code class="language-bash">git checkout master # 切换到 master 分支
-git merge --no-ff develop # 把 develop 合并到 master 分支，no-ff 选项的作用是保留原分支记录
-git rebase develop # rebase 当前分支到 develop
-git branch -d develop # 删除 develop 分支
-</code></pre>
-
-<h3 id="section-13">克隆远程分支</h3>
-
-<pre><code class="language-bash">git branch -r # 显示所有分支，包含远程分支
+<h3>创建分支</h3>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git branch develop <span class="c"># 只创建分支</span>
+git checkout -b master develop <span class="c"># 创建并切换到 develop 分支</span>
+</code></pre></div>
+<h3>合并分支</h3>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git checkout master <span class="c"># 切换到 master 分支</span>
+git merge --no-ff develop <span class="c"># 把 develop 合并到 master 分支，no-ff 选项的作用是保留原分支记录</span>
+git rebase develop <span class="c"># rebase 当前分支到 develop</span>
+git branch -d develop <span class="c"># 删除 develop 分支</span>
+</code></pre></div>
+<h3>克隆远程分支</h3>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git branch -r <span class="c"># 显示所有分支，包含远程分支</span>
 git checkout origin/android
-</code></pre>
-
-<h3 id="develop">修复develop上的合并错误</h3>
+</code></pre></div>
+<h3>修复develop上的合并错误</h3>
 
 <ol>
-  <li>将merge前的commit创建一个分之，保留merge后代码</li>
-  <li>将develop <code>reset --force</code>到merge前，然后<code>push --force</code></li>
-  <li>在分支中rebase develop</li>
-  <li>将分支push到服务器上重新merge</li>
+<li>将merge前的commit创建一个分之，保留merge后代码</li>
+<li>将develop <code>reset --force</code>到merge前，然后<code>push --force</code></li>
+<li>在分支中rebase develop</li>
+<li>将分支push到服务器上重新merge</li>
 </ol>
 
-<h3 id="section-14">强制更新到远程分支最新版本</h3>
-
-<pre><code class="language-bash">git reset --hard origin/master
+<h3>强制更新到远程分支最新版本</h3>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git reset --hard origin/master
 git submodule update --remote -f
-</code></pre>
+</code></pre></div>
+<h2>Submodule使用</h2>
 
-<h2 id="submodule">Submodule使用</h2>
-
-<h3 id="submodule-1">克隆带submodule的库</h3>
-
-<pre><code class="language-bash">git clone --recursive https://github.com/chaconinc/MainProject
-</code></pre>
-
-<h3 id="cloneclone-submodule">clone主库后再去clone submodule</h3>
-
-<pre><code class="language-bash">git clone https://github.com/chaconinc/MainProject
+<h3>克隆带submodule的库</h3>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git clone --recursive https://github.com/chaconinc/MainProject
+</code></pre></div>
+<h3>clone主库后再去clone submodule</h3>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git clone https://github.com/chaconinc/MainProject
 git submodule init
 git submodule update
-</code></pre>
-
-<h2 id="git">Git设置</h2>
+</code></pre></div>
+<h2>Git设置</h2>
 
 <p>Git的全局设置在<code>~/.gitconfig</code>中，单独设置在<code>project/.git/config</code>下。</p>
 
 <p>忽略设置全局在<code>~/.gitignore_global</code>中，单独设置在<code>project/.gitignore</code>下。</p>
 
-<h3 id="commit--1">设置 commit 的用户和邮箱</h3>
-
-<pre><code class="language-bash">git config user.name "xx"
-git config user.email "xx@xx.com"
-</code></pre>
-
+<h3>设置 commit 的用户和邮箱</h3>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git config user.name <span class="s2">&quot;xx&quot;</span>
+git config user.email <span class="s2">&quot;xx@xx.com&quot;</span>
+</code></pre></div>
 <p>或者直接修改config文件</p>
-
-<pre><code class="language-bash">[user]
-    name = xxx
-    email = xxx@xxx.com
-</code></pre>
-
-<h3 id="section-15">查看设置项</h3>
-
-<pre><code class="language-bash">git config --list
-</code></pre>
-
-<h3 id="git-1">设置git终端颜色</h3>
-
-<pre><code class="language-bash">git config --global color.diff auto
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="o">[</span>user<span class="o">]</span>
+    <span class="nv">name</span> <span class="o">=</span> xxx
+    <span class="nv">email</span> <span class="o">=</span> xxx@xxx.com
+</code></pre></div>
+<h3>查看设置项</h3>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git config --list
+</code></pre></div>
+<h3>设置git终端颜色</h3>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git config --global color.diff auto
 git config --global color.status auto
 git config --global color.branch auto
-</code></pre>
-
+</code></pre></div>
 </article> <!-- end #post__content -->
 
+    <script type="text/javascript">
+        $(function() {
+           $('pre').addClass('prettyprint').attr('style', 'overflow:auto');
+           prettyPrint();
+        });
+    </script>>
+    
 <div id="post__share">
   <a id="icon-twitter" class="fontello" href="https://twitter.com/intent/tweet?url=http://datavalley.github.io/2014/01/15/general-git-resources.html&text=Git 常用资源" target="_blank"></a>
   <a id="icon-cc" class="fontello" href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"></a>
@@ -295,20 +264,16 @@ git config --global color.branch auto
   ga('send', 'pageview');
 </script>
     <script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = 'datavalley';
+      /* * * CONFIGURATION VARIABLES * * */
+      var disqus_shortname = 'datavalley';
     
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-  </script>
-  <script type="text/javascript">
-      $(function() {
-          $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
-      });
-  </script>>
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+
   </body>
 </html>

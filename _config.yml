@@ -1,9 +1,9 @@
 permalink: /:year/:month/:day/:title.html
-markdown: kramdown
+markdown: redcarpet
+redcarpet:
+  extensions: ["tables"]
 highlighter: pygments
 url: "http://datavalley.github.io"
-kramdown:
-  input: GFM
 
 # 作者信息
 author: 

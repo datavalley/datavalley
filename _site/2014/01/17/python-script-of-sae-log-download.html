@@ -15,9 +15,11 @@
 
 <link rel="shortcut icon" href="http://datavalley.github.io/img/logo.jpg" />
 
+<link rel="stylesheet" type="text/css" href="/assets/css/prettify.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
-<link rel="stylesheet" type="text/css" href="/assets/css/sunburst.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/prettify.css">
 <link href="/pages/rss.xml" rel="alternate" title="数据谷" type="application/atom+xml">
+
   </head>
   <body>
     <aside id="sidebar">
@@ -101,92 +103,90 @@
       <div id="pjax">
         <article id="post__content">
   <h1 id="post__title" data-identifier="20140117">Python脚本--下载合并SAE日志</h1>
-  <h1 id="python--sae">Python脚本–下载合并SAE日志</h1>
+  <h1>Python脚本--下载合并SAE日志</h1>
 
 <blockquote>
-  <p>由于一些原因，需要SAE上站点的日志文件，从SAE上只能按天下载，下载下来手动处理比较蛋疼，尤其是数量很大的时候。还好SAE提供了API可以批量获得日志文件下载地址，刚刚写了python脚本自动下载和合并这些文件</p>
+<p>由于一些原因，需要SAE上站点的日志文件，从SAE上只能按天下载，下载下来手动处理比较蛋疼，尤其是数量很大的时候。还好SAE提供了API可以批量获得日志文件下载地址，刚刚写了python脚本自动下载和合并这些文件</p>
 </blockquote>
 
-<h2 id="api">调用API获得下载地址</h2>
+<h2>调用API获得下载地址</h2>
+
 <p>文档位置在<a href="http://sae.sina.com.cn/?m=devcenter&amp;catId=281">这里</a></p>
 
-<h3 id="section">设置自己的应用和下载参数</h3>
+<h3>设置自己的应用和下载参数</h3>
+
 <p>请求中需要设置的变量如下</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">api_url = &#39;http://dloadcenter.sae.sina.com.cn/interapi.php?&#39;
+appname = &#39;xxxxx&#39;
+from_date = &#39;20140101&#39;
+to_date = &#39;20140116&#39;
+url_type = &#39;http&#39; # http|taskqueue|cron|mail|rdc
+url_type2 = &#39;access&#39; # only when type=http  access|debug|error|warning|notice|resources
+secret_key = &#39;xxxxx&#39;
+</code></pre></div>
+<h3>生成请求地址</h3>
 
-<pre><code>api_url = 'http://dloadcenter.sae.sina.com.cn/interapi.php?'
-appname = 'xxxxx'
-from_date = '20140101'
-to_date = '20140116'
-url_type = 'http' # http|taskqueue|cron|mail|rdc
-url_type2 = 'access' # only when type=http  access|debug|error|warning|notice|resources
-secret_key = 'xxxxx'
-</code></pre>
-
-<h3 id="section-1">生成请求地址</h3>
 <p>请求地址生成方式可以看一下官网的要求：</p>
 
 <ol>
-  <li>将参数排序</li>
-  <li>生成请求字符串，去掉<code>&amp;</code></li>
-  <li>附加access_key</li>
-  <li>请求字符串求md5，形成sign</li>
-  <li>把sign增加到请求字符串中</li>
+<li>将参数排序</li>
+<li>生成请求字符串，去掉<code>&amp;</code></li>
+<li>附加access_key</li>
+<li>请求字符串求md5，形成sign</li>
+<li>把sign增加到请求字符串中</li>
 </ol>
 
 <p>具体实现代码如下</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">params = dict()
+params[&#39;act&#39;] = &#39;log&#39;
+params[&#39;appname&#39;] = appname
+params[&#39;from&#39;] = from_date
+params[&#39;to&#39;] = to_date
+params[&#39;type&#39;] = url_type
 
-<pre><code>params = dict()
-params['act'] = 'log'
-params['appname'] = appname
-params['from'] = from_date
-params['to'] = to_date
-params['type'] = url_type
-
-if url_type == 'http':
-    params['type2'] = url_type2
+if url_type == &#39;http&#39;:
+    params[&#39;type2&#39;] = url_type2
 
 params = collections.OrderedDict(sorted(params.items()))
 
-request = ''
+request = &#39;&#39;
 for k,v in params.iteritems():
-    request += k+'='+v+'&amp;'
+    request += k+&#39;=&#39;+v+&#39;&amp;&#39;
 
-sign = request.replace('&amp;','')
+sign = request.replace(&#39;&amp;&#39;,&#39;&#39;)
 sign += secret_key
 
 md5 = hashlib.md5()
 md5.update(sign)
 sign = md5.hexdigest()
 
-request = api_url + request + 'sign=' + sign
+request = api_url + request + &#39;sign=&#39; + sign
 
-if response['errno'] != 0:
-    print '[!] '+response['errmsg']
+if response[&#39;errno&#39;] != 0:
+    print &#39;[!] &#39;+response[&#39;errmsg&#39;]
     exit()
 
-print '[#] request success'
-</code></pre>
+print &#39;[#] request success&#39;
+</code></pre></div>
+<h2>下载日志文件</h2>
 
-<h2 id="section-2">下载日志文件</h2>
 <p>SAE将每天的日志文件都打包成tar.gz的格式，下载保存下来即可，文件名以<code>日期.tar.gz</code>命名</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">log_files = list()
 
-<pre><code>log_files = list()
-
-for down_url in response['data']:    
-    file_name = re.compile(r'\d{4}-\d{2}-\d{2}').findall(down_url)[0] + '.tar.gz'
+for down_url in response[&#39;data&#39;]:    
+    file_name = re.compile(r&#39;\d{4}-\d{2}-\d{2}&#39;).findall(down_url)[0] + &#39;.tar.gz&#39;
     log_files.append(file_name)
     data = urllib2.urlopen(down_url).read()
-    with open(file_name, "wb") as file:
+    with open(file_name, &quot;wb&quot;) as file:
         file.write(data)
 
-print '[#] you got %d log files' % len(log_files)
-</code></pre>
+print &#39;[#] you got %d log files&#39; % len(log_files)
+</code></pre></div>
+<h2>合并文件</h2>
 
-<h2 id="section-3">合并文件</h2>
 <p>合并文件方式用trafile库解压缩每个文件，然后把文件内容附加到access_log下就可以了</p>
-
-<pre><code># compress these files to access_log
-access_log = open('access_log','w');
+<div class="highlight"><pre><code class="language-text" data-lang="text"># compress these files to access_log
+access_log = open(&#39;access_log&#39;,&#39;w&#39;);
 
 for log_file in log_files:
     tar = tarfile.open(log_file)
@@ -197,15 +197,21 @@ for log_file in log_files:
     access_log.write(data)
     os.remove(log_name)
 
-print '[#] all file has writen to access_log'
-</code></pre>
+print &#39;[#] all file has writen to access_log&#39;
+</code></pre></div>
+<h2>代码下载地址</h2>
 
-<h2 id="section-4">代码下载地址</h2>
 <p><a href="https://github.com/suyan/Scripts/blob/master/Python/sae-log-download.py">github</a></p>
-
 
 </article> <!-- end #post__content -->
 
+    <script type="text/javascript">
+        $(function() {
+           $('pre').addClass('prettyprint').attr('style', 'overflow:auto');
+           prettyPrint();
+        });
+    </script>>
+    
 <div id="post__share">
   <a id="icon-twitter" class="fontello" href="https://twitter.com/intent/tweet?url=http://datavalley.github.io/2014/01/17/python-script-of-sae-log-download.html&text=Python脚本--下载合并SAE日志" target="_blank"></a>
   <a id="icon-cc" class="fontello" href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"></a>
@@ -245,20 +251,16 @@ print '[#] all file has writen to access_log'
   ga('send', 'pageview');
 </script>
     <script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = 'datavalley';
+      /* * * CONFIGURATION VARIABLES * * */
+      var disqus_shortname = 'datavalley';
     
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-  </script>
-  <script type="text/javascript">
-      $(function() {
-          $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
-      });
-  </script>>
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+
   </body>
 </html>

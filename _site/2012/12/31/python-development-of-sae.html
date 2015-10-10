@@ -15,9 +15,11 @@
 
 <link rel="shortcut icon" href="http://datavalley.github.io/img/logo.jpg" />
 
+<link rel="stylesheet" type="text/css" href="/assets/css/prettify.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
-<link rel="stylesheet" type="text/css" href="/assets/css/sunburst.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/prettify.css">
 <link href="/pages/rss.xml" rel="alternate" title="数据谷" type="application/atom+xml">
+
   </head>
   <body>
     <aside id="sidebar">
@@ -102,79 +104,62 @@
         <article id="post__content">
   <h1 id="post__title" data-identifier="20121231">sae下的python开发部署和一个简单例子</h1>
   <blockquote>
-  <p>以前开发php时，一直在使用<a href="http://sae.sina.com.cn" title="sae">sae</a>的平台和服务，非常的喜欢。现在在整openstack，所以改用python做一些东西，为了不来回切换两个语言，我决定学习学习django，方便做一些自己的东西。关于sae下python的使用，<a href="http://appstack.sinaapp.com/static/doc/release/testing/index.html" title="sae官方文档">sae官方文档</a>写的非常全面，我这里只是记录自己的一个学习过程</p>
+<p>以前开发php时，一直在使用<a href="http://sae.sina.com.cn" title="sae">sae</a>的平台和服务，非常的喜欢。现在在整openstack，所以改用python做一些东西，为了不来回切换两个语言，我决定学习学习django，方便做一些自己的东西。关于sae下python的使用，<a href="http://appstack.sinaapp.com/static/doc/release/testing/index.html" title="sae官方文档">sae官方文档</a>写的非常全面，我这里只是记录自己的一个学习过程</p>
 </blockquote>
 
-<h2 id="section">搭建本地开发环境</h2>
+<h2>搭建本地开发环境</h2>
 
 <p>安装django</p>
-
-<pre><code>easy_install django
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">easy_install django
+</code></pre></div>
 <p>下载安装本地开发环境</p>
-
-<pre><code>git clone https://github.com/SAEPython/saepythondevguide.git
+<div class="highlight"><pre><code class="language-text" data-lang="text">git clone https://github.com/SAEPython/saepythondevguide.git
 cd dev_server
 python setup.py install
-</code></pre>
-
-<h2 id="python">创建python项目</h2>
+</code></pre></div>
+<h2>创建python项目</h2>
 
 <p>到sae.sina.com.cn下创建一个python项目</p>
 
 <p>进入管理面板创建版本，版本号为1</p>
 
 <p>使用svn下载代码</p>
-
-<pre><code>svn co https://svn.sinaapp.com/xxxxx/
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">svn co https://svn.sinaapp.com/xxxxx/
+</code></pre></div>
 <p>进入主目录，发现一个1的文件夹，这个就是对应的django的工程目录</p>
-
-<pre><code>django-admin.py start project mysite
+<div class="highlight"><pre><code class="language-text" data-lang="text">django-admin.py start project mysite
 mv mysite/* 1    
-</code></pre>
-
+</code></pre></div>
 <p>在1下创建配置文件config.yaml，并写入如下内容</p>
-
-<pre><code>libraries:
-- name: "django"
-   version: "1.4"
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">libraries:
+- name: &quot;django&quot;
+   version: &quot;1.4&quot;
+</code></pre></div>
 <p>在1下创建index.wsgi，内容如下</p>
-
-<pre><code>import sae
+<div class="highlight"><pre><code class="language-text" data-lang="text">import sae
 from mysite import wsgi
 application = sae.create_wsgi_app(wsgi.application)    
-</code></pre>
-
+</code></pre></div>
 <p>项目创建完毕，在1中执行dev_server.py来启动sae项目，默认localhost:8080访问</p>
 
 <p>我在这里遇到一个问题，我是用Windows虚拟的Linux，所以我在Windows下无法通过ip:8080访问到linux。看了d&gt;ev_server.py的代码发现这里host是写死为localhost的，所以我将代码小改动了一下</p>
-
-<pre><code>#/usr/local/lib/python2.7/dist-packages/sae_python_dev.../EGG-INFO/scripts/dev_server.py
+<div class="highlight"><pre><code class="language-text" data-lang="text">#/usr/local/lib/python2.7/dist-packages/sae_python_dev.../EGG-INFO/scripts/dev_server.py
 run_simple(option.host, options.port...)
-if __name__ == '__main__':
+if __name__ == &#39;__main__&#39;:
     parser = Option.Parser()
-    parser.add_option("--host",dest="host",default="localhost")    
-</code></pre>
+    parser.add_option(&quot;--host&quot;,dest=&quot;host&quot;,default=&quot;localhost&quot;)    
+</code></pre></div>
+<p>这样就能通过增加--host，将外部访问的ip设定好了</p>
 
-<p>这样就能通过增加–host，将外部访问的ip设定好了</p>
-
-<h2 id="section-1">实现一个简单的投票应用</h2>
+<h2>实现一个简单的投票应用</h2>
 
 <p>在1目录下，创建应用</p>
-
-<pre><code>python manage.py startapp polls
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">python manage.py startapp polls
+</code></pre></div>
 <p>修改配置文件settings</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">import os
 
-<pre><code>import os
-
-if 'SERVER_SOFTWARE' in os.environ:
+if &#39;SERVER_SOFTWARE&#39; in os.environ:
     from sae.const import(
                           MYSQL_HOST,
                           MYSQL_PORT,
@@ -183,98 +168,88 @@ if 'SERVER_SOFTWARE' in os.environ:
                           MYSQL_DB
                           )
 else:
-    MYSQL_HOST = "localhost"
-    MYSQL_PORT = "3306"
-    MYSQL_USER = "root"
-    MYSQL_PASS = "xxxxx"
-    MYSQL_DB = "app_polls"
+    MYSQL_HOST = &quot;localhost&quot;
+    MYSQL_PORT = &quot;3306&quot;
+    MYSQL_USER = &quot;root&quot;
+    MYSQL_PASS = &quot;xxxxx&quot;
+    MYSQL_DB = &quot;app_polls&quot;
 
 DATABASES = {
-    'default': {
-        'ENGINE':   'django.db.backends.mysql',
-        'NAME':     MYSQL_DB,
-        'USER':     MYSQL_USER,
-        'PASSWORD': MYSQL_PASS,
-        'HOST':     MYSQL_HOST,
-        'PORT':     MYSQL_PORT,
+    &#39;default&#39;: {
+        &#39;ENGINE&#39;:   &#39;django.db.backends.mysql&#39;,
+        &#39;NAME&#39;:     MYSQL_DB,
+        &#39;USER&#39;:     MYSQL_USER,
+        &#39;PASSWORD&#39;: MYSQL_PASS,
+        &#39;HOST&#39;:     MYSQL_HOST,
+        &#39;PORT&#39;:     MYSQL_PORT,
     }
 }
 ...
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Put strings here, like &quot;/home/html/django_templates&quot; or &quot;C:/www/django/templates&quot;.
     # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    os.path.join(os.path.dirname(__file__), 'templates'),
+    # Don&#39;t forget to use absolute paths, not relative paths.
+    os.path.join(os.path.dirname(__file__), &#39;templates&#39;),
 )
 
 INSTALLED_APPS = (
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    &#39;django.contrib.auth&#39;,
+    &#39;django.contrib.contenttypes&#39;,
+    &#39;django.contrib.sessions&#39;,
+    &#39;django.contrib.sites&#39;,
+    &#39;django.contrib.messages&#39;,
+    &#39;django.contrib.staticfiles&#39;,
     # Uncomment the next line to enable the admin:
-    'django.contrib.admin',
+    &#39;django.contrib.admin&#39;,
     # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
-    'polls'
+    # &#39;django.contrib.admindocs&#39;,
+    &#39;polls&#39;
 )
-</code></pre>
-
+</code></pre></div>
 <p>这里的配置项主要是将SAE和本地开发环境区分开，在SAE环境下使用它们提供的变量就可以直接连接数据库了，不过记得要在SAE控制面板进行初始化</p>
 
 <p>配置主urls，即mysite下的urls</p>
-
-<pre><code>from django.conf.urls import patterns, include, url
+<div class="highlight"><pre><code class="language-text" data-lang="text">from django.conf.urls import patterns, include, url
 
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns('',
-    url(r'^admin/', include(admin.site.urls)),
-    url(r'^polls/', include('polls.urls')),
+urlpatterns = patterns(&#39;&#39;,
+    url(r&#39;^admin/&#39;, include(admin.site.urls)),
+    url(r&#39;^polls/&#39;, include(&#39;polls.urls&#39;)),
 )
-</code></pre>
-
+</code></pre></div>
 <p>在polls文件夹下修改urls</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">from django.conf.urls import patterns, url
 
-<pre><code>from django.conf.urls import patterns, url
-
-urlpatterns = patterns('polls.views',
-    url(r'^$', 'index'),
-    url(r'^(?P&lt;poll_id&gt;\d+)/$', 'detail'),
-    url(r'^(?P&lt;poll_id&gt;\d+)/results/$', 'results'),
-    url(r'^(?P&lt;poll_id&gt;\d+)/vote/$', 'vote'),
+urlpatterns = patterns(&#39;polls.views&#39;,
+    url(r&#39;^$&#39;, &#39;index&#39;),
+    url(r&#39;^(?P&lt;poll_id&gt;\d+)/$&#39;, &#39;detail&#39;),
+    url(r&#39;^(?P&lt;poll_id&gt;\d+)/results/$&#39;, &#39;results&#39;),
+    url(r&#39;^(?P&lt;poll_id&gt;\d+)/vote/$&#39;, &#39;vote&#39;),
 )
-</code></pre>
-
+</code></pre></div>
 <p>在polls文件夹下创建model.py</p>
-
-<pre><code>from django.db import models
+<div class="highlight"><pre><code class="language-text" data-lang="text">from django.db import models
 
 
 class Poll(models.Model):
     question = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published')
+    pub_date = models.DateTimeField(&#39;date published&#39;)
 
 
 class Choice(models.Model):
     poll = models.ForeignKey(Poll)
     choice = models.CharField(max_length=200)
     votes = models.IntegerField()
-</code></pre>
-
+</code></pre></div>
 <p>然后在mysql中创建一个add_polls数据库，使用</p>
-
-<pre><code>python manage.py syncdb
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">python manage.py syncdb
+</code></pre></div>
 <p>同步数据库，这个仅限本地，如果要在sae使用的话，需要本地生成后导入到sae上。</p>
 
 <p>在polls文件夹下创建view视图文件</p>
-
-<pre><code>from django.shortcuts import render_to_response, get_object_or_404
+<div class="highlight"><pre><code class="language-text" data-lang="text">from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -283,14 +258,14 @@ from polls.models import Poll, Choice
 
 #主页显示最新的5条投票列表
 def index(request):
-    latest_poll_list = Poll.objects.all().order_by('-pub_date')[:5]
-    return render_to_response('index.html', {'latest_poll_list': latest_poll_list})
+    latest_poll_list = Poll.objects.all().order_by(&#39;-pub_date&#39;)[:5]
+    return render_to_response(&#39;index.html&#39;, {&#39;latest_poll_list&#39;: latest_poll_list})
 
 
 #获得某条信息详细情况
 def detail(request, poll_id):
     p = get_object_or_404(Poll, pk=poll_id)
-    return render_to_response('detail.html', {'poll': p},
+    return render_to_response(&#39;detail.html&#39;, {&#39;poll&#39;: p},
                                context_instance=RequestContext(request))
 
 
@@ -298,67 +273,66 @@ def detail(request, poll_id):
 def vote(request, poll_id):
     p = get_object_or_404(Poll, pk=poll_id)
     try:
-        selected_choice = p.choice_set.get(pk=request.POST['choice'])
+        selected_choice = p.choice_set.get(pk=request.POST[&#39;choice&#39;])
     except (KeyError, Choice.DoesNotExist):
-        return render_to_response('detail.html', {
-            'poll': p,
-            'error_message': "You didn't select a choice.",
+        return render_to_response(&#39;detail.html&#39;, {
+            &#39;poll&#39;: p,
+            &#39;error_message&#39;: &quot;You didn&#39;t select a choice.&quot;,
         }, context_instance=RequestContext(request))
     else:
         selected_choice.votes += 1
         selected_choice.save()
-        return HttpResponseRedirect(reverse('polls.views.results', args=(p.id,)))
+        return HttpResponseRedirect(reverse(&#39;polls.views.results&#39;, args=(p.id,)))
 
 
 #显示投票结果
 def results(request, poll_id):
     p = get_object_or_404(Poll, pk=poll_id)
-    return render_to_response('results.html', {'poll': p})
-</code></pre>
-
+    return render_to_response(&#39;results.html&#39;, {&#39;poll&#39;: p})
+</code></pre></div>
 <p>在polls下创建templates文件夹，并创建以下三个文件</p>
 
 <p>detail.html</p>
-
-<pre><code>&lt;h1&gt;{{ poll.question }}&lt;/h1&gt;
+<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;h1&gt;{{ poll.question }}&lt;/h1&gt;
 {% if error_message %}&lt;p&gt;&lt;strong&gt;{{ error_message }}&lt;/strong&gt;&lt;/p&gt;{% endif %}
-&lt;form action="/polls/{{ poll.id }}/vote/" method="post"&gt;
+&lt;form action=&quot;/polls/{{ poll.id }}/vote/&quot; method=&quot;post&quot;&gt;
 {% csrf_token %}
 {% for choice in poll.choice_set.all %}
-    &lt;input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}" /&gt;
-    &lt;label for="choice{{ forloop.counter }}"&gt;{{ choice.choice }}&lt;/label&gt;&lt;br /&gt;
+    &lt;input type=&quot;radio&quot; name=&quot;choice&quot; id=&quot;choice{{ forloop.counter }}&quot; value=&quot;{{ choice.id }}&quot; /&gt;
+    &lt;label for=&quot;choice{{ forloop.counter }}&quot;&gt;{{ choice.choice }}&lt;/label&gt;&lt;br /&gt;
 {% endfor %}
-&lt;input type="submit" value="Vote" /&gt;
+&lt;input type=&quot;submit&quot; value=&quot;Vote&quot; /&gt;
 &lt;/form&gt;
-</code></pre>
-
+</code></pre></div>
 <p>index.html</p>
-
-<pre><code>{% if latest_poll_list %}
+<div class="highlight"><pre><code class="language-text" data-lang="text">{% if latest_poll_list %}
     &lt;ul&gt;
     {% for poll in latest_poll_list %}
-        &lt;li&gt;&lt;a href="/polls/{{ poll.id }}/"&gt;{{ poll.question }}&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;/polls/{{ poll.id }}/&quot;&gt;{{ poll.question }}&lt;/a&gt;&lt;/li&gt;
     {% endfor %}
     &lt;/ul&gt;
 {% else %}
     &lt;p&gt;No polls are available.&lt;/p&gt;
 {% endif %}
-</code></pre>
-
+</code></pre></div>
 <p>results.html</p>
-
-<pre><code>&lt;h1&gt;{{ poll.question }}&lt;/h1&gt;
+<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;h1&gt;{{ poll.question }}&lt;/h1&gt;
 &lt;ul&gt;
 {% for choice in poll.choice_set.all %}
     &lt;li&gt;{{ choice.choice }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}&lt;/li&gt;
 {% endfor %}
 &lt;/ul&gt;
-&lt;a href="/polls/{{ poll.id }}/"&gt;Vote again?&lt;/a&gt;
-</code></pre>
-
-
+&lt;a href=&quot;/polls/{{ poll.id }}/&quot;&gt;Vote again?&lt;/a&gt;
+</code></pre></div>
 </article> <!-- end #post__content -->
 
+    <script type="text/javascript">
+        $(function() {
+           $('pre').addClass('prettyprint').attr('style', 'overflow:auto');
+           prettyPrint();
+        });
+    </script>>
+    
 <div id="post__share">
   <a id="icon-twitter" class="fontello" href="https://twitter.com/intent/tweet?url=http://datavalley.github.io/2012/12/31/python-development-of-sae.html&text=sae下的python开发部署和一个简单例子" target="_blank"></a>
   <a id="icon-cc" class="fontello" href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"></a>
@@ -398,20 +372,16 @@ def results(request, poll_id):
   ga('send', 'pageview');
 </script>
     <script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = 'datavalley';
+      /* * * CONFIGURATION VARIABLES * * */
+      var disqus_shortname = 'datavalley';
     
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-  </script>
-  <script type="text/javascript">
-      $(function() {
-          $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
-      });
-  </script>>
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+
   </body>
 </html>

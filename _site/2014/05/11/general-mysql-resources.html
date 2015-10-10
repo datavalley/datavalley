@@ -15,9 +15,11 @@
 
 <link rel="shortcut icon" href="http://datavalley.github.io/img/logo.jpg" />
 
+<link rel="stylesheet" type="text/css" href="/assets/css/prettify.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
-<link rel="stylesheet" type="text/css" href="/assets/css/sunburst.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/prettify.css">
 <link href="/pages/rss.xml" rel="alternate" title="数据谷" type="application/atom+xml">
+
   </head>
   <body>
     <aside id="sidebar">
@@ -101,53 +103,45 @@
       <div id="pjax">
         <article id="post__content">
   <h1 id="post__title" data-identifier="20140511">MySQL常用资源</h1>
-  <h2 id="section">常用命令</h2>
+  <h2>常用命令</h2>
 
-<h3 id="section-1">登录数据库</h3>
-
-<pre><code>mysql -h localhost -uroot -p
-</code></pre>
-
-<h3 id="section-2">导出数据库</h3>
-
-<pre><code>mysqldump -uroot -p db &gt; db.sql
-</code></pre>
-
-<h3 id="section-3">导入数据库</h3>
-
-<pre><code>mysql -uroot -p db &lt; db.sql
+<h3>登录数据库</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">mysql -h localhost -uroot -p
+</code></pre></div>
+<h3>导出数据库</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">mysqldump -uroot -p db &gt; db.sql
+</code></pre></div>
+<h3>导入数据库</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">mysql -uroot -p db &lt; db.sql
 // or
-mysql -uroot -p db -e "source /path/to/db.sql"
-</code></pre>
-
-<h3 id="section-4">开启远程登录</h3>
-
-<pre><code>grant all privileges on ss.* to 'root'@'%' indentified by 'passoword' with grant option;
+mysql -uroot -p db -e &quot;source /path/to/db.sql&quot;
+</code></pre></div>
+<h3>开启远程登录</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">grant all privileges on ss.* to &#39;root&#39;@&#39;%&#39; indentified by &#39;passoword&#39; with grant option;
 // or 
-update user set Host="%" and User="root"
+update user set Host=&quot;%&quot; and User=&quot;root&quot;
 // 注意%是不包含localhost的
 flush privileges;
-</code></pre>
-
-<h3 id="section-5">创建用户</h3>
-
-<pre><code>CREATE USER 'test'@'localhost' IDENTIFIED BY 'password';
-grant all privileges on *.* to test@'localhost' identified by 'test';
-</code></pre>
-
-<h3 id="section-6">创建表</h3>
-
-<pre><code>CREATE SCHEMA testdb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-</code></pre>
-
-<h3 id="section-7">赋予数据库权限</h3>
-
-<pre><code>GRANT ALL ON testdb.* TO 'test'@'localhost';
-</code></pre>
-
-
+</code></pre></div>
+<h3>创建用户</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">CREATE USER &#39;test&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;password&#39;;
+grant all privileges on *.* to test@&#39;localhost&#39; identified by &#39;test&#39;;
+</code></pre></div>
+<h3>创建表</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">CREATE SCHEMA testdb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+</code></pre></div>
+<h3>赋予数据库权限</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">GRANT ALL ON testdb.* TO &#39;test&#39;@&#39;localhost&#39;;
+</code></pre></div>
 </article> <!-- end #post__content -->
 
+    <script type="text/javascript">
+        $(function() {
+           $('pre').addClass('prettyprint').attr('style', 'overflow:auto');
+           prettyPrint();
+        });
+    </script>>
+    
 <div id="post__share">
   <a id="icon-twitter" class="fontello" href="https://twitter.com/intent/tweet?url=http://datavalley.github.io/2014/05/11/general-mysql-resources.html&text=MySQL常用资源" target="_blank"></a>
   <a id="icon-cc" class="fontello" href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"></a>
@@ -187,20 +181,16 @@ grant all privileges on *.* to test@'localhost' identified by 'test';
   ga('send', 'pageview');
 </script>
     <script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = 'datavalley';
+      /* * * CONFIGURATION VARIABLES * * */
+      var disqus_shortname = 'datavalley';
     
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-  </script>
-  <script type="text/javascript">
-      $(function() {
-          $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
-      });
-  </script>>
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+
   </body>
 </html>

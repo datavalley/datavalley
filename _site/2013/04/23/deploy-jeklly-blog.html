@@ -15,9 +15,11 @@
 
 <link rel="shortcut icon" href="http://datavalley.github.io/img/logo.jpg" />
 
+<link rel="stylesheet" type="text/css" href="/assets/css/prettify.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
-<link rel="stylesheet" type="text/css" href="/assets/css/sunburst.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/prettify.css">
 <link href="/pages/rss.xml" rel="alternate" title="数据谷" type="application/atom+xml">
+
   </head>
   <body>
     <aside id="sidebar">
@@ -101,32 +103,43 @@
       <div id="pjax">
         <article id="post__content">
   <h1 id="post__title" data-identifier="20130423">在GitHub上搭建自己的Jekyll博客--了解环境</h1>
-  <h2 id="section">简单介绍</h2>
+  <h2>简单介绍</h2>
 
-<h3 id="github">GitHub</h3>
+<h3>GitHub</h3>
+
 <p>GitHub不用多说，应该大家都知道，托管库的，上<a href="www.github.com">GitHub官网</a>一看就知道</p>
 
-<h3 id="jekyll">Jekyll</h3>
+<h3>Jekyll</h3>
+
 <p>Jekyll是一个简单的用来生成静态页面的工具，不光能生成博客。<a href="https://github.com/mojombo/jekyll">项目位置</a>，<a href="https://github.com/mojombo/jekyll/wiki">项目Wiki</a></p>
 
-<h3 id="section-1">为什么是它们俩</h3>
+<h3>为什么是它们俩</h3>
+
 <p>GitHub托管项目是不提供服务端语言和数据库的，但是它支持静态页面的访问的，所以需要用Jekyll来将博客弄成静态的。</p>
 
 <p>基于这两者搭建的博客基本步骤</p>
 
 <ul>
-  <li>写<a href="http://wowubuntu.com/markdown/">Markdown</a>或html页面</li>
-  <li>按照一定的目录整理</li>
-  <li>用<code>git push</code>提交到GitHub上，生成博客。</li>
+<li>写<a href="http://wowubuntu.com/markdown/">Markdown</a>或html页面</li>
+<li>按照一定的目录整理</li>
+<li>用<code>git push</code>提交到GitHub上，生成博客。</li>
 </ul>
 
 <p>整个过程几乎没有多余的步骤，对于经常用键盘的人来说，再好不过了</p>
 
-<h2 id="section-2">本地环境</h2>
+<h2>本地环境</h2>
+
 <p>我搭建本地环境主要是为了开发用，因为开发阶段总不能一直push push来看效果吧。怎么搭建一个jekyll的本地环境网上资料很多，就不赘述了，<a href="https://github.com/mojombo/jekyll/wiki/Install">官网传送门</a></p>
 
 </article> <!-- end #post__content -->
 
+    <script type="text/javascript">
+        $(function() {
+           $('pre').addClass('prettyprint').attr('style', 'overflow:auto');
+           prettyPrint();
+        });
+    </script>>
+    
 <div id="post__share">
   <a id="icon-twitter" class="fontello" href="https://twitter.com/intent/tweet?url=http://datavalley.github.io/2013/04/23/deploy-jeklly-blog.html&text=在GitHub上搭建自己的Jekyll博客--了解环境" target="_blank"></a>
   <a id="icon-cc" class="fontello" href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"></a>
@@ -166,20 +179,16 @@
   ga('send', 'pageview');
 </script>
     <script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = 'datavalley';
+      /* * * CONFIGURATION VARIABLES * * */
+      var disqus_shortname = 'datavalley';
     
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-  </script>
-  <script type="text/javascript">
-      $(function() {
-          $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
-      });
-  </script>>
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+
   </body>
 </html>

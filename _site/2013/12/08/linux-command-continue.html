@@ -15,9 +15,11 @@
 
 <link rel="shortcut icon" href="http://datavalley.github.io/img/logo.jpg" />
 
+<link rel="stylesheet" type="text/css" href="/assets/css/prettify.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
-<link rel="stylesheet" type="text/css" href="/assets/css/sunburst.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/prettify.css">
 <link href="/pages/rss.xml" rel="alternate" title="数据谷" type="application/atom+xml">
+
   </head>
   <body>
     <aside id="sidebar">
@@ -102,41 +104,42 @@
         <article id="post__content">
   <h1 id="post__title" data-identifier="20131208">Linux下多个命令连续执行方法</h1>
   <blockquote>
-  <p>有的时候执行一些简单指令的时候总不想分好几次输入，利用以下方法可以方便的一次执行多个命令</p>
+<p>有的时候执行一些简单指令的时候总不想分好几次输入，利用以下方法可以方便的一次执行多个命令</p>
 </blockquote>
 
-<h3 id="section">连续不中断执行</h3>
+<h3>连续不中断执行</h3>
 
 <p>用<code>;</code>可以让多个命令连续知行，中间出现错误并不会中断后面命令，如</p>
-
-<pre><code>mkdir test; mkdir test; rmdir test;
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">mkdir test; mkdir test; rmdir test;
+</code></pre></div>
 <p>虽然第二条指令会报错，但是不会影响后面的指令，最后test目录不存在</p>
 
-<h3 id="section-1">出错停止后面指令</h3>
+<h3>出错停止后面指令</h3>
 
 <p>用<code>&amp;&amp;</code>分割的命令，如果没有错误会一直执行下去，出现错误立即中止，如</p>
-
-<pre><code>mkdir test &amp;&amp; mkdir test &amp;&amp; rmdir test
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">mkdir test &amp;&amp; mkdir test &amp;&amp; rmdir test
+</code></pre></div>
 <p>这回在第二个指令处就中止了</p>
 
-<h3 id="section-2">一次正确即停止</h3>
+<h3>一次正确即停止</h3>
 
 <p>用<code>||</code>分割的命令，如果有错误就一直执行下去，直到一次正确立即中止，如</p>
-
-<pre><code>mkdir test || mkdir test || rmdir test
+<div class="highlight"><pre><code class="language-text" data-lang="text">mkdir test || mkdir test || rmdir test
 mkdir test || mkdir test || rmdir test || mkdir test
-</code></pre>
-
+</code></pre></div>
 <p>第一次执行第一条指令就正确，后面的不执行</p>
 
 <p>第二次执行前两条都错误，直到最后一条才正确，最后一条不再执行</p>
 
 </article> <!-- end #post__content -->
 
+    <script type="text/javascript">
+        $(function() {
+           $('pre').addClass('prettyprint').attr('style', 'overflow:auto');
+           prettyPrint();
+        });
+    </script>>
+    
 <div id="post__share">
   <a id="icon-twitter" class="fontello" href="https://twitter.com/intent/tweet?url=http://datavalley.github.io/2013/12/08/linux-command-continue.html&text=Linux下多个命令连续执行方法" target="_blank"></a>
   <a id="icon-cc" class="fontello" href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"></a>
@@ -176,20 +179,16 @@ mkdir test || mkdir test || rmdir test || mkdir test
   ga('send', 'pageview');
 </script>
     <script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = 'datavalley';
+      /* * * CONFIGURATION VARIABLES * * */
+      var disqus_shortname = 'datavalley';
     
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-  </script>
-  <script type="text/javascript">
-      $(function() {
-          $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
-      });
-  </script>>
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+
   </body>
 </html>

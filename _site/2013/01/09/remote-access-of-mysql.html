@@ -15,9 +15,11 @@
 
 <link rel="shortcut icon" href="http://datavalley.github.io/img/logo.jpg" />
 
+<link rel="stylesheet" type="text/css" href="/assets/css/prettify.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
-<link rel="stylesheet" type="text/css" href="/assets/css/sunburst.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/prettify.css">
 <link href="/pages/rss.xml" rel="alternate" title="数据谷" type="application/atom+xml">
+
   </head>
   <body>
     <aside id="sidebar">
@@ -101,44 +103,44 @@
       <div id="pjax">
         <article id="post__content">
   <h1 id="post__title" data-identifier="20130109">MySQL远程访问</h1>
-  <h2 id="section">增加可访问权限</h2>
+  <h2>增加可访问权限</h2>
+<div class="highlight"><pre><code class="language-text" data-lang="text">格式：grant 权限 on 数据库名.表名 to 用户@登录主机 identified by &quot;用户密码&quot;;
+grant select,update,insert,delete on *.* to root@192.168.1.12 identified by &quot;root&quot;;
 
-<pre><code>格式：grant 权限 on 数据库名.表名 to 用户@登录主机 identified by "用户密码";
-grant select,update,insert,delete on *.* to root@192.168.1.12 identified by "root";
-
-grant all privileges  on *.* to root@'%' identified by "root";
-</code></pre>
-
-<p>这样就给账号密码都是root的用户再每一台计算机上登录的权限，其中”%”就是所有的意思</p>
+grant all privileges  on *.* to root@&#39;%&#39; identified by &quot;root&quot;;
+</code></pre></div>
+<p>这样就给账号密码都是root的用户再每一台计算机上登录的权限，其中&quot;%&quot;就是所有的意思</p>
 
 <p>如果这个不行的话直接将%改为你的ip即可</p>
 
-<h2 id="section-1">开放3306端口</h2>
+<h2>开放3306端口</h2>
 
 <p>mysql使用的是3306端口，为了防止防火墙将其关闭，可以使用下面方式</p>
-
-<pre><code>在linux下要开启防火墙 打开3306 端口
+<div class="highlight"><pre><code class="language-text" data-lang="text">在linux下要开启防火墙 打开3306 端口
 编辑这个文件vim /etc/sysconfig/iptables
 输入
 -A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 3306 -j ACCEPT
 保存后输入service iptables restart 重启防火墙
-</code></pre>
-
+</code></pre></div>
 <p>上面这个方法是别人说的，但是我没有试成功</p>
-
-<pre><code>/etc/rc.d/init.d/iptables stop
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">/etc/rc.d/init.d/iptables stop
+</code></pre></div>
 <p>直接关闭防火墙……这个实在有点直接，但是绝对好使</p>
 
-<h2 id="mysql">MySQL自身设置</h2>
+<h2>MySQL自身设置</h2>
+
 <p>在Ubuntu下执行上述步骤还是不能访问，这个时候修改/etc/mysql/my.conf文件，注释掉下面这句：</p>
-
-<pre><code>bind-address = 127.0.0.1
-</code></pre>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">bind-address = 127.0.0.1
+</code></pre></div>
 </article> <!-- end #post__content -->
 
+    <script type="text/javascript">
+        $(function() {
+           $('pre').addClass('prettyprint').attr('style', 'overflow:auto');
+           prettyPrint();
+        });
+    </script>>
+    
 <div id="post__share">
   <a id="icon-twitter" class="fontello" href="https://twitter.com/intent/tweet?url=http://datavalley.github.io/2013/01/09/remote-access-of-mysql.html&text=MySQL远程访问" target="_blank"></a>
   <a id="icon-cc" class="fontello" href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"></a>
@@ -178,20 +180,16 @@ grant all privileges  on *.* to root@'%' identified by "root";
   ga('send', 'pageview');
 </script>
     <script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = 'datavalley';
+      /* * * CONFIGURATION VARIABLES * * */
+      var disqus_shortname = 'datavalley';
     
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-  </script>
-  <script type="text/javascript">
-      $(function() {
-          $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
-      });
-  </script>>
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+
   </body>
 </html>

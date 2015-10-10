@@ -15,9 +15,11 @@
 
 <link rel="shortcut icon" href="http://datavalley.github.io/img/logo.jpg" />
 
+<link rel="stylesheet" type="text/css" href="/assets/css/prettify.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
-<link rel="stylesheet" type="text/css" href="/assets/css/sunburst.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/prettify.css">
 <link href="/pages/rss.xml" rel="alternate" title="数据谷" type="application/atom+xml">
+
   </head>
   <body>
     <aside id="sidebar">
@@ -106,15 +108,9 @@
 <p>以前的博客是在SAE上搭建的WordPress，这个博客还可以<a href="http://yansublog.sinaapp.com">访问</a>，不过不打算更新了。选择更换的原因有：</p>
 
 <ul>
-  <li>
-    <p>有的时候我可能想先写点东西，然后再逐渐完善，WordPress已经提交的博客更新起来不方便</p>
-  </li>
-  <li>
-    <p>没有办法做到离线提交，离线写博客（可能有，但是体验达不到要求）</p>
-  </li>
-  <li>
-    <p>速度不行……</p>
-  </li>
+<li><p>有的时候我可能想先写点东西，然后再逐渐完善，WordPress已经提交的博客更新起来不方便</p></li>
+<li><p>没有办法做到离线提交，离线写博客（可能有，但是体验达不到要求）</p></li>
+<li><p>速度不行……</p></li>
 </ul>
 
 <p>总是诸多不爽，让我这工具控一次又一次奔溃，以至于后来博客都在本地控制着，懒得提交到WordPress上。</p>
@@ -127,6 +123,13 @@
 
 </article> <!-- end #post__content -->
 
+    <script type="text/javascript">
+        $(function() {
+           $('pre').addClass('prettyprint').attr('style', 'overflow:auto');
+           prettyPrint();
+        });
+    </script>>
+    
 <div id="post__share">
   <a id="icon-twitter" class="fontello" href="https://twitter.com/intent/tweet?url=http://datavalley.github.io/2013/04/22/wordpress-to-jekyll.html&text=博客迁移完成" target="_blank"></a>
   <a id="icon-cc" class="fontello" href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"></a>
@@ -166,20 +169,16 @@
   ga('send', 'pageview');
 </script>
     <script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = 'datavalley';
+      /* * * CONFIGURATION VARIABLES * * */
+      var disqus_shortname = 'datavalley';
     
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-  </script>
-  <script type="text/javascript">
-      $(function() {
-          $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
-      });
-  </script>>
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+
   </body>
 </html>

@@ -15,9 +15,11 @@
 
 <link rel="shortcut icon" href="http://datavalley.github.io/img/logo.jpg" />
 
+<link rel="stylesheet" type="text/css" href="/assets/css/prettify.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
-<link rel="stylesheet" type="text/css" href="/assets/css/sunburst.css">
+<link rel="stylesheet" type="text/css" href="/assets/css/prettify.css">
 <link href="/pages/rss.xml" rel="alternate" title="数据谷" type="application/atom+xml">
+
   </head>
   <body>
     <aside id="sidebar">
@@ -101,38 +103,47 @@
       <div id="pjax">
         <article id="post__content">
   <h1 id="post__title" data-identifier="20140115">Python 常用资源</h1>
-  <h2 id="section">常用代码</h2>
+  <h2>常用代码</h2>
 
-<h3 id="section-1">遍历对象</h3>
-<pre><code>for key in a.__dict__:
-    print key,':',a.__dict__[key]
-</code></pre>
-
-<h3 id="section-2">调试方法</h3>
-<pre><code>assert False   //引发异常，观察错误界面
+<h3>遍历对象</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">for key in a.__dict__:
+    print key,&#39;:&#39;,a.__dict__[key]
+</code></pre></div>
+<h3>调试方法</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">assert False   //引发异常，观察错误界面
 import logging
-logging.info('')  //写日志
-</code></pre>
-
-<h3 id="section-3">获得当前时间</h3>
-<pre><code>#时间戳
+logging.info(&#39;&#39;)  //写日志
+</code></pre></div>
+<h3>获得当前时间</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">#时间戳
 time.time()
 #日期时间
 time.ctime()
 #iso时间
 datetime.fromtimestamp(time.time()).isoformat()
 #固定格式
-time.strftime('%Y-%m-%d',time.localtime(time.time())) ### 日期到时间戳
-dateC=datetime.datetime(2010,6,6,8,14,59)
-timestamp=time.mktime(dateC.timetuple()) ### 时间戳到日期
-ltime=time.localtime(1237515355.0)
-timeStr=time.strftime("%Y-%m-%d %H:%M:%S", ltime) ### 之后的包从绝对位置导入
-from __future__ import absolute_import
-</code></pre>
-
-
+time.strftime(&#39;%Y-%m-%d&#39;,time.localtime(time.time()))
+</code></pre></div>
+<h3>日期到时间戳</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">dateC=datetime.datetime(2010,6,6,8,14,59)
+timestamp=time.mktime(dateC.timetuple())
+</code></pre></div>
+<h3>时间戳到日期</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">ltime=time.localtime(1237515355.0)
+timeStr=time.strftime(&quot;%Y-%m-%d %H:%M:%S&quot;, ltime)
+</code></pre></div>
+<h3>之后的包从绝对位置导入</h3>
+<div class="highlight"><pre><code class="language-text" data-lang="text">from __future__ import absolute_import
+</code></pre></div>
 </article> <!-- end #post__content -->
 
+    <script type="text/javascript">
+        $(function() {
+           $('pre').addClass('prettyprint').attr('style', 'overflow:auto');
+           prettyPrint();
+        });
+    </script>>
+    
 <div id="post__share">
   <a id="icon-twitter" class="fontello" href="https://twitter.com/intent/tweet?url=http://datavalley.github.io/2014/01/15/general-python-resources.html&text=Python 常用资源" target="_blank"></a>
   <a id="icon-cc" class="fontello" href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"></a>
@@ -172,20 +183,16 @@ from __future__ import absolute_import
   ga('send', 'pageview');
 </script>
     <script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = 'datavalley';
+      /* * * CONFIGURATION VARIABLES * * */
+      var disqus_shortname = 'datavalley';
     
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-  </script>
-  <script type="text/javascript">
-      $(function() {
-          $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
-      });
-  </script>>
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+
   </body>
 </html>
