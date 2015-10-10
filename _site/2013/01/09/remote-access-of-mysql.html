@@ -103,7 +103,7 @@
       <div id="pjax">
         <article id="post__content">
   <h1 id="post__title" data-identifier="20130109">MySQL远程访问</h1>
-  <h2>增加可访问权限</h2>
+  <h2 id="增加可访问权限">增加可访问权限</h2>
 <div class="highlight"><pre><code class="language-text" data-lang="text">格式：grant 权限 on 数据库名.表名 to 用户@登录主机 identified by &quot;用户密码&quot;;
 grant select,update,insert,delete on *.* to root@192.168.1.12 identified by &quot;root&quot;;
 
@@ -113,7 +113,7 @@ grant all privileges  on *.* to root@&#39;%&#39; identified by &quot;root&quot;;
 
 <p>如果这个不行的话直接将%改为你的ip即可</p>
 
-<h2>开放3306端口</h2>
+<h2 id="开放3306端口">开放3306端口</h2>
 
 <p>mysql使用的是3306端口，为了防止防火墙将其关闭，可以使用下面方式</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">在linux下要开启防火墙 打开3306 端口
@@ -127,7 +127,7 @@ grant all privileges  on *.* to root@&#39;%&#39; identified by &quot;root&quot;;
 </code></pre></div>
 <p>直接关闭防火墙……这个实在有点直接，但是绝对好使</p>
 
-<h2>MySQL自身设置</h2>
+<h2 id="mysql自身设置">MySQL自身设置</h2>
 
 <p>在Ubuntu下执行上述步骤还是不能访问，这个时候修改/etc/mysql/my.conf文件，注释掉下面这句：</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">bind-address = 127.0.0.1
@@ -136,7 +136,7 @@ grant all privileges  on *.* to root@&#39;%&#39; identified by &quot;root&quot;;
 
     <script type="text/javascript">
         $(function() {
-           $('pre').addClass('prettyprint').attr('style', 'overflow:auto');
+           $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
            prettyPrint();
         });
     </script>>

@@ -103,41 +103,41 @@
       <div id="pjax">
         <article id="post__content">
   <h1 id="post__title" data-identifier="20140511">MySQL常用资源</h1>
-  <h2>常用命令</h2>
+  <h2 id="常用命令">常用命令</h2>
 
-<h3>登录数据库</h3>
+<h3 id="登录数据库">登录数据库</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">mysql -h localhost -uroot -p
 </code></pre></div>
-<h3>导出数据库</h3>
+<h3 id="导出数据库">导出数据库</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">mysqldump -uroot -p db &gt; db.sql
 </code></pre></div>
-<h3>导入数据库</h3>
+<h3 id="导入数据库">导入数据库</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">mysql -uroot -p db &lt; db.sql
 // or
 mysql -uroot -p db -e &quot;source /path/to/db.sql&quot;
 </code></pre></div>
-<h3>开启远程登录</h3>
+<h3 id="开启远程登录">开启远程登录</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">grant all privileges on ss.* to &#39;root&#39;@&#39;%&#39; indentified by &#39;passoword&#39; with grant option;
 // or 
 update user set Host=&quot;%&quot; and User=&quot;root&quot;
 // 注意%是不包含localhost的
 flush privileges;
 </code></pre></div>
-<h3>创建用户</h3>
+<h3 id="创建用户">创建用户</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">CREATE USER &#39;test&#39;@&#39;localhost&#39; IDENTIFIED BY &#39;password&#39;;
 grant all privileges on *.* to test@&#39;localhost&#39; identified by &#39;test&#39;;
 </code></pre></div>
-<h3>创建表</h3>
+<h3 id="创建表">创建表</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">CREATE SCHEMA testdb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 </code></pre></div>
-<h3>赋予数据库权限</h3>
+<h3 id="赋予数据库权限">赋予数据库权限</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">GRANT ALL ON testdb.* TO &#39;test&#39;@&#39;localhost&#39;;
 </code></pre></div>
 </article> <!-- end #post__content -->
 
     <script type="text/javascript">
         $(function() {
-           $('pre').addClass('prettyprint').attr('style', 'overflow:auto');
+           $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
            prettyPrint();
         });
     </script>>

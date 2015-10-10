@@ -107,7 +107,7 @@
 <p>以前开发php时，一直在使用<a href="http://sae.sina.com.cn" title="sae">sae</a>的平台和服务，非常的喜欢。现在在整openstack，所以改用python做一些东西，为了不来回切换两个语言，我决定学习学习django，方便做一些自己的东西。关于sae下python的使用，<a href="http://appstack.sinaapp.com/static/doc/release/testing/index.html" title="sae官方文档">sae官方文档</a>写的非常全面，我这里只是记录自己的一个学习过程</p>
 </blockquote>
 
-<h2>搭建本地开发环境</h2>
+<h2 id="搭建本地开发环境">搭建本地开发环境</h2>
 
 <p>安装django</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">easy_install django
@@ -117,7 +117,7 @@
 cd dev_server
 python setup.py install
 </code></pre></div>
-<h2>创建python项目</h2>
+<h2 id="创建python项目">创建python项目</h2>
 
 <p>到sae.sina.com.cn下创建一个python项目</p>
 
@@ -151,7 +151,7 @@ if __name__ == &#39;__main__&#39;:
 </code></pre></div>
 <p>这样就能通过增加--host，将外部访问的ip设定好了</p>
 
-<h2>实现一个简单的投票应用</h2>
+<h2 id="实现一个简单的投票应用">实现一个简单的投票应用</h2>
 
 <p>在1目录下，创建应用</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">python manage.py startapp polls
@@ -328,7 +328,7 @@ def results(request, poll_id):
 
     <script type="text/javascript">
         $(function() {
-           $('pre').addClass('prettyprint').attr('style', 'overflow:auto');
+           $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
            prettyPrint();
         });
     </script>>

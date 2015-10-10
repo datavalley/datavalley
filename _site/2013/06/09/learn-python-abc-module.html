@@ -105,13 +105,13 @@
       <div id="pjax">
         <article id="post__content">
   <h1 id="post__title" data-identifier="20130609">学习Python的ABC模块</h1>
-  <h3>1.abc模块作用</h3>
+  <h3 id="1-abc模块作用">1.abc模块作用</h3>
 
 <p>Python本身不提供抽象类和接口机制，要想实现抽象类，可以借助abc模块。ABC是Abstract Base Class的缩写。</p>
 
-<h3>2.模块中的类和函数</h3>
+<h3 id="2-模块中的类和函数">2.模块中的类和函数</h3>
 
-<h4>abc.ABCMeta</h4>
+<h4 id="abc-abcmeta">abc.ABCMeta</h4>
 
 <p>这是用来生成抽象基础类的元类。由它生成的类可以被直接继承。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">from abc import ABCMeta
@@ -155,7 +155,7 @@ class MyIterable:
 
 MyIterable.register(Foo)
 </code></pre></div>
-<h4>abc.abstractmethod(function)</h4>
+<h4 id="abc-abstractmethod-function">abc.abstractmethod(function)</h4>
 
 <p>表明抽象方法的生成器</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">class C:
@@ -164,7 +164,7 @@ MyIterable.register(Foo)
     def my_abstract_method(self, ...):
         ...
 </code></pre></div>
-<h4>abc.abstractproperty([fget[,fset[,fdel[,doc]]]])</h4>
+<h4 id="abc-abstractproperty-fget-fset-fdel-doc">abc.abstractproperty([fget[,fset[,fdel[,doc]]]])</h4>
 
 <p>表明一个抽象属性</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">class C:
@@ -184,7 +184,7 @@ MyIterable.register(Foo)
 
     <script type="text/javascript">
         $(function() {
-           $('pre').addClass('prettyprint').attr('style', 'overflow:auto');
+           $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
            prettyPrint();
         });
     </script>>

@@ -112,13 +112,13 @@
 
 <p><strong>说明：本篇用到的代码中，为了防止解析冲突，一律多了<code>\</code>这个来防止被误解析</strong></p>
 
-<h2>创建一个库</h2>
+<h2 id="创建一个库">创建一个库</h2>
 
 <p>在Github上新开一个库，名字叫做<code>username.github.io</code>，然后当别人在地址栏输入相应url的时候就可以访问进来了。</p>
 
 <p>在这个库中完全可以只上传一个<code>index.html</code>，来讲自己要写的东西写进去，但是这样会丧失很多灵活性，所以需要Jekyll的帮助来创建自己的博客。</p>
 
-<h2>设定目录结构</h2>
+<h2 id="设定目录结构">设定目录结构</h2>
 
 <p>把自己的库clone到本地来，建立如下目录结构：</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">├── CNAME
@@ -158,7 +158,7 @@
 
 <p>接下来我主要解释这里面每一个目录的功能。</p>
 
-<h3>配置文件</h3>
+<h3 id="配置文件">配置文件</h3>
 
 <p><code>_config.yml</code>里写有整个站点的主要配置项，我的如下：</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">permalink: /:year/:month/:day/:title.html   #博文的固定链接
@@ -177,7 +177,7 @@ markdown: redcarpet                         #markdown解释器
 </code></pre></div>
 <p>这里的自定义常量可以在模板中使用，以后有修改的时候就不需要跑去改代码了。尤其是对一些私人的选项，可以在这里定义。现在我的博客中出了disqus和googleanalytics外都直接在这里设定就好了。</p>
 
-<h3>域名配置</h3>
+<h3 id="域名配置">域名配置</h3>
 
 <p><code>CNAME</code>这个文件写明了这个站点的域名，如果不喜欢<code>username.github.io</code>的话，可以像我一样改掉</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">yansu.org
@@ -186,7 +186,7 @@ markdown: redcarpet                         #markdown解释器
 
 <p>只要把<code>主机记录</code>为<code>@</code>,<code>www</code>的记录值写成<code>username.github.io</code>就好了。</p>
 
-<h3>博客存放</h3>
+<h3 id="博客存放">博客存放</h3>
 
 <p><code>_posts</code>下的所有目录中的所有博客，都会被Jekyll处理成为静态的html文件，然后放在<code>_site</code>下。我这里没有<code>_site</code>目录，是因为我在<code>.gitignore</code>文件中把这个目录屏蔽掉了，它不会上传到Github上。</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">_site/
@@ -207,7 +207,7 @@ description:                                   #自定义常量
 </code></pre></div>
 <p>除了自定义常量外的必须包含进去，自定义变量在这个布局中可以访问。</p>
 
-<h3>模版文件</h3>
+<h3 id="模版文件">模版文件</h3>
 
 <p>剩余的目录，基本都属于模板文件了，我解释一下各自的作用：</p>
 
@@ -220,7 +220,7 @@ description:                                   #自定义常量
 <li><code>sitemap.txt</code> 给搜索引擎看的，如何爬取这个站</li>
 </ul>
 
-<h2>创建自己的主题</h2>
+<h2 id="创建自己的主题">创建自己的主题</h2>
 
 <p>上面讲了如何布局好站内文件结构，接下来主要就是如何创建一个自己的主题了。</p>
 
@@ -303,19 +303,19 @@ title: 首页
 
 <p>其实整个主题书写就是这么简单，如果有不清楚的可以再看看官网的文档。动一动手就非常明白了。</p>
 
-<h2>插入图片</h2>
+<h2 id="插入图片">插入图片</h2>
 
 <p>很多人感觉用Jekyll最不方便的就是插入图片了，其实我也是这么觉得的。所以只能自己去想些办法。</p>
 
-<h3>图片统一存放</h3>
+<h3 id="图片统一存放">图片统一存放</h3>
 
 <p>图片我都放在了<code>/public/upload</code>下，所以我在插入图片的时候只要用<code>![xxx](http://7u2ho6.com1.z0.glb.clouddn.com/xxx)</code>就可以了。</p>
 
-<h3>方便的图片导入</h3>
+<h3 id="方便的图片导入">方便的图片导入</h3>
 
 <p>导入图片的方式是我将<code>upload</code>文件夹做了个软连接，放到mac的dock上就行了，有图片要用的时候直接往里面一拖。</p>
 
-<h3>方便的截图</h3>
+<h3 id="方便的截图">方便的截图</h3>
 
 <p>很多时候图片都是现截取的，比如用QQ的截图工具，或者系统的截图工具，但是他们截取完都存放在了<code>user/Pictures</code>里面，来回移动太累了。我这里介绍一个Mac下的一个工具——Trickster，看图</p>
 
@@ -323,7 +323,7 @@ title: 首页
 
 <p>这个工具可以看到刚刚修改过的图片，而且还有一个收藏的文件夹，我每次截取完图以后，从左边往右边一拖，然后在markdown中就可以继续书写了。一点都不耗时。</p>
 
-<h2>本地预览及提交</h2>
+<h2 id="本地预览及提交">本地预览及提交</h2>
 
 <p>本地预览自己的修改很容易，只要进入<code>username.github.io</code>目录，执行</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">jekyll serve
@@ -335,7 +335,7 @@ title: 首页
 git commit -m &quot;xxx&quot;
 git push
 </code></pre></div>
-<h2>其他</h2>
+<h2 id="其他">其他</h2>
 
 <p>我觉得自己的这个主题设定的算是比较好修改和移植的了，如果大家有什么问题，可以尽管问。</p>
 
@@ -347,7 +347,7 @@ git push
 
     <script type="text/javascript">
         $(function() {
-           $('pre').addClass('prettyprint').attr('style', 'overflow:auto');
+           $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
            prettyPrint();
         });
     </script>>

@@ -103,11 +103,11 @@
       <div id="pjax">
         <article id="post__content">
   <h1 id="post__title" data-identifier="20140803">Mac 常用资源</h1>
-  <h2>常用软件</h2>
+  <h2 id="常用软件">常用软件</h2>
 
-<h3>Alfred</h3>
+<h3 id="alfred">Alfred</h3>
 
-<h4>Alfred常用Workflow</h4>
+<h4 id="alfred常用workflow">Alfred常用Workflow</h4>
 
 <ul>
 <li><a href="http://kapeli.com/dash">Dash</a></li>
@@ -117,9 +117,9 @@
 <li><a href="http://www.alfredforum.com/topic/1009-notes/">Notes</a></li>
 </ul>
 
-<h2>常用命令</h2>
+<h2 id="常用命令">常用命令</h2>
 
-<h3>开启关闭dashboard</h3>
+<h3 id="开启关闭dashboard">开启关闭dashboard</h3>
 
 <p>关闭</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">defaults write com.apple.dashboard mcx-disabled -boolean YES
@@ -129,7 +129,7 @@ killall Dock
 <div class="highlight"><pre><code class="language-text" data-lang="text">defaults write com.apple.dashboard mcx-disabled -boolean NO
 killall Dock
 </code></pre></div>
-<h3>剪贴板操作</h3>
+<h3 id="剪贴板操作">剪贴板操作</h3>
 
 <p>写入剪切板</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">echo &#39;test&#39; &gt; pbcopy 
@@ -139,7 +139,7 @@ cat testfile &gt; pbcopy
 <div class="highlight"><pre><code class="language-text" data-lang="text">pbpaste &gt; testfile
 pbpaste | cat
 </code></pre></div>
-<h3>开启关闭Hidpi</h3>
+<h3 id="开启关闭hidpi">开启关闭Hidpi</h3>
 
 <p>开启</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool YES
@@ -147,32 +147,32 @@ pbpaste | cat
 <p>关闭</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">sudo defaults delete /Library/Preferences/com.apple.windowserver DisplayResolutionDisabled
 </code></pre></div>
-<h3>修改Dock隐藏和出现时间</h3>
+<h3 id="修改dock隐藏和出现时间">修改Dock隐藏和出现时间</h3>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">defaults write com.apple.dock autohide-delay -int 0
 defaults write com.apple.dock autohide-time-modifier -float 0.4
 killall Dock
 </code></pre></div>
-<h3>设置iterm中option为alt(meta)键</h3>
+<h3 id="设置iterm中option为alt-meta-键">设置iterm中option为alt(meta)键</h3>
 
 <p><img src="http://7u2ho6.com1.z0.glb.clouddn.com/resource-set-meta-to-alt.png" alt="option-to-meta"></p>
 
-<h3>删除dropbox冲突文件</h3>
+<h3 id="删除dropbox冲突文件">删除dropbox冲突文件</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">find . -type f -name &quot;* conflicted *&quot; -exec rm -f {} \;
 </code></pre></div>
-<h3>清空Launchpad（删除掉）</h3>
+<h3 id="清空launchpad（删除掉）">清空Launchpad（删除掉）</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">sqlite3 ~/Library/Application\ Support/Dock/*.db &#39;DELETE FROM apps;&#39; &amp;&amp; killall Dock
 </code></pre></div>
-<h3>重置Launchpad</h3>
+<h3 id="重置launchpad">重置Launchpad</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">rm -f ~/Library/Application\ Support/Dock/*.db &amp;&amp; killall Dock
 </code></pre></div>
-<h3>修改Finder中文件夹显示语言</h3>
+<h3 id="修改finder中文件夹显示语言">修改Finder中文件夹显示语言</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text"># 以Desktop为例
 touch ~/Desktop/.localized
 chmod 600 ~/Desktop/.localized
 </code></pre></div>
-<h2>常用快捷键</h2>
+<h2 id="常用快捷键">常用快捷键</h2>
 
-<h3>Chrome</h3>
+<h3 id="chrome">Chrome</h3>
 
 <ul>
 <li>切换用户 <code>Command + shift + M</code></li>
@@ -182,7 +182,7 @@ chmod 600 ~/Desktop/.localized
 
     <script type="text/javascript">
         $(function() {
-           $('pre').addClass('prettyprint').attr('style', 'overflow:auto');
+           $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
            prettyPrint();
         });
     </script>>

@@ -103,17 +103,17 @@
       <div id="pjax">
         <article id="post__content">
   <h1 id="post__title" data-identifier="20140117">Python脚本--下载合并SAE日志</h1>
-  <h1>Python脚本--下载合并SAE日志</h1>
+  <h1 id="python脚本-下载合并sae日志">Python脚本--下载合并SAE日志</h1>
 
 <blockquote>
 <p>由于一些原因，需要SAE上站点的日志文件，从SAE上只能按天下载，下载下来手动处理比较蛋疼，尤其是数量很大的时候。还好SAE提供了API可以批量获得日志文件下载地址，刚刚写了python脚本自动下载和合并这些文件</p>
 </blockquote>
 
-<h2>调用API获得下载地址</h2>
+<h2 id="调用api获得下载地址">调用API获得下载地址</h2>
 
 <p>文档位置在<a href="http://sae.sina.com.cn/?m=devcenter&amp;catId=281">这里</a></p>
 
-<h3>设置自己的应用和下载参数</h3>
+<h3 id="设置自己的应用和下载参数">设置自己的应用和下载参数</h3>
 
 <p>请求中需要设置的变量如下</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">api_url = &#39;http://dloadcenter.sae.sina.com.cn/interapi.php?&#39;
@@ -124,7 +124,7 @@ url_type = &#39;http&#39; # http|taskqueue|cron|mail|rdc
 url_type2 = &#39;access&#39; # only when type=http  access|debug|error|warning|notice|resources
 secret_key = &#39;xxxxx&#39;
 </code></pre></div>
-<h3>生成请求地址</h3>
+<h3 id="生成请求地址">生成请求地址</h3>
 
 <p>请求地址生成方式可以看一下官网的要求：</p>
 
@@ -168,7 +168,7 @@ if response[&#39;errno&#39;] != 0:
 
 print &#39;[#] request success&#39;
 </code></pre></div>
-<h2>下载日志文件</h2>
+<h2 id="下载日志文件">下载日志文件</h2>
 
 <p>SAE将每天的日志文件都打包成tar.gz的格式，下载保存下来即可，文件名以<code>日期.tar.gz</code>命名</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">log_files = list()
@@ -182,7 +182,7 @@ for down_url in response[&#39;data&#39;]:
 
 print &#39;[#] you got %d log files&#39; % len(log_files)
 </code></pre></div>
-<h2>合并文件</h2>
+<h2 id="合并文件">合并文件</h2>
 
 <p>合并文件方式用trafile库解压缩每个文件，然后把文件内容附加到access_log下就可以了</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text"># compress these files to access_log
@@ -199,7 +199,7 @@ for log_file in log_files:
 
 print &#39;[#] all file has writen to access_log&#39;
 </code></pre></div>
-<h2>代码下载地址</h2>
+<h2 id="代码下载地址">代码下载地址</h2>
 
 <p><a href="https://github.com/suyan/Scripts/blob/master/Python/sae-log-download.py">github</a></p>
 
@@ -207,7 +207,7 @@ print &#39;[#] all file has writen to access_log&#39;
 
     <script type="text/javascript">
         $(function() {
-           $('pre').addClass('prettyprint').attr('style', 'overflow:auto');
+           $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
            prettyPrint();
         });
     </script>>

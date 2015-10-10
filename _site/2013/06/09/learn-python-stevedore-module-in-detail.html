@@ -105,11 +105,11 @@
       <div id="pjax">
         <article id="post__content">
   <h1 id="post__title" data-identifier="20130609">学习Python动态扩展包stevedore</h1>
-  <h3>1.stevedore作用</h3>
+  <h3 id="1-stevedore作用">1.stevedore作用</h3>
 
 <p>Python导入动态代码很容易，例如通过在运行时导入扩展插件来扩展你的应用。许多应用通过<code>__import__</code>或importlib实现了这个功能。<a href="http://stevedore.readthedocs.org/en/latest/index.html">stevedore</a>的功能就是管理扩展的，但是它的实现方式是借助steuptools的entry points（我的<a href="/2013/06/07/learn-python-setuptools-in-detail.html">上一篇</a>有讲entry points功能）。</p>
 
-<h3>2.创建一个插件</h3>
+<h3 id="2-创建一个插件">2.创建一个插件</h3>
 
 <p>这里以一个格式转换的例子来学习：</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text"># stevedore/example/base.py
@@ -175,11 +175,11 @@ setup(
 </code></pre></div>
 <p>这个例子可以看到，我们设定了三个接口，simple/field/plain，其他应用或者自身都可以对它们进行调用。如果不用stevedore的话，直接使用<code>pkg_resources.require()</code>调用他们，但是stevedore有了一个更好的机制来管理和使用他们</p>
 
-<h3>3.导入插件</h3>
+<h3 id="3-导入插件">3.导入插件</h3>
 
 <p>stevedore定义了一系列类来帮助更好的调用上面生成的插件</p>
 
-<h4>以Driver方式调用</h4>
+<h4 id="以driver方式调用">以Driver方式调用</h4>
 
 <p>这种方式经常被使用，即我们有多个方法可以做成一件事，但是我们只用其中一种就够了，通过stevedore的<code>DriverManager</code>可以做到，如下：</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text"># stevedore/example/load_as_driver.py
@@ -219,7 +219,7 @@ if __name__ == &#39;__main__&#39;:
 
 <p>例如<code>python -m stevedore.example.load_as_driver a = A</code>即以默认的name调用plugin，默认的format为simple。<code>python -m stevedore.example.load_as_driver field</code>为调用field的plugin</p>
 
-<h4>以Extensions方式调用</h4>
+<h4 id="以extensions方式调用">以Extensions方式调用</h4>
 
 <p>另外一种常见的方式是调用多个plugin共同处理一件事情，这可以利用<code>ExtensionManager</code>、<code>NamedExtensionManager</code>、<code>EnabledExtensionManger</code>来实现</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text"># stevedore/example/load_as_extension.py
@@ -265,7 +265,7 @@ if __name__ == &#39;__main__&#39;:
 </code></pre></div>
 <p>这里ExtensionManger的参数只需要namespace，因为它将使用这个entry point组中的所有插件，并且通过mgr.map()来为每一个plugin传递参数</p>
 
-<h4>其他</h4>
+<h4 id="其他">其他</h4>
 
 <p>除了上面提到的几种方式外，还有<a href="http://stevedore.readthedocs.org/en/latest/managers.html">其他</a>几种可以使用，具体可以自己研究了~</p>
 
@@ -273,7 +273,7 @@ if __name__ == &#39;__main__&#39;:
 
     <script type="text/javascript">
         $(function() {
-           $('pre').addClass('prettyprint').attr('style', 'overflow:auto');
+           $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
            prettyPrint();
         });
     </script>>

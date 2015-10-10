@@ -6,6 +6,26 @@
 /*---------------------------------*\
    Fonts
 \*---------------------------------*/
+table{
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid gray;
+}
+
+th{
+    border: 1px solid #ccc;
+    background-color: #ccc;
+}
+
+tr:nth-child(2n){
+  background: #ccc
+}
+
+
+td{
+    border: 1px solid gray;
+}
+
 @font-face {
   font-family: "fontello";
   src: url("../font/fontello.eot");

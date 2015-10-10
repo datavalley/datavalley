@@ -103,96 +103,96 @@
       <div id="pjax">
         <article id="post__content">
   <h1 id="post__title" data-identifier="20140115">Shell 常用资源</h1>
-  <h2>常用指令</h2>
+  <h2 id="常用指令">常用指令</h2>
 
-<h3>文本内容搜索</h3>
+<h3 id="文本内容搜索">文本内容搜索</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">grep aaa * 
 </code></pre></div>
-<h3>文件夹操作</h3>
+<h3 id="文件夹操作">文件夹操作</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">查看文件夹大小   du -h --max-depth=1 /home/ys
 查看驱动器空间   df -h 
 </code></pre></div>
-<h3>压缩命令</h3>
+<h3 id="压缩命令">压缩命令</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">tar zxvf aaa.tar.gz
 tar zcvf aaa.tar.gz aaa
 </code></pre></div>
-<h3>登陆到其他用户</h3>
+<h3 id="登陆到其他用户">登陆到其他用户</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">login
 </code></pre></div>
-<h3>查看端口的占用</h3>
+<h3 id="查看端口的占用">查看端口的占用</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">lsof -i:8087  查看8087端口的使用
 </code></pre></div>
-<h3>批量杀死进程</h3>
+<h3 id="批量杀死进程">批量杀死进程</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">ps -aux|grep name|grep -v grep|cut -c 9-15|xargs kill -9
 </code></pre></div>
-<h3>查看当前时间</h3>
+<h3 id="查看当前时间">查看当前时间</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">date       时间
 date +%s   时间戳
 date -d &quot;2010-07-20 10:25:30&quot; +%s  指定时间时间戳
 date -d &quot;@1279592730&quot;    时间戳转时间
 date -d &quot;1970-01-01 14781 days&quot; &quot;+%Y/%m/%d %H:%M:%S&quot; 
 </code></pre></div>
-<h3>查看进程内存使用情况</h3>
+<h3 id="查看进程内存使用情况">查看进程内存使用情况</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">top -d 1 -p pid [,pid ...]
 pmap pid 
 ps aux|grep process_name
 查看/proc/process_id/文件夹下的status文件
 </code></pre></div>
-<h3>查看Linux内核版本或发布版本</h3>
+<h3 id="查看linux内核版本或发布版本">查看Linux内核版本或发布版本</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">lsb_release -a
 uname -a
 </code></pre></div>
-<h3>一句话实现一个HTTP服务，把当前文件夹作为根目录</h3>
+<h3 id="一句话实现一个http服务，把当前文件夹作为根目录">一句话实现一个HTTP服务，把当前文件夹作为根目录</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">python -m SimpleHTTPServer
 </code></pre></div>
-<h3>查看本地网络服务活动状态</h3>
+<h3 id="查看本地网络服务活动状态">查看本地网络服务活动状态</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">lsof -i
 </code></pre></div>
-<h3>查看自己的外网ip</h3>
+<h3 id="查看自己的外网ip">查看自己的外网ip</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">curl ifconfig.me
 </code></pre></div>
-<h3>下载整个网站</h3>
+<h3 id="下载整个网站">下载整个网站</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com
 </code></pre></div>
-<h3>后台运行一段不中止的程序，并可随时查看它的状态</h3>
+<h3 id="后台运行一段不中止的程序，并可随时查看它的状态">后台运行一段不中止的程序，并可随时查看它的状态</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">screen -d -m -S some_ name ping my_router
 </code></pre></div>
-<h3>查看进程执行的时间</h3>
+<h3 id="查看进程执行的时间">查看进程执行的时间</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">ps -A -opid,stime,etime,args | grep python
 </code></pre></div>
-<h3>创建守护进程</h3>
+<h3 id="创建守护进程">创建守护进程</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">nohup python /var/www/a.py &amp;
 </code></pre></div>
-<h3>查看当前文件夹下文件（文件夹）大小</h3>
+<h3 id="查看当前文件夹下文件（文件夹）大小">查看当前文件夹下文件（文件夹）大小</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">du -h --max-depth=1 .
 </code></pre></div>
-<h3>查看所有磁盘大小</h3>
+<h3 id="查看所有磁盘大小">查看所有磁盘大小</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">df -h
 </code></pre></div>
-<h3>诊断网络</h3>
+<h3 id="诊断网络">诊断网络</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">mtr 
 ping
 traceroute
 dig
 </code></pre></div>
-<h3>列出本机监听的端口号</h3>
+<h3 id="列出本机监听的端口号">列出本机监听的端口号</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">netstat –tlnp
 netstat -anop
 </code></pre></div>
-<h3>在远程机器上运行一段脚本</h3>
+<h3 id="在远程机器上运行一段脚本">在远程机器上运行一段脚本</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">ssh user@server bash &lt; /path/to/local/script.sh
 </code></pre></div>
-<h3>端口扫描</h3>
+<h3 id="端口扫描">端口扫描</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">nc -z -v -n 127.0.0.1 20-100
 </code></pre></div>
-<h3>负载测试，30秒内向Google发起20个并发连接</h3>
+<h3 id="负载测试，30秒内向google发起20个并发连接">负载测试，30秒内向Google发起20个并发连接</h3>
 <div class="highlight"><pre><code class="language-text" data-lang="text">siege -c20 www.google.co.uk -b -t30s
 </code></pre></div>
 </article> <!-- end #post__content -->
 
     <script type="text/javascript">
         $(function() {
-           $('pre').addClass('prettyprint').attr('style', 'overflow:auto');
+           $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
            prettyPrint();
         });
     </script>>

@@ -10,7 +10,7 @@
         <link>http://datavalley.github.io/2015/10/01/data_warehousing.html</link>
         <guid isPermaLink="true">http://datavalley.github.io/2015/10/01/data_warehousing.html</guid>
         <pubDate>Thu, 01 Oct 2015 00:00:00 +0800</pubDate>
-        <description>&lt;p&gt;原文地址：http://www.tutorialspoint.com/dwh/dwh_tutorial.pdf&lt;/p&gt;
+        <description>&lt;p&gt;原文地址：&lt;a href=&quot;http://www.tutorialspoint.com/dwh/dwh_tutorial.pdf&quot;&gt;http://www.tutorialspoint.com/dwh/dwh_tutorial.pdf&lt;/a&gt;&lt;/p&gt;
 
 &lt;hr&gt;
 
@@ -18,7 +18,7 @@
 
 &lt;hr&gt;
 
-&lt;h1&gt;1. 概述&lt;/h1&gt;
+&lt;h1 id=&quot;1-概述&quot;&gt;1. 概述&lt;/h1&gt;
 
 &lt;p&gt;&amp;quot;数据仓库&amp;quot;（Data Warehouse）这一术语由Bill Inmon与1991年提出。根据Inmon的定义，数据仓库是面向主题的、集成的、随时间变化而又稳定的数据集合。数据仓库可以辅助数据分析人员做出明智的决策。&lt;/p&gt;
 
@@ -28,7 +28,7 @@
 
 &lt;p&gt;关联规则、聚类、分类和预测分析等数据挖掘方法可以集成到OLAP工具中，从而增强交互式知识挖掘。这就是数据仓库变为当前重要的数据分析平台和在线分析处理平台的原因。&lt;/p&gt;
 
-&lt;h2&gt;理解数据仓库&lt;/h2&gt;
+&lt;h2 id=&quot;理解数据仓库&quot;&gt;理解数据仓库&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -40,7 +40,7 @@
 &lt;li&gt;数据仓库有助于多种应用系统的集成&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;为什么数据仓库独立于操作性数据库&lt;/h2&gt;
+&lt;h2 id=&quot;为什么数据仓库独立于操作性数据库&quot;&gt;为什么数据仓库独立于操作性数据库&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -51,7 +51,7 @@
 &lt;li&gt;操作型数据库通常仅保存当前数据，而数据仓库存储历史数据。&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;数据仓库的特点&lt;/h2&gt;
+&lt;h2 id=&quot;数据仓库的特点&quot;&gt;数据仓库的特点&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -66,7 +66,7 @@
 
 &lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：数据仓库不需要事务处理、并发控制和恢复，因为在物理上它独立于操作型数据库。&lt;/p&gt;
 
-&lt;h2&gt;数据仓库的应用&lt;/h2&gt;
+&lt;h2 id=&quot;数据仓库的应用&quot;&gt;数据仓库的应用&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -80,7 +80,7 @@
 &lt;li&gt;制造业&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;数据仓库的类型&lt;/h2&gt;
+&lt;h2 id=&quot;数据仓库的类型&quot;&gt;数据仓库的类型&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -144,15 +144,15 @@
 &lt;/tr&gt;
 &lt;/tbody&gt;&lt;/table&gt;
 
-&lt;h1&gt;2. 概念&lt;/h1&gt;
+&lt;h1 id=&quot;2-概念&quot;&gt;2. 概念&lt;/h1&gt;
 
-&lt;h2&gt;什么是Data Warehousing?&lt;/h2&gt;
+&lt;h2 id=&quot;什么是data-warehousing&quot;&gt;什么是Data Warehousing?&lt;/h2&gt;
 
 &lt;hr&gt;
 
 &lt;p&gt;Data Warehousing就构建和使用数据仓库的过程。数据仓库集成了多种异质数据源的数据，其中每一个数据源都支持分析报告、结构化查询或即时查询以及决策支持。Data Warehousing包括数据清洗、数据集成和数据整合等过程。&lt;/p&gt;
 
-&lt;h2&gt;使用数据仓库中的信息&lt;/h2&gt;
+&lt;h2 id=&quot;使用数据仓库中的信息&quot;&gt;使用数据仓库中的信息&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -164,7 +164,7 @@
 &lt;li&gt;操作分析：Data Warehousing也可以辅助进行顾客关系管理和环境校正。数据仓库中的信息也允许分析商业操作。&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;集成异质数据源&lt;/h2&gt;
+&lt;h2 id=&quot;集成异质数据源&quot;&gt;集成异质数据源&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -175,11 +175,11 @@
 &lt;li&gt;更新驱动的方法&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3&gt;查询驱动的方法&lt;/h3&gt;
+&lt;h3 id=&quot;查询驱动的方法&quot;&gt;查询驱动的方法&lt;/h3&gt;
 
 &lt;p&gt;查询驱动是集成异质数据源的传统方法，该方法在异质数据源之上构建包装器和集成器（wrappers and integrators），即中介程序（mediators）。&lt;/p&gt;
 
-&lt;h4&gt;查询驱动方法的过程&lt;/h4&gt;
+&lt;h4 id=&quot;查询驱动方法的过程&quot;&gt;查询驱动方法的过程&lt;/h4&gt;
 
 &lt;ol&gt;
 &lt;li&gt;当一个查询被提交到某个客户端后，利用元数据字典将该查询转换为适用于该客户端的形式。&lt;/li&gt;
@@ -187,7 +187,7 @@
 &lt;li&gt;该客户端返回的结果集成到全局结果集中。&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h4&gt;缺点&lt;/h4&gt;
+&lt;h4 id=&quot;缺点&quot;&gt;缺点&lt;/h4&gt;
 
 &lt;ol&gt;
 &lt;li&gt;查询驱动的方法需要复杂的集成和过滤处理&lt;/li&gt;
@@ -196,11 +196,11 @@
 &lt;li&gt;对于需要聚合的查询代价也很高&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3&gt;更新驱动的方法&lt;/h3&gt;
+&lt;h3 id=&quot;更新驱动的方法&quot;&gt;更新驱动的方法&lt;/h3&gt;
 
 &lt;p&gt;当前的数据仓库系统更加倾向于更新驱动的方法。在该方法中，异质数据源中的信息首先被集成、存储到仓库中，用于直接查询和分析。&lt;/p&gt;
 
-&lt;h4&gt;优点&lt;/h4&gt;
+&lt;h4 id=&quot;优点&quot;&gt;优点&lt;/h4&gt;
 
 &lt;p&gt;更新驱动的优点&lt;/p&gt;
 
@@ -210,7 +210,7 @@
 &lt;li&gt;对于查询处理，不需要针对每个数据源提供接口处理数据&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h2&gt;数据仓库工具的作用&lt;/h2&gt;
+&lt;h2 id=&quot;数据仓库工具的作用&quot;&gt;数据仓库工具的作用&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;数据抽取&lt;/strong&gt;：从多种异质数据源中收集数据&lt;/li&gt;
@@ -222,11 +222,11 @@
 
 &lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;：数据清洗和数据转换是改善数据质量和数据挖掘结果的重要步骤&lt;/p&gt;
 
-&lt;h1&gt;3. 术语&lt;/h1&gt;
+&lt;h1 id=&quot;3-术语&quot;&gt;3. 术语&lt;/h1&gt;
 
 &lt;p&gt;本章我们将讨论数据仓库中经常使用的术语。&lt;/p&gt;
 
-&lt;h2&gt;元数据（Metadata）&lt;/h2&gt;
+&lt;h2 id=&quot;元数据（metadata）&quot;&gt;元数据（Metadata）&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -240,7 +240,7 @@
 &lt;li&gt;元数据就像一个目录，帮助决策支持系统定位数据仓库的内容&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;元数据库（Metadata Repository）&lt;/h2&gt;
+&lt;h2 id=&quot;元数据库（metadata-repository）&quot;&gt;元数据库（Metadata Repository）&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -253,13 +253,13 @@
 &lt;li&gt;汇总算法：包括纬度算法、粒度数据、聚合和汇总等&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;数据立方体&lt;/h2&gt;
+&lt;h2 id=&quot;数据立方体&quot;&gt;数据立方体&lt;/h2&gt;
 
 &lt;hr&gt;
 
 &lt;p&gt;数据立方体帮助分析师从多维度展示数据。我们可以通过维度和事实来定义数据立方体，其中维度是企业保存数据的实体。&lt;/p&gt;
 
-&lt;h3&gt;数据立方体举例&lt;/h3&gt;
+&lt;h3 id=&quot;数据立方体举例&quot;&gt;数据立方体举例&lt;/h3&gt;
 
 &lt;p&gt;假设公司想要从销售数据仓库中跟踪关于时间、产品、分公司和地理位置的销售记录。我们可以跟踪这些维度的月度销售额，以及跟踪每个分公司的销售记录。每个维度对应一个维度表。例如，“产品”维表拥有产品名称、产品类型和产品分公司等属性。&lt;/p&gt;
 
@@ -275,7 +275,7 @@
 
 &lt;p&gt;&lt;img src=&quot;http://datavalley.github.io/img/data_warehousing/data_cube.png&quot; alt=&quot;3维销售数据表&quot;&gt;&lt;/p&gt;
 
-&lt;h2&gt;数据集市&lt;/h2&gt;
+&lt;h2 id=&quot;数据集市&quot;&gt;数据集市&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -294,13 +294,13 @@
 
 &lt;p&gt;&lt;img src=&quot;http://datavalley.github.io/img/data_warehousing/data_mart.png&quot; alt=&quot;数据集市&quot;&gt;&lt;/p&gt;
 
-&lt;h1&gt;4. 交付过程（Delivery Process）&lt;/h1&gt;
+&lt;h1 id=&quot;4-交付过程（delivery-process）&quot;&gt;4. 交付过程（Delivery Process）&lt;/h1&gt;
 
 &lt;p&gt;数据仓库不是一成不变的，它随着业务的扩展而不断演化。随着业务的不断演化，数据仓库的需求也不断发生变化，因此，数据仓库的设计必须能够适应这些需求变化。即，数据仓库必须是灵活的。&lt;/p&gt;
 
 &lt;p&gt;理想情况下，数据仓库具有交付过程。可是，数据仓库通过会遇到很多难题，如果按照严格的瀑布开发的方式，上述难题会使数据仓库难以完成。通常情况下，需求不会被完全理解。只有当完全掌握和研究需求之后，架构、设计和组件才会完成。&lt;/p&gt;
 
-&lt;h2&gt;交付方法&lt;/h2&gt;
+&lt;h2 id=&quot;交付方法&quot;&gt;交付方法&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -312,19 +312,19 @@
 
 &lt;p&gt;&lt;img src=&quot;http://datavalley.github.io/img/data_warehousing/dp.png&quot; alt=&quot;delivery process&quot;&gt;&lt;/p&gt;
 
-&lt;h2&gt;IT 战略&lt;/h2&gt;
+&lt;h2 id=&quot;it-战略&quot;&gt;IT 战略&lt;/h2&gt;
 
 &lt;hr&gt;
 
 &lt;p&gt;数据仓库是战略性的投资，需要业务过程来产生收益。IT战略为项目获得资金支持。&lt;/p&gt;
 
-&lt;h2&gt;业务案例&lt;/h2&gt;
+&lt;h2 id=&quot;业务案例&quot;&gt;业务案例&lt;/h2&gt;
 
 &lt;hr&gt;
 
 &lt;p&gt;业务案例用于估计数据仓库的收益。虽然这些收益也许不能被数量化，但必须可以被清晰的说明。如果数据仓库没有一个清晰的业务案例，那么在交付过程的某个阶段，业务往往会受到可信性的质疑。因此，在数据仓库项目中，为了投资，我们需要理解业务案例。&lt;/p&gt;
 
-&lt;h2&gt;训练与原型（Education and Prototyping）&lt;/h2&gt;
+&lt;h2 id=&quot;训练与原型（education-and-prototyping）&quot;&gt;训练与原型（Education and Prototyping）&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -346,7 +346,7 @@
 &lt;li&gt;理解数据仓库短期和中期的需求&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;业务需求&lt;/h2&gt;
+&lt;h2 id=&quot;业务需求&quot;&gt;业务需求&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -361,7 +361,7 @@
 &lt;li&gt;提供数据的源系统&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;技术蓝图&lt;/h2&gt;
+&lt;h2 id=&quot;技术蓝图&quot;&gt;技术蓝图&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -376,13 +376,13 @@
 &lt;li&gt;数据库设计组件&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;构建版本&lt;/h2&gt;
+&lt;h2 id=&quot;构建版本&quot;&gt;构建版本&lt;/h2&gt;
 
 &lt;hr&gt;
 
 &lt;p&gt;在该阶段，第一个可交付性的产品完成，是数据仓库最小的组件，该最小组件增加了业务收益。&lt;/p&gt;
 
-&lt;h2&gt;历史数据装载&lt;/h2&gt;
+&lt;h2 id=&quot;历史数据装载&quot;&gt;历史数据装载&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -392,13 +392,13 @@
 
 &lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;备份和恢复过程相当负责，建议在单独的阶段内执行。&lt;/p&gt;
 
-&lt;h2&gt;即时查询&lt;/h2&gt;
+&lt;h2 id=&quot;即时查询&quot;&gt;即时查询&lt;/h2&gt;
 
 &lt;hr&gt;
 
 &lt;p&gt;在该阶段，配置操作数据仓库的即时查询工具。这些工具可以用于生成数据库查询。&lt;/p&gt;
 
-&lt;h2&gt;自动化&lt;/h2&gt;
+&lt;h2 id=&quot;自动化&quot;&gt;自动化&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -412,7 +412,7 @@
 &lt;li&gt;备份、存储和归档数据&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;扩展范围&lt;/h2&gt;
+&lt;h2 id=&quot;扩展范围&quot;&gt;扩展范围&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -423,7 +423,7 @@
 &lt;li&gt;使用现有数据引入新的数据集市&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;需求演化&lt;/h2&gt;
+&lt;h2 id=&quot;需求演化&quot;&gt;需求演化&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -433,13 +433,13 @@
 
 &lt;p&gt;数据仓库被设计成适应需求变化的形势，随着业务的扩展而不断完善。随着新的需求不断的添加到开发活动中，部分可交付的产品也慢慢的完成。这些部分可交付的产品反馈给用户，然后修改。通过这种迭代方式保证整体系统不断更新，最终满足业务需要。&lt;/p&gt;
 
-&lt;h1&gt;5. 系统进程&lt;/h1&gt;
+&lt;h1 id=&quot;5-系统进程&quot;&gt;5. 系统进程&lt;/h1&gt;
 
 &lt;p&gt;针对操作型数据库的操作相对固定，而且有一些成熟的技术，例如使用规范化的数据和小表等等。但在决策支持系统中，我们无法预测将来会对数据进行怎样的查询。因此，操作型数据库上的操作并不适用于数据仓库。&lt;/p&gt;
 
 &lt;p&gt;本章，我们将讨论如何在开源系统（如unix）和关系数据库上构建数据仓库。&lt;/p&gt;
 
-&lt;h2&gt;数据仓库中的流程&lt;/h2&gt;
+&lt;h2 id=&quot;数据仓库中的流程&quot;&gt;数据仓库中的流程&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -454,7 +454,7 @@
 
 &lt;p&gt;&lt;img src=&quot;http://datavalley.github.io/img/data_warehousing/processflow.png&quot; alt=&quot;数据仓库的流程&quot;&gt;&lt;/p&gt;
 
-&lt;h2&gt;抽取和装载流程&lt;/h2&gt;
+&lt;h2 id=&quot;抽取和装载流程&quot;&gt;抽取和装载流程&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -462,21 +462,21 @@
 
 &lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;在导入数据仓库之前，从外部数据源提取的信息必须重构。&lt;/p&gt;
 
-&lt;h3&gt;控制过程&lt;/h3&gt;
+&lt;h3 id=&quot;控制过程&quot;&gt;控制过程&lt;/h3&gt;
 
 &lt;p&gt;控制过程涉及决定何时开始进行数据抽取和数据一致性检验。控制过程保证工具、逻辑模型和执行在正确的时间按照正确的顺序执行。&lt;/p&gt;
 
-&lt;h3&gt;何时初始化数据抽取&lt;/h3&gt;
+&lt;h3 id=&quot;何时初始化数据抽取&quot;&gt;何时初始化数据抽取&lt;/h3&gt;
 
 &lt;p&gt;数据仓库中的数据必须处于一致的状态。对同一数据，不能向用户提供多个不同的版本。&lt;/p&gt;
 
-&lt;h3&gt;装载数据&lt;/h3&gt;
+&lt;h3 id=&quot;装载数据&quot;&gt;装载数据&lt;/h3&gt;
 
 &lt;p&gt;数据抽取之后，数据会装载到临时数据存储区进行清洗和一致性处理。&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;当所有数据源的数据都进入临时存储区后才会进行一致性检验。&lt;/p&gt;
 
-&lt;h3&gt;清洗和转换流程&lt;/h3&gt;
+&lt;h3 id=&quot;清洗和转换流程&quot;&gt;清洗和转换流程&lt;/h3&gt;
 
 &lt;p&gt;数据清洗和转换的步骤：&lt;/p&gt;
 
@@ -486,27 +486,27 @@
 &lt;li&gt;聚合&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3&gt;清洗和转换数据&lt;/h3&gt;
+&lt;h3 id=&quot;清洗和转换数据&quot;&gt;清洗和转换数据&lt;/h3&gt;
 
 &lt;p&gt;清洗和转换数据可以加速查询，可以通过保证数据一致性实现.&lt;/p&gt;
 
 &lt;p&gt;转换数据涉及将数据结构化，结构化数据可以增加查询性能，减少操作代价。&lt;/p&gt;
 
-&lt;h3&gt;数据分区&lt;/h3&gt;
+&lt;h3 id=&quot;数据分区&quot;&gt;数据分区&lt;/h3&gt;
 
 &lt;p&gt;优化硬件性能，简化数据仓库管理。将事实表分为多个分区。&lt;/p&gt;
 
-&lt;h3&gt;聚合&lt;/h3&gt;
+&lt;h3 id=&quot;聚合&quot;&gt;聚合&lt;/h3&gt;
 
 &lt;p&gt;聚合可以加速通用的查询。&lt;/p&gt;
 
-&lt;h2&gt;备份和归档数据&lt;/h2&gt;
+&lt;h2 id=&quot;备份和归档数据&quot;&gt;备份和归档数据&lt;/h2&gt;
 
 &lt;hr&gt;
 
 &lt;p&gt;备份是为了防止数据丢失。数据归档是指将旧数据从系统中移除存到其他地方，并且任何需要的时候都可以快速将其导入系统。&lt;/p&gt;
 
-&lt;h2&gt;查询管理流程&lt;/h2&gt;
+&lt;h2 id=&quot;查询管理流程&quot;&gt;查询管理流程&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -522,11 +522,11 @@
 
 &lt;p&gt;本流程生成的信息用于数据仓库管理流程判定如何生成聚合。&lt;/p&gt;
 
-&lt;h1&gt;6. 架构&lt;/h1&gt;
+&lt;h1 id=&quot;6-架构&quot;&gt;6. 架构&lt;/h1&gt;
 
 &lt;p&gt;本章将讨论数据仓库设计的业务分析框架和数据仓库架构。&lt;/p&gt;
 
-&lt;h2&gt;业务分析框架&lt;/h2&gt;
+&lt;h2 id=&quot;业务分析框架&quot;&gt;业务分析框架&lt;/h2&gt;
 
 &lt;p&gt;业务分析师从数据仓库中获取数据信息，并依次做出更加明智的决策，从而战胜对手。数据仓库带来的优势：&lt;/p&gt;
 
@@ -545,7 +545,7 @@
 &lt;li&gt;业务查询观点：终端用户的数据观点&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;三层数据仓库架构&lt;/h2&gt;
+&lt;h2 id=&quot;三层数据仓库架构&quot;&gt;三层数据仓库架构&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -565,7 +565,7 @@
 &lt;p&gt;下图展示了三层数据仓库的架构图：
 &lt;img src=&quot;http://datavalley.github.io/img/data_warehousing/three-tier.png&quot; alt=&quot;three-tire&quot;&gt;&lt;/p&gt;
 
-&lt;h2&gt;数据仓库模型&lt;/h2&gt;
+&lt;h2 id=&quot;数据仓库模型&quot;&gt;数据仓库模型&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -577,25 +577,25 @@
 &lt;li&gt;企业数据仓库&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3&gt;虚拟数据仓库&lt;/h3&gt;
+&lt;h3 id=&quot;虚拟数据仓库&quot;&gt;虚拟数据仓库&lt;/h3&gt;
 
 &lt;p&gt;关系型数据仓库又称为虚拟数据仓库。虚拟数据仓库构建简单，但是需要数据库服务器具有超大的存储容量。&lt;/p&gt;
 
-&lt;h3&gt;数据集市&lt;/h3&gt;
+&lt;h3 id=&quot;数据集市&quot;&gt;数据集市&lt;/h3&gt;
 
 &lt;p&gt;数据集市面向特定的人群，包含该人群所关心的数据，构建于数据仓库之上。数据集市规模较小，而且较为灵活。&lt;/p&gt;
 
-&lt;h3&gt;企业数据仓库&lt;/h3&gt;
+&lt;h3 id=&quot;企业数据仓库&quot;&gt;企业数据仓库&lt;/h3&gt;
 
 &lt;p&gt;收集企业范围内的数据，规模大。&lt;/p&gt;
 
-&lt;h2&gt;装载管理器&lt;/h2&gt;
+&lt;h2 id=&quot;装载管理器&quot;&gt;装载管理器&lt;/h2&gt;
 
 &lt;hr&gt;
 
 &lt;p&gt;装载管理器执行需要抽取和装载流程的操作，不同数据仓库之间的装载管理器的大小和复杂性各不相同。&lt;/p&gt;
 
-&lt;h3&gt;装载管理的架构&lt;/h3&gt;
+&lt;h3 id=&quot;装载管理的架构&quot;&gt;装载管理的架构&lt;/h3&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://datavalley.github.io/img/data_warehousing/load-manager.png&quot; alt=&quot;Load Manager&quot;&gt;&lt;/p&gt;
 
@@ -607,11 +607,11 @@
 &lt;li&gt;进行简单的数据转换&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3&gt;从源系统抽取数据&lt;/h3&gt;
+&lt;h3 id=&quot;从源系统抽取数据&quot;&gt;从源系统抽取数据&lt;/h3&gt;
 
 &lt;p&gt;通过JDBC、ODBC等程序从操作型数据库或者外部信息数据源抽取数据。&lt;/p&gt;
 
-&lt;h3&gt;快速装载&lt;/h3&gt;
+&lt;h3 id=&quot;快速装载&quot;&gt;快速装载&lt;/h3&gt;
 
 &lt;ul&gt;
 &lt;li&gt;为了减小整体装载窗口，数据需要尽可能快的装载入仓库&lt;/li&gt;
@@ -620,17 +620,17 @@
 &lt;li&gt;JDBC、ODBC等程序当处理大规模数据时性能较差&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3&gt;简单的转换&lt;/h3&gt;
+&lt;h3 id=&quot;简单的转换&quot;&gt;简单的转换&lt;/h3&gt;
 
 &lt;p&gt;装载数据时可能需要简单的转化，之后进行复杂的检验。&lt;/p&gt;
 
-&lt;h2&gt;数据仓库管理器&lt;/h2&gt;
+&lt;h2 id=&quot;数据仓库管理器&quot;&gt;数据仓库管理器&lt;/h2&gt;
 
 &lt;hr&gt;
 
 &lt;p&gt;数据仓库管理器负责仓库管理流程。由第三方软件、C程序和shell脚本组成。&lt;/p&gt;
 
-&lt;h3&gt;数据仓库管理器架构&lt;/h3&gt;
+&lt;h3 id=&quot;数据仓库管理器架构&quot;&gt;数据仓库管理器架构&lt;/h3&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://datavalley.github.io/img/data_warehousing/warehouse-manager.png&quot; alt=&quot;Load Manager&quot;&gt;&lt;/p&gt;
 
@@ -643,7 +643,7 @@
 &lt;li&gt;SQL脚本&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3&gt;数据仓库管理器的功能&lt;/h3&gt;
+&lt;h3 id=&quot;数据仓库管理器的功能&quot;&gt;数据仓库管理器的功能&lt;/h3&gt;
 
 &lt;ul&gt;
 &lt;li&gt;执行一致性检验和引用完成行检查&lt;/li&gt;
@@ -656,7 +656,7 @@
 
 &lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt;数据仓库管理器可以分析查询，进而判定索引和聚合是否合适。&lt;/p&gt;
 
-&lt;h2&gt;查询管理器&lt;/h2&gt;
+&lt;h2 id=&quot;查询管理器&quot;&gt;查询管理器&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -666,7 +666,7 @@
 &lt;li&gt;查询调度&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3&gt;查询管理器架构&lt;/h3&gt;
+&lt;h3 id=&quot;查询管理器架构&quot;&gt;查询管理器架构&lt;/h3&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://datavalley.github.io/img/data_warehousing/query-manager.png&quot; alt=&quot;Load Manager&quot;&gt;&lt;/p&gt;
 
@@ -680,7 +680,7 @@
 &lt;li&gt;通过第三方工具进行查询调度&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;详细信息&lt;/h2&gt;
+&lt;h2 id=&quot;详细信息&quot;&gt;详细信息&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -690,7 +690,7 @@
 
 &lt;p&gt;&lt;img src=&quot;http://datavalley.github.io/img/data_warehousing/detailed-information.png&quot; alt=&quot;详细信息&quot;&gt;&lt;/p&gt;
 
-&lt;h2&gt;汇总信息&lt;/h2&gt;
+&lt;h2 id=&quot;汇总信息&quot;&gt;汇总信息&lt;/h2&gt;
 
 &lt;hr&gt;
 
@@ -709,11 +709,11 @@
         <link>http://datavalley.github.io/2014/08/03/general-mac-resources.html</link>
         <guid isPermaLink="true">http://datavalley.github.io/2014/08/03/general-mac-resources.html</guid>
         <pubDate>Sun, 03 Aug 2014 00:00:00 +0800</pubDate>
-        <description>&lt;h2&gt;常用软件&lt;/h2&gt;
+        <description>&lt;h2 id=&quot;常用软件&quot;&gt;常用软件&lt;/h2&gt;
 
-&lt;h3&gt;Alfred&lt;/h3&gt;
+&lt;h3 id=&quot;alfred&quot;&gt;Alfred&lt;/h3&gt;
 
-&lt;h4&gt;Alfred常用Workflow&lt;/h4&gt;
+&lt;h4 id=&quot;alfred常用workflow&quot;&gt;Alfred常用Workflow&lt;/h4&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;http://kapeli.com/dash&quot;&gt;Dash&lt;/a&gt;&lt;/li&gt;
@@ -723,9 +723,9 @@
 &lt;li&gt;&lt;a href=&quot;http://www.alfredforum.com/topic/1009-notes/&quot;&gt;Notes&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;常用命令&lt;/h2&gt;
+&lt;h2 id=&quot;常用命令&quot;&gt;常用命令&lt;/h2&gt;
 
-&lt;h3&gt;开启关闭dashboard&lt;/h3&gt;
+&lt;h3 id=&quot;开启关闭dashboard&quot;&gt;开启关闭dashboard&lt;/h3&gt;
 
 &lt;p&gt;关闭&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;defaults write com.apple.dashboard mcx-disabled -boolean YES
@@ -735,7 +735,7 @@ killall Dock
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;defaults write com.apple.dashboard mcx-disabled -boolean NO
 killall Dock
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;剪贴板操作&lt;/h3&gt;
+&lt;h3 id=&quot;剪贴板操作&quot;&gt;剪贴板操作&lt;/h3&gt;
 
 &lt;p&gt;写入剪切板&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;echo &amp;#39;test&amp;#39; &amp;gt; pbcopy 
@@ -745,7 +745,7 @@ cat testfile &amp;gt; pbcopy
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;pbpaste &amp;gt; testfile
 pbpaste | cat
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;开启关闭Hidpi&lt;/h3&gt;
+&lt;h3 id=&quot;开启关闭hidpi&quot;&gt;开启关闭Hidpi&lt;/h3&gt;
 
 &lt;p&gt;开启&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;sudo defaults write /Library/Preferences/com.apple.windowserver DisplayResolutionEnabled -bool YES
@@ -753,32 +753,32 @@ pbpaste | cat
 &lt;p&gt;关闭&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;sudo defaults delete /Library/Preferences/com.apple.windowserver DisplayResolutionDisabled
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;修改Dock隐藏和出现时间&lt;/h3&gt;
+&lt;h3 id=&quot;修改dock隐藏和出现时间&quot;&gt;修改Dock隐藏和出现时间&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;defaults write com.apple.dock autohide-delay -int 0
 defaults write com.apple.dock autohide-time-modifier -float 0.4
 killall Dock
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;设置iterm中option为alt(meta)键&lt;/h3&gt;
+&lt;h3 id=&quot;设置iterm中option为alt-meta-键&quot;&gt;设置iterm中option为alt(meta)键&lt;/h3&gt;
 
 &lt;p&gt;&lt;img src=&quot;http://7u2ho6.com1.z0.glb.clouddn.com/resource-set-meta-to-alt.png&quot; alt=&quot;option-to-meta&quot;&gt;&lt;/p&gt;
 
-&lt;h3&gt;删除dropbox冲突文件&lt;/h3&gt;
+&lt;h3 id=&quot;删除dropbox冲突文件&quot;&gt;删除dropbox冲突文件&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;find . -type f -name &amp;quot;* conflicted *&amp;quot; -exec rm -f {} \;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;清空Launchpad（删除掉）&lt;/h3&gt;
+&lt;h3 id=&quot;清空launchpad（删除掉）&quot;&gt;清空Launchpad（删除掉）&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;sqlite3 ~/Library/Application\ Support/Dock/*.db &amp;#39;DELETE FROM apps;&amp;#39; &amp;amp;&amp;amp; killall Dock
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;重置Launchpad&lt;/h3&gt;
+&lt;h3 id=&quot;重置launchpad&quot;&gt;重置Launchpad&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;rm -f ~/Library/Application\ Support/Dock/*.db &amp;amp;&amp;amp; killall Dock
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;修改Finder中文件夹显示语言&lt;/h3&gt;
+&lt;h3 id=&quot;修改finder中文件夹显示语言&quot;&gt;修改Finder中文件夹显示语言&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# 以Desktop为例
 touch ~/Desktop/.localized
 chmod 600 ~/Desktop/.localized
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;常用快捷键&lt;/h2&gt;
+&lt;h2 id=&quot;常用快捷键&quot;&gt;常用快捷键&lt;/h2&gt;
 
-&lt;h3&gt;Chrome&lt;/h3&gt;
+&lt;h3 id=&quot;chrome&quot;&gt;Chrome&lt;/h3&gt;
 
 &lt;ul&gt;
 &lt;li&gt;切换用户 &lt;code&gt;Command + shift + M&lt;/code&gt;&lt;/li&gt;
@@ -791,34 +791,34 @@ chmod 600 ~/Desktop/.localized
         <link>http://datavalley.github.io/2014/05/11/general-mysql-resources.html</link>
         <guid isPermaLink="true">http://datavalley.github.io/2014/05/11/general-mysql-resources.html</guid>
         <pubDate>Sun, 11 May 2014 00:00:00 +0800</pubDate>
-        <description>&lt;h2&gt;常用命令&lt;/h2&gt;
+        <description>&lt;h2 id=&quot;常用命令&quot;&gt;常用命令&lt;/h2&gt;
 
-&lt;h3&gt;登录数据库&lt;/h3&gt;
+&lt;h3 id=&quot;登录数据库&quot;&gt;登录数据库&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;mysql -h localhost -uroot -p
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;导出数据库&lt;/h3&gt;
+&lt;h3 id=&quot;导出数据库&quot;&gt;导出数据库&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;mysqldump -uroot -p db &amp;gt; db.sql
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;导入数据库&lt;/h3&gt;
+&lt;h3 id=&quot;导入数据库&quot;&gt;导入数据库&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;mysql -uroot -p db &amp;lt; db.sql
 // or
 mysql -uroot -p db -e &amp;quot;source /path/to/db.sql&amp;quot;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;开启远程登录&lt;/h3&gt;
+&lt;h3 id=&quot;开启远程登录&quot;&gt;开启远程登录&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;grant all privileges on ss.* to &amp;#39;root&amp;#39;@&amp;#39;%&amp;#39; indentified by &amp;#39;passoword&amp;#39; with grant option;
 // or 
 update user set Host=&amp;quot;%&amp;quot; and User=&amp;quot;root&amp;quot;
 // 注意%是不包含localhost的
 flush privileges;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;创建用户&lt;/h3&gt;
+&lt;h3 id=&quot;创建用户&quot;&gt;创建用户&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;CREATE USER &amp;#39;test&amp;#39;@&amp;#39;localhost&amp;#39; IDENTIFIED BY &amp;#39;password&amp;#39;;
 grant all privileges on *.* to test@&amp;#39;localhost&amp;#39; identified by &amp;#39;test&amp;#39;;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;创建表&lt;/h3&gt;
+&lt;h3 id=&quot;创建表&quot;&gt;创建表&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;CREATE SCHEMA testdb DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;赋予数据库权限&lt;/h3&gt;
+&lt;h3 id=&quot;赋予数据库权限&quot;&gt;赋予数据库权限&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;GRANT ALL ON testdb.* TO &amp;#39;test&amp;#39;@&amp;#39;localhost&amp;#39;;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
       </item>
@@ -837,13 +837,13 @@ grant all privileges on *.* to test@&amp;#39;localhost&amp;#39; identified by &a
 
 &lt;p&gt;&lt;strong&gt;说明：本篇用到的代码中，为了防止解析冲突，一律多了&lt;code&gt;\&lt;/code&gt;这个来防止被误解析&lt;/strong&gt;&lt;/p&gt;
 
-&lt;h2&gt;创建一个库&lt;/h2&gt;
+&lt;h2 id=&quot;创建一个库&quot;&gt;创建一个库&lt;/h2&gt;
 
 &lt;p&gt;在Github上新开一个库，名字叫做&lt;code&gt;username.github.io&lt;/code&gt;，然后当别人在地址栏输入相应url的时候就可以访问进来了。&lt;/p&gt;
 
 &lt;p&gt;在这个库中完全可以只上传一个&lt;code&gt;index.html&lt;/code&gt;，来讲自己要写的东西写进去，但是这样会丧失很多灵活性，所以需要Jekyll的帮助来创建自己的博客。&lt;/p&gt;
 
-&lt;h2&gt;设定目录结构&lt;/h2&gt;
+&lt;h2 id=&quot;设定目录结构&quot;&gt;设定目录结构&lt;/h2&gt;
 
 &lt;p&gt;把自己的库clone到本地来，建立如下目录结构：&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;├── CNAME
@@ -883,7 +883,7 @@ grant all privileges on *.* to test@&amp;#39;localhost&amp;#39; identified by &a
 
 &lt;p&gt;接下来我主要解释这里面每一个目录的功能。&lt;/p&gt;
 
-&lt;h3&gt;配置文件&lt;/h3&gt;
+&lt;h3 id=&quot;配置文件&quot;&gt;配置文件&lt;/h3&gt;
 
 &lt;p&gt;&lt;code&gt;_config.yml&lt;/code&gt;里写有整个站点的主要配置项，我的如下：&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;permalink: /:year/:month/:day/:title.html   #博文的固定链接
@@ -902,7 +902,7 @@ markdown: redcarpet                         #markdown解释器
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;这里的自定义常量可以在模板中使用，以后有修改的时候就不需要跑去改代码了。尤其是对一些私人的选项，可以在这里定义。现在我的博客中出了disqus和googleanalytics外都直接在这里设定就好了。&lt;/p&gt;
 
-&lt;h3&gt;域名配置&lt;/h3&gt;
+&lt;h3 id=&quot;域名配置&quot;&gt;域名配置&lt;/h3&gt;
 
 &lt;p&gt;&lt;code&gt;CNAME&lt;/code&gt;这个文件写明了这个站点的域名，如果不喜欢&lt;code&gt;username.github.io&lt;/code&gt;的话，可以像我一样改掉&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;yansu.org
@@ -911,7 +911,7 @@ markdown: redcarpet                         #markdown解释器
 
 &lt;p&gt;只要把&lt;code&gt;主机记录&lt;/code&gt;为&lt;code&gt;@&lt;/code&gt;,&lt;code&gt;www&lt;/code&gt;的记录值写成&lt;code&gt;username.github.io&lt;/code&gt;就好了。&lt;/p&gt;
 
-&lt;h3&gt;博客存放&lt;/h3&gt;
+&lt;h3 id=&quot;博客存放&quot;&gt;博客存放&lt;/h3&gt;
 
 &lt;p&gt;&lt;code&gt;_posts&lt;/code&gt;下的所有目录中的所有博客，都会被Jekyll处理成为静态的html文件，然后放在&lt;code&gt;_site&lt;/code&gt;下。我这里没有&lt;code&gt;_site&lt;/code&gt;目录，是因为我在&lt;code&gt;.gitignore&lt;/code&gt;文件中把这个目录屏蔽掉了，它不会上传到Github上。&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;_site/
@@ -932,7 +932,7 @@ description:                                   #自定义常量
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;除了自定义常量外的必须包含进去，自定义变量在这个布局中可以访问。&lt;/p&gt;
 
-&lt;h3&gt;模版文件&lt;/h3&gt;
+&lt;h3 id=&quot;模版文件&quot;&gt;模版文件&lt;/h3&gt;
 
 &lt;p&gt;剩余的目录，基本都属于模板文件了，我解释一下各自的作用：&lt;/p&gt;
 
@@ -945,7 +945,7 @@ description:                                   #自定义常量
 &lt;li&gt;&lt;code&gt;sitemap.txt&lt;/code&gt; 给搜索引擎看的，如何爬取这个站&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2&gt;创建自己的主题&lt;/h2&gt;
+&lt;h2 id=&quot;创建自己的主题&quot;&gt;创建自己的主题&lt;/h2&gt;
 
 &lt;p&gt;上面讲了如何布局好站内文件结构，接下来主要就是如何创建一个自己的主题了。&lt;/p&gt;
 
@@ -1028,19 +1028,19 @@ title: 首页
 
 &lt;p&gt;其实整个主题书写就是这么简单，如果有不清楚的可以再看看官网的文档。动一动手就非常明白了。&lt;/p&gt;
 
-&lt;h2&gt;插入图片&lt;/h2&gt;
+&lt;h2 id=&quot;插入图片&quot;&gt;插入图片&lt;/h2&gt;
 
 &lt;p&gt;很多人感觉用Jekyll最不方便的就是插入图片了，其实我也是这么觉得的。所以只能自己去想些办法。&lt;/p&gt;
 
-&lt;h3&gt;图片统一存放&lt;/h3&gt;
+&lt;h3 id=&quot;图片统一存放&quot;&gt;图片统一存放&lt;/h3&gt;
 
 &lt;p&gt;图片我都放在了&lt;code&gt;/public/upload&lt;/code&gt;下，所以我在插入图片的时候只要用&lt;code&gt;![xxx](http://7u2ho6.com1.z0.glb.clouddn.com/xxx)&lt;/code&gt;就可以了。&lt;/p&gt;
 
-&lt;h3&gt;方便的图片导入&lt;/h3&gt;
+&lt;h3 id=&quot;方便的图片导入&quot;&gt;方便的图片导入&lt;/h3&gt;
 
 &lt;p&gt;导入图片的方式是我将&lt;code&gt;upload&lt;/code&gt;文件夹做了个软连接，放到mac的dock上就行了，有图片要用的时候直接往里面一拖。&lt;/p&gt;
 
-&lt;h3&gt;方便的截图&lt;/h3&gt;
+&lt;h3 id=&quot;方便的截图&quot;&gt;方便的截图&lt;/h3&gt;
 
 &lt;p&gt;很多时候图片都是现截取的，比如用QQ的截图工具，或者系统的截图工具，但是他们截取完都存放在了&lt;code&gt;user/Pictures&lt;/code&gt;里面，来回移动太累了。我这里介绍一个Mac下的一个工具——Trickster，看图&lt;/p&gt;
 
@@ -1048,7 +1048,7 @@ title: 首页
 
 &lt;p&gt;这个工具可以看到刚刚修改过的图片，而且还有一个收藏的文件夹，我每次截取完图以后，从左边往右边一拖，然后在markdown中就可以继续书写了。一点都不耗时。&lt;/p&gt;
 
-&lt;h2&gt;本地预览及提交&lt;/h2&gt;
+&lt;h2 id=&quot;本地预览及提交&quot;&gt;本地预览及提交&lt;/h2&gt;
 
 &lt;p&gt;本地预览自己的修改很容易，只要进入&lt;code&gt;username.github.io&lt;/code&gt;目录，执行&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;jekyll serve
@@ -1060,7 +1060,7 @@ title: 首页
 git commit -m &amp;quot;xxx&amp;quot;
 git push
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;其他&lt;/h2&gt;
+&lt;h2 id=&quot;其他&quot;&gt;其他&lt;/h2&gt;
 
 &lt;p&gt;我觉得自己的这个主题设定的算是比较好修改和移植的了，如果大家有什么问题，可以尽管问。&lt;/p&gt;
 
@@ -1075,17 +1075,17 @@ git push
         <link>http://datavalley.github.io/2014/01/17/python-script-of-sae-log-download.html</link>
         <guid isPermaLink="true">http://datavalley.github.io/2014/01/17/python-script-of-sae-log-download.html</guid>
         <pubDate>Fri, 17 Jan 2014 00:00:00 +0800</pubDate>
-        <description>&lt;h1&gt;Python脚本--下载合并SAE日志&lt;/h1&gt;
+        <description>&lt;h1 id=&quot;python脚本-下载合并sae日志&quot;&gt;Python脚本--下载合并SAE日志&lt;/h1&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;由于一些原因，需要SAE上站点的日志文件，从SAE上只能按天下载，下载下来手动处理比较蛋疼，尤其是数量很大的时候。还好SAE提供了API可以批量获得日志文件下载地址，刚刚写了python脚本自动下载和合并这些文件&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h2&gt;调用API获得下载地址&lt;/h2&gt;
+&lt;h2 id=&quot;调用api获得下载地址&quot;&gt;调用API获得下载地址&lt;/h2&gt;
 
 &lt;p&gt;文档位置在&lt;a href=&quot;http://sae.sina.com.cn/?m=devcenter&amp;amp;catId=281&quot;&gt;这里&lt;/a&gt;&lt;/p&gt;
 
-&lt;h3&gt;设置自己的应用和下载参数&lt;/h3&gt;
+&lt;h3 id=&quot;设置自己的应用和下载参数&quot;&gt;设置自己的应用和下载参数&lt;/h3&gt;
 
 &lt;p&gt;请求中需要设置的变量如下&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;api_url = &amp;#39;http://dloadcenter.sae.sina.com.cn/interapi.php?&amp;#39;
@@ -1096,7 +1096,7 @@ url_type = &amp;#39;http&amp;#39; # http|taskqueue|cron|mail|rdc
 url_type2 = &amp;#39;access&amp;#39; # only when type=http  access|debug|error|warning|notice|resources
 secret_key = &amp;#39;xxxxx&amp;#39;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;生成请求地址&lt;/h3&gt;
+&lt;h3 id=&quot;生成请求地址&quot;&gt;生成请求地址&lt;/h3&gt;
 
 &lt;p&gt;请求地址生成方式可以看一下官网的要求：&lt;/p&gt;
 
@@ -1140,7 +1140,7 @@ if response[&amp;#39;errno&amp;#39;] != 0:
 
 print &amp;#39;[#] request success&amp;#39;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;下载日志文件&lt;/h2&gt;
+&lt;h2 id=&quot;下载日志文件&quot;&gt;下载日志文件&lt;/h2&gt;
 
 &lt;p&gt;SAE将每天的日志文件都打包成tar.gz的格式，下载保存下来即可，文件名以&lt;code&gt;日期.tar.gz&lt;/code&gt;命名&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;log_files = list()
@@ -1154,7 +1154,7 @@ for down_url in response[&amp;#39;data&amp;#39;]:
 
 print &amp;#39;[#] you got %d log files&amp;#39; % len(log_files)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;合并文件&lt;/h2&gt;
+&lt;h2 id=&quot;合并文件&quot;&gt;合并文件&lt;/h2&gt;
 
 &lt;p&gt;合并文件方式用trafile库解压缩每个文件，然后把文件内容附加到access_log下就可以了&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# compress these files to access_log
@@ -1171,7 +1171,7 @@ for log_file in log_files:
 
 print &amp;#39;[#] all file has writen to access_log&amp;#39;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;代码下载地址&lt;/h2&gt;
+&lt;h2 id=&quot;代码下载地址&quot;&gt;代码下载地址&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/suyan/Scripts/blob/master/Python/sae-log-download.py&quot;&gt;github&lt;/a&gt;&lt;/p&gt;
 </description>
@@ -1182,89 +1182,89 @@ print &amp;#39;[#] all file has writen to access_log&amp;#39;
         <link>http://datavalley.github.io/2014/01/15/general-shell-resources.html</link>
         <guid isPermaLink="true">http://datavalley.github.io/2014/01/15/general-shell-resources.html</guid>
         <pubDate>Wed, 15 Jan 2014 00:00:00 +0800</pubDate>
-        <description>&lt;h2&gt;常用指令&lt;/h2&gt;
+        <description>&lt;h2 id=&quot;常用指令&quot;&gt;常用指令&lt;/h2&gt;
 
-&lt;h3&gt;文本内容搜索&lt;/h3&gt;
+&lt;h3 id=&quot;文本内容搜索&quot;&gt;文本内容搜索&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;grep aaa * 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;文件夹操作&lt;/h3&gt;
+&lt;h3 id=&quot;文件夹操作&quot;&gt;文件夹操作&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;查看文件夹大小   du -h --max-depth=1 /home/ys
 查看驱动器空间   df -h 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;压缩命令&lt;/h3&gt;
+&lt;h3 id=&quot;压缩命令&quot;&gt;压缩命令&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;tar zxvf aaa.tar.gz
 tar zcvf aaa.tar.gz aaa
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;登陆到其他用户&lt;/h3&gt;
+&lt;h3 id=&quot;登陆到其他用户&quot;&gt;登陆到其他用户&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;login
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;查看端口的占用&lt;/h3&gt;
+&lt;h3 id=&quot;查看端口的占用&quot;&gt;查看端口的占用&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;lsof -i:8087  查看8087端口的使用
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;批量杀死进程&lt;/h3&gt;
+&lt;h3 id=&quot;批量杀死进程&quot;&gt;批量杀死进程&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ps -aux|grep name|grep -v grep|cut -c 9-15|xargs kill -9
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;查看当前时间&lt;/h3&gt;
+&lt;h3 id=&quot;查看当前时间&quot;&gt;查看当前时间&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;date       时间
 date +%s   时间戳
 date -d &amp;quot;2010-07-20 10:25:30&amp;quot; +%s  指定时间时间戳
 date -d &amp;quot;@1279592730&amp;quot;    时间戳转时间
 date -d &amp;quot;1970-01-01 14781 days&amp;quot; &amp;quot;+%Y/%m/%d %H:%M:%S&amp;quot; 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;查看进程内存使用情况&lt;/h3&gt;
+&lt;h3 id=&quot;查看进程内存使用情况&quot;&gt;查看进程内存使用情况&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;top -d 1 -p pid [,pid ...]
 pmap pid 
 ps aux|grep process_name
 查看/proc/process_id/文件夹下的status文件
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;查看Linux内核版本或发布版本&lt;/h3&gt;
+&lt;h3 id=&quot;查看linux内核版本或发布版本&quot;&gt;查看Linux内核版本或发布版本&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;lsb_release -a
 uname -a
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;一句话实现一个HTTP服务，把当前文件夹作为根目录&lt;/h3&gt;
+&lt;h3 id=&quot;一句话实现一个http服务，把当前文件夹作为根目录&quot;&gt;一句话实现一个HTTP服务，把当前文件夹作为根目录&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;python -m SimpleHTTPServer
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;查看本地网络服务活动状态&lt;/h3&gt;
+&lt;h3 id=&quot;查看本地网络服务活动状态&quot;&gt;查看本地网络服务活动状态&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;lsof -i
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;查看自己的外网ip&lt;/h3&gt;
+&lt;h3 id=&quot;查看自己的外网ip&quot;&gt;查看自己的外网ip&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;curl ifconfig.me
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;下载整个网站&lt;/h3&gt;
+&lt;h3 id=&quot;下载整个网站&quot;&gt;下载整个网站&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;wget --random-wait -r -p -e robots=off -U mozilla http://www.example.com
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;后台运行一段不中止的程序，并可随时查看它的状态&lt;/h3&gt;
+&lt;h3 id=&quot;后台运行一段不中止的程序，并可随时查看它的状态&quot;&gt;后台运行一段不中止的程序，并可随时查看它的状态&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;screen -d -m -S some_ name ping my_router
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;查看进程执行的时间&lt;/h3&gt;
+&lt;h3 id=&quot;查看进程执行的时间&quot;&gt;查看进程执行的时间&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ps -A -opid,stime,etime,args | grep python
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;创建守护进程&lt;/h3&gt;
+&lt;h3 id=&quot;创建守护进程&quot;&gt;创建守护进程&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;nohup python /var/www/a.py &amp;amp;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;查看当前文件夹下文件（文件夹）大小&lt;/h3&gt;
+&lt;h3 id=&quot;查看当前文件夹下文件（文件夹）大小&quot;&gt;查看当前文件夹下文件（文件夹）大小&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;du -h --max-depth=1 .
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;查看所有磁盘大小&lt;/h3&gt;
+&lt;h3 id=&quot;查看所有磁盘大小&quot;&gt;查看所有磁盘大小&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;df -h
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;诊断网络&lt;/h3&gt;
+&lt;h3 id=&quot;诊断网络&quot;&gt;诊断网络&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;mtr 
 ping
 traceroute
 dig
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;列出本机监听的端口号&lt;/h3&gt;
+&lt;h3 id=&quot;列出本机监听的端口号&quot;&gt;列出本机监听的端口号&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;netstat –tlnp
 netstat -anop
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;在远程机器上运行一段脚本&lt;/h3&gt;
+&lt;h3 id=&quot;在远程机器上运行一段脚本&quot;&gt;在远程机器上运行一段脚本&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ssh user@server bash &amp;lt; /path/to/local/script.sh
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;端口扫描&lt;/h3&gt;
+&lt;h3 id=&quot;端口扫描&quot;&gt;端口扫描&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;nc -z -v -n 127.0.0.1 20-100
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;负载测试，30秒内向Google发起20个并发连接&lt;/h3&gt;
+&lt;h3 id=&quot;负载测试，30秒内向google发起20个并发连接&quot;&gt;负载测试，30秒内向Google发起20个并发连接&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;siege -c20 www.google.co.uk -b -t30s
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
       </item>
@@ -1274,18 +1274,18 @@ netstat -anop
         <link>http://datavalley.github.io/2014/01/15/general-python-resources.html</link>
         <guid isPermaLink="true">http://datavalley.github.io/2014/01/15/general-python-resources.html</guid>
         <pubDate>Wed, 15 Jan 2014 00:00:00 +0800</pubDate>
-        <description>&lt;h2&gt;常用代码&lt;/h2&gt;
+        <description>&lt;h2 id=&quot;常用代码&quot;&gt;常用代码&lt;/h2&gt;
 
-&lt;h3&gt;遍历对象&lt;/h3&gt;
+&lt;h3 id=&quot;遍历对象&quot;&gt;遍历对象&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;for key in a.__dict__:
     print key,&amp;#39;:&amp;#39;,a.__dict__[key]
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;调试方法&lt;/h3&gt;
+&lt;h3 id=&quot;调试方法&quot;&gt;调试方法&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;assert False   //引发异常，观察错误界面
 import logging
 logging.info(&amp;#39;&amp;#39;)  //写日志
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;获得当前时间&lt;/h3&gt;
+&lt;h3 id=&quot;获得当前时间&quot;&gt;获得当前时间&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;#时间戳
 time.time()
 #日期时间
@@ -1295,15 +1295,15 @@ datetime.fromtimestamp(time.time()).isoformat()
 #固定格式
 time.strftime(&amp;#39;%Y-%m-%d&amp;#39;,time.localtime(time.time()))
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;日期到时间戳&lt;/h3&gt;
+&lt;h3 id=&quot;日期到时间戳&quot;&gt;日期到时间戳&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;dateC=datetime.datetime(2010,6,6,8,14,59)
 timestamp=time.mktime(dateC.timetuple())
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;时间戳到日期&lt;/h3&gt;
+&lt;h3 id=&quot;时间戳到日期&quot;&gt;时间戳到日期&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ltime=time.localtime(1237515355.0)
 timeStr=time.strftime(&amp;quot;%Y-%m-%d %H:%M:%S&amp;quot;, ltime)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;之后的包从绝对位置导入&lt;/h3&gt;
+&lt;h3 id=&quot;之后的包从绝对位置导入&quot;&gt;之后的包从绝对位置导入&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;from __future__ import absolute_import
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
       </item>
@@ -1313,19 +1313,19 @@ timeStr=time.strftime(&amp;quot;%Y-%m-%d %H:%M:%S&amp;quot;, ltime)
         <link>http://datavalley.github.io/2014/01/15/general-git-resources.html</link>
         <guid isPermaLink="true">http://datavalley.github.io/2014/01/15/general-git-resources.html</guid>
         <pubDate>Wed, 15 Jan 2014 00:00:00 +0800</pubDate>
-        <description>&lt;h2&gt;库管理&lt;/h2&gt;
+        <description>&lt;h2 id=&quot;库管理&quot;&gt;库管理&lt;/h2&gt;
 
-&lt;h3&gt;克隆库&lt;/h3&gt;
+&lt;h3 id=&quot;克隆库&quot;&gt;克隆库&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git clone https://github.com/php/php-src.git
 git clone --depth&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; https://github.com/php/php-src.git &lt;span class=&quot;c&quot;&gt;# 只抓取最近的一次 commit&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;历史管理&lt;/h2&gt;
+&lt;h2 id=&quot;历史管理&quot;&gt;历史管理&lt;/h2&gt;
 
-&lt;h3&gt;查看历史&lt;/h3&gt;
+&lt;h3 id=&quot;查看历史&quot;&gt;查看历史&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git log --pretty&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;oneline filename &lt;span class=&quot;c&quot;&gt;# 一行显示&lt;/span&gt;
 git show xxxx &lt;span class=&quot;c&quot;&gt;# 查看某次修改&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;标签功能&lt;/h3&gt;
+&lt;h3 id=&quot;标签功能&quot;&gt;标签功能&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git tag &lt;span class=&quot;c&quot;&gt;# 显示所有标签&lt;/span&gt;
 git tag -l &lt;span class=&quot;s1&quot;&gt;&amp;#39;v1.4.2.*&amp;#39;&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 显示 1.4.2 开头标签&lt;/span&gt;
 git tag v1.3 &lt;span class=&quot;c&quot;&gt;# 简单打标签   &lt;/span&gt;
@@ -1335,52 +1335,52 @@ git show v1.4 &lt;span class=&quot;c&quot;&gt;# 看某一标签详情&lt;/span&g
 git push origin v1.5 &lt;span class=&quot;c&quot;&gt;# 分享某个标签&lt;/span&gt;
 git push origin --tags &lt;span class=&quot;c&quot;&gt;# 分享所有标签&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;回滚操作&lt;/h3&gt;
+&lt;h3 id=&quot;回滚操作&quot;&gt;回滚操作&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git reset 9fceb02 &lt;span class=&quot;c&quot;&gt;# 保留修改&lt;/span&gt;
 git reset 9fceb02 --hard &lt;span class=&quot;c&quot;&gt;# 删除之后的修改&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;取消文件的修改&lt;/h3&gt;
+&lt;h3 id=&quot;取消文件的修改&quot;&gt;取消文件的修改&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git checkout -- a.php &lt;span class=&quot;c&quot;&gt;#  取消单个文件&lt;/span&gt;
 git checkout -- &lt;span class=&quot;c&quot;&gt;# 取消所有文件的修改&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;删除文件&lt;/h3&gt;
+&lt;h3 id=&quot;删除文件&quot;&gt;删除文件&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git rm a.php  &lt;span class=&quot;c&quot;&gt;# 直接删除文件&lt;/span&gt;
 git rm --cached a.php &lt;span class=&quot;c&quot;&gt;# 删除文件暂存状态&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;移动文件&lt;/h3&gt;
+&lt;h3 id=&quot;移动文件&quot;&gt;移动文件&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git mv a.php ./test/a.php
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;查看文件修改&lt;/h3&gt;
+&lt;h3 id=&quot;查看文件修改&quot;&gt;查看文件修改&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git diff          &lt;span class=&quot;c&quot;&gt;# 查看未暂存的文件更新 &lt;/span&gt;
 git diff --cached &lt;span class=&quot;c&quot;&gt;# 查看已暂存文件的更新 &lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;暂存和恢复当前staging&lt;/h3&gt;
+&lt;h3 id=&quot;暂存和恢复当前staging&quot;&gt;暂存和恢复当前staging&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git stash &lt;span class=&quot;c&quot;&gt;# 暂存当前分支的修改&lt;/span&gt;
 git stash apply &lt;span class=&quot;c&quot;&gt;# 恢复最近一次暂存&lt;/span&gt;
 git stash list &lt;span class=&quot;c&quot;&gt;# 查看暂存内容&lt;/span&gt;
 git stash apply stash@&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;2&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 指定恢复某次暂存内容&lt;/span&gt;
 git stash drop stash@&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;0&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 删除某次暂存内容&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;修改 commit 历史纪录&lt;/h3&gt;
+&lt;h3 id=&quot;修改-commit-历史纪录&quot;&gt;修改 commit 历史纪录&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git rebase -i 0580eab8
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;分支管理&lt;/h2&gt;
+&lt;h2 id=&quot;分支管理&quot;&gt;分支管理&lt;/h2&gt;
 
-&lt;h3&gt;创建分支&lt;/h3&gt;
+&lt;h3 id=&quot;创建分支&quot;&gt;创建分支&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git branch develop &lt;span class=&quot;c&quot;&gt;# 只创建分支&lt;/span&gt;
 git checkout -b master develop &lt;span class=&quot;c&quot;&gt;# 创建并切换到 develop 分支&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;合并分支&lt;/h3&gt;
+&lt;h3 id=&quot;合并分支&quot;&gt;合并分支&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git checkout master &lt;span class=&quot;c&quot;&gt;# 切换到 master 分支&lt;/span&gt;
 git merge --no-ff develop &lt;span class=&quot;c&quot;&gt;# 把 develop 合并到 master 分支，no-ff 选项的作用是保留原分支记录&lt;/span&gt;
 git rebase develop &lt;span class=&quot;c&quot;&gt;# rebase 当前分支到 develop&lt;/span&gt;
 git branch -d develop &lt;span class=&quot;c&quot;&gt;# 删除 develop 分支&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;克隆远程分支&lt;/h3&gt;
+&lt;h3 id=&quot;克隆远程分支&quot;&gt;克隆远程分支&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git branch -r &lt;span class=&quot;c&quot;&gt;# 显示所有分支，包含远程分支&lt;/span&gt;
 git checkout origin/android
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;修复develop上的合并错误&lt;/h3&gt;
+&lt;h3 id=&quot;修复develop上的合并错误&quot;&gt;修复develop上的合并错误&lt;/h3&gt;
 
 &lt;ol&gt;
 &lt;li&gt;将merge前的commit创建一个分之，保留merge后代码&lt;/li&gt;
@@ -1389,27 +1389,27 @@ git checkout origin/android
 &lt;li&gt;将分支push到服务器上重新merge&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3&gt;强制更新到远程分支最新版本&lt;/h3&gt;
+&lt;h3 id=&quot;强制更新到远程分支最新版本&quot;&gt;强制更新到远程分支最新版本&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git reset --hard origin/master
 git submodule update --remote -f
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Submodule使用&lt;/h2&gt;
+&lt;h2 id=&quot;submodule使用&quot;&gt;Submodule使用&lt;/h2&gt;
 
-&lt;h3&gt;克隆带submodule的库&lt;/h3&gt;
+&lt;h3 id=&quot;克隆带submodule的库&quot;&gt;克隆带submodule的库&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git clone --recursive https://github.com/chaconinc/MainProject
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;clone主库后再去clone submodule&lt;/h3&gt;
+&lt;h3 id=&quot;clone主库后再去clone-submodule&quot;&gt;clone主库后再去clone submodule&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git clone https://github.com/chaconinc/MainProject
 git submodule init
 git submodule update
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;Git设置&lt;/h2&gt;
+&lt;h2 id=&quot;git设置&quot;&gt;Git设置&lt;/h2&gt;
 
 &lt;p&gt;Git的全局设置在&lt;code&gt;~/.gitconfig&lt;/code&gt;中，单独设置在&lt;code&gt;project/.git/config&lt;/code&gt;下。&lt;/p&gt;
 
 &lt;p&gt;忽略设置全局在&lt;code&gt;~/.gitignore_global&lt;/code&gt;中，单独设置在&lt;code&gt;project/.gitignore&lt;/code&gt;下。&lt;/p&gt;
 
-&lt;h3&gt;设置 commit 的用户和邮箱&lt;/h3&gt;
+&lt;h3 id=&quot;设置-commit-的用户和邮箱&quot;&gt;设置 commit 的用户和邮箱&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git config user.name &lt;span class=&quot;s2&quot;&gt;&amp;quot;xx&amp;quot;&lt;/span&gt;
 git config user.email &lt;span class=&quot;s2&quot;&gt;&amp;quot;xx@xx.com&amp;quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -1418,10 +1418,10 @@ git config user.email &lt;span class=&quot;s2&quot;&gt;&amp;quot;xx@xx.com&amp;q
     &lt;span class=&quot;nv&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; xxx
     &lt;span class=&quot;nv&quot;&gt;email&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; xxx@xxx.com
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;查看设置项&lt;/h3&gt;
+&lt;h3 id=&quot;查看设置项&quot;&gt;查看设置项&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git config --list
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;设置git终端颜色&lt;/h3&gt;
+&lt;h3 id=&quot;设置git终端颜色&quot;&gt;设置git终端颜色&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;git config --global color.diff auto
 git config --global color.status auto
 git config --global color.branch auto
@@ -1437,21 +1437,21 @@ git config --global color.branch auto
 &lt;p&gt;有的时候执行一些简单指令的时候总不想分好几次输入，利用以下方法可以方便的一次执行多个命令&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h3&gt;连续不中断执行&lt;/h3&gt;
+&lt;h3 id=&quot;连续不中断执行&quot;&gt;连续不中断执行&lt;/h3&gt;
 
 &lt;p&gt;用&lt;code&gt;;&lt;/code&gt;可以让多个命令连续知行，中间出现错误并不会中断后面命令，如&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;mkdir test; mkdir test; rmdir test;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;虽然第二条指令会报错，但是不会影响后面的指令，最后test目录不存在&lt;/p&gt;
 
-&lt;h3&gt;出错停止后面指令&lt;/h3&gt;
+&lt;h3 id=&quot;出错停止后面指令&quot;&gt;出错停止后面指令&lt;/h3&gt;
 
 &lt;p&gt;用&lt;code&gt;&amp;amp;&amp;amp;&lt;/code&gt;分割的命令，如果没有错误会一直执行下去，出现错误立即中止，如&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;mkdir test &amp;amp;&amp;amp; mkdir test &amp;amp;&amp;amp; rmdir test
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;这回在第二个指令处就中止了&lt;/p&gt;
 
-&lt;h3&gt;一次正确即停止&lt;/h3&gt;
+&lt;h3 id=&quot;一次正确即停止&quot;&gt;一次正确即停止&lt;/h3&gt;
 
 &lt;p&gt;用&lt;code&gt;||&lt;/code&gt;分割的命令，如果有错误就一直执行下去，直到一次正确立即中止，如&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;mkdir test || mkdir test || rmdir test
@@ -1468,11 +1468,11 @@ mkdir test || mkdir test || rmdir test || mkdir test
         <link>http://datavalley.github.io/2013/06/09/learn-python-stevedore-module-in-detail.html</link>
         <guid isPermaLink="true">http://datavalley.github.io/2013/06/09/learn-python-stevedore-module-in-detail.html</guid>
         <pubDate>Sun, 09 Jun 2013 00:00:00 +0800</pubDate>
-        <description>&lt;h3&gt;1.stevedore作用&lt;/h3&gt;
+        <description>&lt;h3 id=&quot;1-stevedore作用&quot;&gt;1.stevedore作用&lt;/h3&gt;
 
 &lt;p&gt;Python导入动态代码很容易，例如通过在运行时导入扩展插件来扩展你的应用。许多应用通过&lt;code&gt;__import__&lt;/code&gt;或importlib实现了这个功能。&lt;a href=&quot;http://stevedore.readthedocs.org/en/latest/index.html&quot;&gt;stevedore&lt;/a&gt;的功能就是管理扩展的，但是它的实现方式是借助steuptools的entry points（我的&lt;a href=&quot;/2013/06/07/learn-python-setuptools-in-detail.html&quot;&gt;上一篇&lt;/a&gt;有讲entry points功能）。&lt;/p&gt;
 
-&lt;h3&gt;2.创建一个插件&lt;/h3&gt;
+&lt;h3 id=&quot;2-创建一个插件&quot;&gt;2.创建一个插件&lt;/h3&gt;
 
 &lt;p&gt;这里以一个格式转换的例子来学习：&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# stevedore/example/base.py
@@ -1538,11 +1538,11 @@ setup(
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;这个例子可以看到，我们设定了三个接口，simple/field/plain，其他应用或者自身都可以对它们进行调用。如果不用stevedore的话，直接使用&lt;code&gt;pkg_resources.require()&lt;/code&gt;调用他们，但是stevedore有了一个更好的机制来管理和使用他们&lt;/p&gt;
 
-&lt;h3&gt;3.导入插件&lt;/h3&gt;
+&lt;h3 id=&quot;3-导入插件&quot;&gt;3.导入插件&lt;/h3&gt;
 
 &lt;p&gt;stevedore定义了一系列类来帮助更好的调用上面生成的插件&lt;/p&gt;
 
-&lt;h4&gt;以Driver方式调用&lt;/h4&gt;
+&lt;h4 id=&quot;以driver方式调用&quot;&gt;以Driver方式调用&lt;/h4&gt;
 
 &lt;p&gt;这种方式经常被使用，即我们有多个方法可以做成一件事，但是我们只用其中一种就够了，通过stevedore的&lt;code&gt;DriverManager&lt;/code&gt;可以做到，如下：&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# stevedore/example/load_as_driver.py
@@ -1582,7 +1582,7 @@ if __name__ == &amp;#39;__main__&amp;#39;:
 
 &lt;p&gt;例如&lt;code&gt;python -m stevedore.example.load_as_driver a = A&lt;/code&gt;即以默认的name调用plugin，默认的format为simple。&lt;code&gt;python -m stevedore.example.load_as_driver field&lt;/code&gt;为调用field的plugin&lt;/p&gt;
 
-&lt;h4&gt;以Extensions方式调用&lt;/h4&gt;
+&lt;h4 id=&quot;以extensions方式调用&quot;&gt;以Extensions方式调用&lt;/h4&gt;
 
 &lt;p&gt;另外一种常见的方式是调用多个plugin共同处理一件事情，这可以利用&lt;code&gt;ExtensionManager&lt;/code&gt;、&lt;code&gt;NamedExtensionManager&lt;/code&gt;、&lt;code&gt;EnabledExtensionManger&lt;/code&gt;来实现&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# stevedore/example/load_as_extension.py
@@ -1628,7 +1628,7 @@ if __name__ == &amp;#39;__main__&amp;#39;:
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;这里ExtensionManger的参数只需要namespace，因为它将使用这个entry point组中的所有插件，并且通过mgr.map()来为每一个plugin传递参数&lt;/p&gt;
 
-&lt;h4&gt;其他&lt;/h4&gt;
+&lt;h4 id=&quot;其他&quot;&gt;其他&lt;/h4&gt;
 
 &lt;p&gt;除了上面提到的几种方式外，还有&lt;a href=&quot;http://stevedore.readthedocs.org/en/latest/managers.html&quot;&gt;其他&lt;/a&gt;几种可以使用，具体可以自己研究了~&lt;/p&gt;
 </description>
@@ -1639,13 +1639,13 @@ if __name__ == &amp;#39;__main__&amp;#39;:
         <link>http://datavalley.github.io/2013/06/09/learn-python-abc-module.html</link>
         <guid isPermaLink="true">http://datavalley.github.io/2013/06/09/learn-python-abc-module.html</guid>
         <pubDate>Sun, 09 Jun 2013 00:00:00 +0800</pubDate>
-        <description>&lt;h3&gt;1.abc模块作用&lt;/h3&gt;
+        <description>&lt;h3 id=&quot;1-abc模块作用&quot;&gt;1.abc模块作用&lt;/h3&gt;
 
 &lt;p&gt;Python本身不提供抽象类和接口机制，要想实现抽象类，可以借助abc模块。ABC是Abstract Base Class的缩写。&lt;/p&gt;
 
-&lt;h3&gt;2.模块中的类和函数&lt;/h3&gt;
+&lt;h3 id=&quot;2-模块中的类和函数&quot;&gt;2.模块中的类和函数&lt;/h3&gt;
 
-&lt;h4&gt;abc.ABCMeta&lt;/h4&gt;
+&lt;h4 id=&quot;abc-abcmeta&quot;&gt;abc.ABCMeta&lt;/h4&gt;
 
 &lt;p&gt;这是用来生成抽象基础类的元类。由它生成的类可以被直接继承。&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;from abc import ABCMeta
@@ -1689,7 +1689,7 @@ class MyIterable:
 
 MyIterable.register(Foo)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h4&gt;abc.abstractmethod(function)&lt;/h4&gt;
+&lt;h4 id=&quot;abc-abstractmethod-function&quot;&gt;abc.abstractmethod(function)&lt;/h4&gt;
 
 &lt;p&gt;表明抽象方法的生成器&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class C:
@@ -1698,7 +1698,7 @@ MyIterable.register(Foo)
     def my_abstract_method(self, ...):
         ...
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h4&gt;abc.abstractproperty([fget[,fset[,fdel[,doc]]]])&lt;/h4&gt;
+&lt;h4 id=&quot;abc-abstractproperty-fget-fset-fdel-doc&quot;&gt;abc.abstractproperty([fget[,fset[,fdel[,doc]]]])&lt;/h4&gt;
 
 &lt;p&gt;表明一个抽象属性&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;class C:
@@ -1721,7 +1721,7 @@ MyIterable.register(Foo)
         <link>http://datavalley.github.io/2013/06/07/learn-python-setuptools-in-detail.html</link>
         <guid isPermaLink="true">http://datavalley.github.io/2013/06/07/learn-python-setuptools-in-detail.html</guid>
         <pubDate>Fri, 07 Jun 2013 00:00:00 +0800</pubDate>
-        <description>&lt;h3&gt;0.什么是setuptools&lt;/h3&gt;
+        <description>&lt;h3 id=&quot;0-什么是setuptools&quot;&gt;0.什么是setuptools&lt;/h3&gt;
 
 &lt;p&gt;setuptools是Python distutils增强版的集合，它可以帮助我们更简单的创建和分发Python包，尤其是拥有依赖关系的。用户在使用setuptools创建的包时，并不需要已安装setuptools，只要一个&lt;a href=&quot;http://peak.telecommunity.com/dist/ez_setup.py&quot;&gt;启动模块&lt;/a&gt;即可。&lt;/p&gt;
 
@@ -1743,7 +1743,7 @@ MyIterable.register(Foo)
 
 &lt;p&gt;总之，setuptools就是比distutils好用的多，基本满足大型项目的安装和发布&lt;/p&gt;
 
-&lt;h3&gt;1.安装setuptools&lt;/h3&gt;
+&lt;h3 id=&quot;1-安装setuptools&quot;&gt;1.安装setuptools&lt;/h3&gt;
 
 &lt;p&gt;1) 最简单安装，假定在ubuntu下&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;sudo apt-get install python-setuptools
@@ -1752,7 +1752,7 @@ MyIterable.register(Foo)
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;wget http://peak.telecommunity.com/dist/ez_setup.py
 sudo python ez_setup.py
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3&gt;2.创建一个简单的包&lt;/h3&gt;
+&lt;h3 id=&quot;2-创建一个简单的包&quot;&gt;2.创建一个简单的包&lt;/h3&gt;
 
 &lt;p&gt;有了setuptools后，创建一个包基本上是无脑操作&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;cd /tmp 
@@ -1808,7 +1808,7 @@ Archive:  dist/demo-0.1-py2.7.egg
 
 &lt;p&gt;要想发布到PyPI中，需要增加别的参数，这个可以参考&lt;a href=&quot;http://pythonhosted.org/setuptools/setuptools.html#basic-use&quot;&gt;官方文档&lt;/a&gt;中的例子了。&lt;/p&gt;
 
-&lt;h3&gt;3.给包增加内容&lt;/h3&gt;
+&lt;h3 id=&quot;3-给包增加内容&quot;&gt;3.给包增加内容&lt;/h3&gt;
 
 &lt;p&gt;上面生成的egg中没有实质的内容，显然谁也用不了，现在我们稍微调色一下，增加一点内容。&lt;/p&gt;
 
@@ -1868,11 +1868,11 @@ hello world!
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;好了，执行成功！&lt;/p&gt;
 
-&lt;h3&gt;4.setuptools进阶&lt;/h3&gt;
+&lt;h3 id=&quot;4-setuptools进阶&quot;&gt;4.setuptools进阶&lt;/h3&gt;
 
 &lt;p&gt;在上例中，在前两例中，我们基本都使用setup()的默认参数，这只能写一些简单的egg。一旦我们的project逐渐变大以后，维护起来就有点复杂了，下面是setup()的其他参数，我们可以学习一下&lt;/p&gt;
 
-&lt;h4&gt;使用find_packages()&lt;/h4&gt;
+&lt;h4 id=&quot;使用find_packages&quot;&gt;使用find_packages()&lt;/h4&gt;
 
 &lt;p&gt;对于简单工程来说，手动增加packages参数很容易，刚刚我们用到了这个函数，它默认在和setup.py同一目录下搜索各个含有&lt;code&gt;__init__.py&lt;/code&gt;的包。其实我们可以将包统一放在一个src目录中，另外，这个包内可能还有aaa.txt文件和data数据文件夹。&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;demo
@@ -1919,7 +1919,7 @@ setup(
 &lt;p&gt;另外，也可以排除一些特定的包，如果在src中再增加一个tests包，可以通过exclude来排除它,&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;find_packages(exclude=[&amp;quot;*.tests&amp;quot;, &amp;quot;*.tests.*&amp;quot;, &amp;quot;tests.*&amp;quot;, &amp;quot;tests&amp;quot;])
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h4&gt;使用entry_points&lt;/h4&gt;
+&lt;h4 id=&quot;使用entry_points&quot;&gt;使用entry_points&lt;/h4&gt;
 
 &lt;p&gt;一个字典，从entry point组名映射道一个表示entry point的字符串或字符串列表。Entry points是用来支持动态发现服务和插件的，也用来支持自动生成脚本。这个还是看例子比较好理解：&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;setup(
@@ -1952,7 +1952,7 @@ if __name__ == &amp;#39;__main__&amp;#39;:
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;这个内容其实显示的意思是，foo将执行console_scripts中定义的foo所代表的函数。执行foo，发现打出了&lt;code&gt;hello world!&lt;/code&gt;，和预期结果一样。&lt;/p&gt;
 
-&lt;h4&gt;使用Eggsecutable Scripts&lt;/h4&gt;
+&lt;h4 id=&quot;使用eggsecutable-scripts&quot;&gt;使用Eggsecutable Scripts&lt;/h4&gt;
 
 &lt;p&gt;从字面上来理解这个词，Eggsecutable是Eggs和executable合成词，翻译过来就是另eggs可执行。也就是说定义好一个参数以后，可以另你生成的.egg文件可以被直接执行，貌似Java的.jar也有这机制？不很清楚，下面是使用方法：&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;setup(
@@ -1966,7 +1966,7 @@ if __name__ == &amp;#39;__main__&amp;#39;:
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;这么写意味着在执行&lt;code&gt;python *.egg&lt;/code&gt;时，会执行我的test()函数，在文档中说需要将.egg放到PATH路径中。&lt;/p&gt;
 
-&lt;h4&gt;包含数据文件&lt;/h4&gt;
+&lt;h4 id=&quot;包含数据文件&quot;&gt;包含数据文件&lt;/h4&gt;
 
 &lt;p&gt;在3中我们已经列举了如何包含数据文件，其实setuptools提供的不只这么一种方法，下面是另外两种&lt;/p&gt;
 
@@ -1994,7 +1994,7 @@ setup(
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;如果没有使用版本控制的话，可以还是使用3中提到的包含方法&lt;/p&gt;
 
-&lt;h4&gt;可扩展的框架和应用&lt;/h4&gt;
+&lt;h4 id=&quot;可扩展的框架和应用&quot;&gt;可扩展的框架和应用&lt;/h4&gt;
 
 &lt;p&gt;setuptools可以帮助你将应用变成插件模式，供别的应用使用。官网举例是一个帮助博客更改输出类型的插件，一个博客可能想要输出不同类型的文章，但是总自己写输出格式化代码太繁琐，可以借助一个已经写好的应用，在编写博客程序的时候动态调用其中的代码。&lt;/p&gt;
 
@@ -2021,7 +2021,7 @@ setup(
 
 &lt;p&gt;另外，一个名叫&lt;a href=&quot;http://stevedore.readthedocs.org/en/latest/index.html&quot;&gt;stevedore&lt;/a&gt;的库将这个方式做了封装，更加方便进行应用的扩展。&lt;/p&gt;
 
-&lt;h3&gt;5. 以后增加&lt;/h3&gt;
+&lt;h3 id=&quot;5-以后增加&quot;&gt;5. 以后增加&lt;/h3&gt;
 
 &lt;p&gt;以上内容大部分来自于&lt;a href=&quot;http://pythonhosted.org/setuptools/setuptools.html&quot;&gt;官方文档&lt;/a&gt;，需要额外学习的以后再增加&lt;/p&gt;
 </description>
@@ -2032,14 +2032,14 @@ setup(
         <link>http://datavalley.github.io/2013/05/23/install-mysql-and-mongo-web-admin.html</link>
         <guid isPermaLink="true">http://datavalley.github.io/2013/05/23/install-mysql-and-mongo-web-admin.html</guid>
         <pubDate>Thu, 23 May 2013 00:00:00 +0800</pubDate>
-        <description>&lt;h2&gt;MySQL管理界面&lt;/h2&gt;
+        <description>&lt;h2 id=&quot;mysql管理界面&quot;&gt;MySQL管理界面&lt;/h2&gt;
 
 &lt;p&gt;这个没多少选择，大部分人都安装的是phpmyadmin，而且简单方便，在ubuntu下，只要&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;apt-get install phpmyadmin
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;设置也不需要，只要在安装过程中输入mysql密码即可，访问&lt;code&gt;http://localhost/phpmyadmin&lt;/code&gt;即可&lt;/p&gt;
 
-&lt;h2&gt;MongoDB管理界面&lt;/h2&gt;
+&lt;h2 id=&quot;mongodb管理界面&quot;&gt;MongoDB管理界面&lt;/h2&gt;
 
 &lt;p&gt;MongoDB的工具还比较多，没有一个能够统一全部工具的，不过推荐使用RockMongo，这个工具确实速度很快，而且很顺手，支持中文&lt;/p&gt;
 
@@ -2067,17 +2067,17 @@ setup(
         <link>http://datavalley.github.io/2013/04/23/deploy-jeklly-blog.html</link>
         <guid isPermaLink="true">http://datavalley.github.io/2013/04/23/deploy-jeklly-blog.html</guid>
         <pubDate>Tue, 23 Apr 2013 00:00:00 +0800</pubDate>
-        <description>&lt;h2&gt;简单介绍&lt;/h2&gt;
+        <description>&lt;h2 id=&quot;简单介绍&quot;&gt;简单介绍&lt;/h2&gt;
 
-&lt;h3&gt;GitHub&lt;/h3&gt;
+&lt;h3 id=&quot;github&quot;&gt;GitHub&lt;/h3&gt;
 
 &lt;p&gt;GitHub不用多说，应该大家都知道，托管库的，上&lt;a href=&quot;www.github.com&quot;&gt;GitHub官网&lt;/a&gt;一看就知道&lt;/p&gt;
 
-&lt;h3&gt;Jekyll&lt;/h3&gt;
+&lt;h3 id=&quot;jekyll&quot;&gt;Jekyll&lt;/h3&gt;
 
 &lt;p&gt;Jekyll是一个简单的用来生成静态页面的工具，不光能生成博客。&lt;a href=&quot;https://github.com/mojombo/jekyll&quot;&gt;项目位置&lt;/a&gt;，&lt;a href=&quot;https://github.com/mojombo/jekyll/wiki&quot;&gt;项目Wiki&lt;/a&gt;&lt;/p&gt;
 
-&lt;h3&gt;为什么是它们俩&lt;/h3&gt;
+&lt;h3 id=&quot;为什么是它们俩&quot;&gt;为什么是它们俩&lt;/h3&gt;
 
 &lt;p&gt;GitHub托管项目是不提供服务端语言和数据库的，但是它支持静态页面的访问的，所以需要用Jekyll来将博客弄成静态的。&lt;/p&gt;
 
@@ -2091,7 +2091,7 @@ setup(
 
 &lt;p&gt;整个过程几乎没有多余的步骤，对于经常用键盘的人来说，再好不过了&lt;/p&gt;
 
-&lt;h2&gt;本地环境&lt;/h2&gt;
+&lt;h2 id=&quot;本地环境&quot;&gt;本地环境&lt;/h2&gt;
 
 &lt;p&gt;我搭建本地环境主要是为了开发用，因为开发阶段总不能一直push push来看效果吧。怎么搭建一个jekyll的本地环境网上资料很多，就不赘述了，&lt;a href=&quot;https://github.com/mojombo/jekyll/wiki/Install&quot;&gt;官网传送门&lt;/a&gt;&lt;/p&gt;
 </description>
@@ -2146,33 +2146,33 @@ setup(
         <link>http://datavalley.github.io/2013/04/22/highlight-of-jekyll.html</link>
         <guid isPermaLink="true">http://datavalley.github.io/2013/04/22/highlight-of-jekyll.html</guid>
         <pubDate>Mon, 22 Apr 2013 00:00:00 +0800</pubDate>
-        <description>&lt;h3&gt;代码高亮方式选择&lt;/h3&gt;
+        <description>&lt;h3 id=&quot;代码高亮方式选择&quot;&gt;代码高亮方式选择&lt;/h3&gt;
 
-&lt;h4&gt;1.小片段&lt;/h4&gt;
+&lt;h4 id=&quot;1-小片段&quot;&gt;1.小片段&lt;/h4&gt;
 
 &lt;p&gt;直接使用“ ` ”符号包含起来，或者使用一个tab直接利用markdown来做高亮&lt;/p&gt;
 
-&lt;h4&gt;2.Pygments渲染&lt;/h4&gt;
+&lt;h4 id=&quot;2-pygments渲染&quot;&gt;2.Pygments渲染&lt;/h4&gt;
 
 &lt;p&gt;Jekyll通过&lt;a href=&quot;http://pygments.org/&quot;&gt;Pygments&lt;/a&gt;可以直接处理代码高亮&lt;/p&gt;
 
 &lt;p&gt;在Github Pages的&lt;a href=&quot;https://github.com/mojombo/jekyll/wiki/Liquid-Extensions&quot;&gt;文档&lt;/a&gt;里，也提到了这个方式，但是总觉得这样有点不是很舒服，打破了markdown的格式&lt;/p&gt;
 
-&lt;h4&gt;3.gist嵌入方式&lt;/h4&gt;
+&lt;h4 id=&quot;3-gist嵌入方式&quot;&gt;3.gist嵌入方式&lt;/h4&gt;
 
 &lt;p&gt;这个&lt;a href=&quot;https://gist.github.com/imathis/1027674&quot;&gt;方式&lt;/a&gt;使用了一个插件，而且gist也得管理，增大了开销……&lt;/p&gt;
 
-&lt;h4&gt;4.js和css处理&lt;/h4&gt;
+&lt;h4 id=&quot;4-js和css处理&quot;&gt;4.js和css处理&lt;/h4&gt;
 
 &lt;p&gt;这个方式使用了&lt;a href=&quot;https://code.google.com/p/google-code-prettify/&quot;&gt;google-code-prettify&lt;/a&gt;来渲染代码高亮，本身库并不是很大，使用方便，最后我也选择了这个&lt;/p&gt;
 
-&lt;h3&gt;Prettify使用&lt;/h3&gt;
+&lt;h3 id=&quot;prettify使用&quot;&gt;Prettify使用&lt;/h3&gt;
 
-&lt;h4&gt;1.下载代码&lt;/h4&gt;
+&lt;h4 id=&quot;1-下载代码&quot;&gt;1.下载代码&lt;/h4&gt;
 
 &lt;p&gt;直接到&lt;a href=&quot;https://code.google.com/p/google-code-prettify/&quot;&gt;google-code-prettify&lt;/a&gt;官网下载代码，然后将它们放到项目下&lt;/p&gt;
 
-&lt;h4&gt;2.包含css和js&lt;/h4&gt;
+&lt;h4 id=&quot;2-包含css和js&quot;&gt;2.包含css和js&lt;/h4&gt;
 
 &lt;p&gt;官网提到了可以直接包含run_prettify.js的方式，这个会导入远程库，我选择了自己导入，如下&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;/public/js/prettify/prettify.css&amp;quot;&amp;gt;
@@ -2186,7 +2186,7 @@ setup(
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;这里导入了css和js后，就可以直接用markdown的tab的方式来导入代码段了&lt;/p&gt;
 
-&lt;h4&gt;3.更换主题&lt;/h4&gt;
+&lt;h4 id=&quot;3-更换主题&quot;&gt;3.更换主题&lt;/h4&gt;
 
 &lt;p&gt;默认主题不是很好看，只要更换prettify.css即可更换样式，可以到&lt;a href=&quot;http://google-code-prettify.googlecode.com/svn/trunk/styles/index.html&quot;&gt;这里&lt;/a&gt;下载自己喜欢的主题css即可&lt;/p&gt;
 </description>
@@ -2197,7 +2197,7 @@ setup(
         <link>http://datavalley.github.io/2013/01/09/remote-access-of-mysql.html</link>
         <guid isPermaLink="true">http://datavalley.github.io/2013/01/09/remote-access-of-mysql.html</guid>
         <pubDate>Wed, 09 Jan 2013 00:00:00 +0800</pubDate>
-        <description>&lt;h2&gt;增加可访问权限&lt;/h2&gt;
+        <description>&lt;h2 id=&quot;增加可访问权限&quot;&gt;增加可访问权限&lt;/h2&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;格式：grant 权限 on 数据库名.表名 to 用户@登录主机 identified by &amp;quot;用户密码&amp;quot;;
 grant select,update,insert,delete on *.* to root@192.168.1.12 identified by &amp;quot;root&amp;quot;;
 
@@ -2207,7 +2207,7 @@ grant all privileges  on *.* to root@&amp;#39;%&amp;#39; identified by &amp;quot
 
 &lt;p&gt;如果这个不行的话直接将%改为你的ip即可&lt;/p&gt;
 
-&lt;h2&gt;开放3306端口&lt;/h2&gt;
+&lt;h2 id=&quot;开放3306端口&quot;&gt;开放3306端口&lt;/h2&gt;
 
 &lt;p&gt;mysql使用的是3306端口，为了防止防火墙将其关闭，可以使用下面方式&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;在linux下要开启防火墙 打开3306 端口
@@ -2221,7 +2221,7 @@ grant all privileges  on *.* to root@&amp;#39;%&amp;#39; identified by &amp;quot
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;直接关闭防火墙……这个实在有点直接，但是绝对好使&lt;/p&gt;
 
-&lt;h2&gt;MySQL自身设置&lt;/h2&gt;
+&lt;h2 id=&quot;mysql自身设置&quot;&gt;MySQL自身设置&lt;/h2&gt;
 
 &lt;p&gt;在Ubuntu下执行上述步骤还是不能访问，这个时候修改/etc/mysql/my.conf文件，注释掉下面这句：&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;bind-address = 127.0.0.1
@@ -2237,7 +2237,7 @@ grant all privileges  on *.* to root@&amp;#39;%&amp;#39; identified by &amp;quot
 &lt;p&gt;以前开发php时，一直在使用&lt;a href=&quot;http://sae.sina.com.cn&quot; title=&quot;sae&quot;&gt;sae&lt;/a&gt;的平台和服务，非常的喜欢。现在在整openstack，所以改用python做一些东西，为了不来回切换两个语言，我决定学习学习django，方便做一些自己的东西。关于sae下python的使用，&lt;a href=&quot;http://appstack.sinaapp.com/static/doc/release/testing/index.html&quot; title=&quot;sae官方文档&quot;&gt;sae官方文档&lt;/a&gt;写的非常全面，我这里只是记录自己的一个学习过程&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h2&gt;搭建本地开发环境&lt;/h2&gt;
+&lt;h2 id=&quot;搭建本地开发环境&quot;&gt;搭建本地开发环境&lt;/h2&gt;
 
 &lt;p&gt;安装django&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;easy_install django
@@ -2247,7 +2247,7 @@ grant all privileges  on *.* to root@&amp;#39;%&amp;#39; identified by &amp;quot
 cd dev_server
 python setup.py install
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h2&gt;创建python项目&lt;/h2&gt;
+&lt;h2 id=&quot;创建python项目&quot;&gt;创建python项目&lt;/h2&gt;
 
 &lt;p&gt;到sae.sina.com.cn下创建一个python项目&lt;/p&gt;
 
@@ -2281,7 +2281,7 @@ if __name__ == &amp;#39;__main__&amp;#39;:
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;这样就能通过增加--host，将外部访问的ip设定好了&lt;/p&gt;
 
-&lt;h2&gt;实现一个简单的投票应用&lt;/h2&gt;
+&lt;h2 id=&quot;实现一个简单的投票应用&quot;&gt;实现一个简单的投票应用&lt;/h2&gt;
 
 &lt;p&gt;在1目录下，创建应用&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;python manage.py startapp polls
