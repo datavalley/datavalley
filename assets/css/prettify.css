@@ -14,7 +14,7 @@
 }
 .kwd
 {
-    color: #93C763;
+    color: #859900;
 }
 .com
 {
@@ -62,21 +62,21 @@ ol.linenums
     margin-bottom: 0;
 }
 .prettyprint {
-    background: #474d57;
+    background: #f6f6f6;
 }
 /**
  * 偶数行效果
  */
 li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9
 {
-    color: #474d57;
+    color: #f6f6f6;
     list-style-type: decimal;
 }
 /**
  * 奇数行效果
  */
 li.L1, li.L3, li.L5, li.L7, li.L9 {
-    background: #474d57;
+    background: #f6f6f6;
 }
 @media print
 {
@@ -87,7 +87,7 @@ li.L1, li.L3, li.L5, li.L7, li.L9 {
   }
   .kwd
   {
-      color: #93C763;
+      color: #859900;
   }
   .com
   {

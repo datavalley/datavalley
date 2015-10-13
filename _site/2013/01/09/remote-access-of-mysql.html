@@ -17,7 +17,6 @@
 
 <link rel="stylesheet" type="text/css" href="/assets/css/prettify.css">
 <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
-<link rel="stylesheet" type="text/css" href="/assets/css/prettify.css">
 <link href="/pages/rss.xml" rel="alternate" title="数据谷" type="application/atom+xml">
 
   </head>
@@ -191,5 +190,11 @@ grant all privileges  on *.* to root@&#39;%&#39; identified by &quot;root&quot;;
       })();
     </script>
 
+    <script type="text/javascript">
+        $(function() {
+           $('pre').addClass('prettyprint linenums').attr('style', 'overflow:auto');
+           prettyPrint();
+        });
+    </script>>
   </body>
 </html>
