@@ -1,18 +1,16 @@
-### 我的博客
+JavaChen Blog
+======
 
-地址：[http://datavalley.github.io](http://datavalley.github.io)
+[http:/blog.javachen.com](http://blog.javachen.com)博客的源码。
 
-### 安装说明
+该博客使用 jekyll+bootstrap-3+Markdown 搭建。
 
-1. fork库到自己的github
-2. 修改名字为：`username.github.io`
-3. clone库到本地，参考`_posts`中的目录结构自己创建适合自己的文章目录结构
-4. 修改CNAME，或者删掉这个文件，使用默认域名
-5. 修改`_config.yml`配置项
-6. It's done!
+使用本主题，请：
 
-### 分支说明
+- 修改 _config.yaml
+- 修改 CNAME
 
-- 三栏布局（master分支，基于[3-Jekyll](https://github.com/P233/3-Jekyll)）
-- 三栏布局 (bootstrap-based分支，基于Bootstrap)
-- 单栏布局（first-ui分支，基于Bootstrap）
+# Tanks TO
+
+主题从 <https://gitcafe.com/Havee> 修改而来，感谢原作者！
+
