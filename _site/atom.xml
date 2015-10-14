@@ -4,75 +4,12 @@
   <title>Data Valley</title>
   <link href="//atom.xml" rel="self"/>
   <link href=""/>
-  <updated>2015-10-14T17:04:34+08:00</updated>
+  <updated>2015-10-14T19:53:26+08:00</updated>
   <id></id>
   <author>
     <name>小z</name>
   </author>
 
-  
-  <entry>
-    <title>Jekyll格式说明!</title>
-    <link href="/2015/10/15/hello-jekyll%E5%89%AF%E6%9C%AC/"/>
-    <updated>2015-10-15T00:00:00+08:00</updated>
-    <id>/2015/10/15/hello-jekyll副本</id>
-    <content type="html">1. 标题与文字格式
-
-标题
-# 测试 h1
-## 测试 h2
-### 测试 h3
-#### 测试 h4
-##### 测试 h5
-###### 测试 h6
-
-效果：
-
-测试 h1
-
-测试 h2
-
-测试 h3
-
-测试 h4
-
-测试 h5
-
-测试 h6
-
-文字格式
-**这是文字粗体格式**
-*这是文字斜体格式*
-~~在文字上添加删除线~~
-
-这是文字粗体格式
-这是文字斜体格式
-在文字上添加删除线
-
-2. 列表
-
-无序列表
-* 项目1
-* 项目2
-* 项目3
-
-
-项目1
-项目2
-项目3
-
-
-有序列表
-1. 项目1
-2. 项目2
-3. 项目3
-   * 项目1
-   * 项目2
-
-
-项目1
-项目...</content>
-  </entry>
   
   <entry>
     <title>Jekyll格式说明!</title>

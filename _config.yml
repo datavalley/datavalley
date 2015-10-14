@@ -4,7 +4,7 @@ tagline: tagline
 url:
 author:
     name: 小z
-    github: https://github.com/datavalley
+    github: datavalley/datavalley.github.io
     email: 1064328629@qq.com
     weibo:
 atom_path: /atom.xml
@@ -52,8 +52,8 @@ redcarpet:
 
 # comment
 comments:
-  duoshuo:
-    name:
+  duoshuo: 
+    name: zmz
     rcomments:
         num: 8
         avatar: 0
