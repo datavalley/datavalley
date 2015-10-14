@@ -9,7 +9,9 @@
 
   /categories.html
 
-  /index1.html
+  /index.html
+
+  /index.html
 
   /pages/rss.xml
 
@@ -22,5 +24,7 @@
   /tags.html
 
 
+
+  /2015/10/15/hello-jekyll%E5%89%AF%E6%9C%AC
 
   /2015/10/14/hello-jekyll
