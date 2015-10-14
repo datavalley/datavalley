@@ -1,13 +1,11 @@
 # Site settings
-title : Jeklly Blog
-tagline:
+title : Data Valley
+tagline: tagline
 url:
 author:
-    name:
-    github:
-    email:
-    twitter:
-    facebook:
+    name: 小z
+    github: https://github.com/
+    email: 1064328629@qq.com
     weibo:
 atom_path: /atom.xml
 rss_path: /rss.xml

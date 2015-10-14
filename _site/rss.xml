@@ -1,16 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <channel>
     <title>Data Valley</title>
-    <link></link>
-    <description></description>
+    <description>tagline</description>
+    <link>/rss.xml</link>
+    <lastBuildDate>2015-10-14T13:38:53+08:00</lastBuildDate>
+    <pubDate>2015-10-14T13:38:53+08:00</pubDate>
+    <ttl>1800</ttl>
+
     
-      <item>
-        <title>Jekyll格式说明!</title>
-        <link>/2015/10/14/hello-jekyll</link>
-        <guid isPermaLink="true">/2015/10/14/hello-jekyll</guid>
-        <pubDate>Wed, 14 Oct 2015 00:00:00 +0800</pubDate>
-        <description>&lt;h1 id=&quot;1-标题与文字格式&quot;&gt;1. 标题与文字格式&lt;/h1&gt;
+    <item>
+      <title>Jekyll格式说明!</title>
+      <description>&lt;h1 id=&quot;1-标题与文字格式&quot;&gt;1. 标题与文字格式&lt;/h1&gt;
 
 &lt;h2 id=&quot;标题&quot;&gt;标题&lt;/h2&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# 测试 h1
@@ -166,7 +167,10 @@
 &lt;li&gt;&lt;a href=&quot;http://havee.me/internet/2013-07/jekyll-liquid-extensions.html&quot;&gt;Jekyll 扩展的 Liquid 模板&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-      </item>
+      <link>/2015/10/14/hello-jekyll/</link>
+      <guid>/2015/10/14/hello-jekyll/</guid>
+      <pubDate>2015-10-14T00:00:00+08:00</pubDate>
+    </item>
     
   </channel>
 </rss>
