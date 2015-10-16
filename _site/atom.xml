@@ -4,12 +4,26 @@
   <title>Data Valley</title>
   <link href="//atom.xml" rel="self"/>
   <link href=""/>
-  <updated>2015-10-16T16:38:54+08:00</updated>
+  <updated>2015-10-16T17:21:48+08:00</updated>
   <id></id>
   <author>
     <name>小z</name>
   </author>
 
+  
+  <entry>
+    <title>OLAP</title>
+    <link href="/2015/10/16/olap/"/>
+    <updated>2015-10-16T00:00:00+08:00</updated>
+    <id>/2015/10/16/olap</id>
+    <content type="html">1.介绍
+
+OLAP（On-Line Analytical Processing），译为联机分析处理，权威的定义为：OLAP是使分析人员、管理人员或执行人员能够从多种角度对从原始数据中转化出来的、能够真正为用户所理解的、并真实反映企业维特性的信息进行快速、一致、交互地存取，从而获得对数据的更深入了解的一类软件技术。
+
+目前数据处理大致可以分为两大类：OLAP和OLTP(On-Line Transaction Processing，联机事务处理)。OLTP的出现早于OLAP。
+
+OLTP是传统数据库的主要应用，面向当前的数据，主要是基本的、日常的事务处理。随着数据库技术的广泛应用，企业产生...</content>
+  </entry>
   
   <entry>
     <title>Jekyll格式说明!</title>
