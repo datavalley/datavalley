@@ -1,11 +1,13 @@
 ---
 title: About
-layout: page
+layout: post
 group: navigation
 comment: true
 ---
 
 #### 简介
+
+本人数学出身，后转入计算机，学过机器学习和NLP，现从事数据仓库相关的工作。
 
 一直佩服坚持写东西的人，感觉那些人有思想，有耐心，有文笔。在学校的时候也曾搭建过个人博客，那时最多是玩玩，跟风的嫌疑很大。
 
@@ -38,8 +40,6 @@ RSS：[{{ site.url }}{{ '/rss.xml' }}](/rss.xml)
 {% endif %}
 
 {% include support.html %}
-
-{% include comments.html %}
 
 ----
 
