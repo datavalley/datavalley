@@ -4,8 +4,8 @@
     <title>Data Valley</title>
     <description>tagline</description>
     <link>http://datavalley.github.io/rss.xml</link>
-    <lastBuildDate>2015-10-17T09:50:44+08:00</lastBuildDate>
-    <pubDate>2015-10-17T09:50:44+08:00</pubDate>
+    <lastBuildDate>2015-10-17T10:58:03+08:00</lastBuildDate>
+    <pubDate>2015-10-17T10:58:03+08:00</pubDate>
     <ttl>1800</ttl>
 
     
@@ -222,7 +222,7 @@
     
     <item>
       <title>Hive源码解析之本地环境搭建</title>
-      <description>&lt;p&gt;在使用了hive一段时间后，对简单的hive基本原理和操作有了一些的了解。hive构建与hadoop之上，是非常流行的数据仓库工具。hive将结构化的数据映射为数据文件存储在hdfs上，并提供SQL查询功能对数据进行检索和处理。最终，hive将SQL查询转换为MapReduce任务。&lt;/p&gt;
+      <description>&lt;p&gt;在使用了hive一段时间后，对简单的hive基本原理和操作有了一些了解。hive构建与hadoop之上，是非常流行的数据仓库工具。hive将结构化的数据映射为数据文件存储在hdfs上，并提供SQL查询功能对数据进行检索和处理。最终，hive将SQL查询转换为MapReduce任务。&lt;/p&gt;
 
 &lt;p&gt;面对hive强大的功能，总有一些冲动想搞清其“庐山真面目”，弄懂其运行的基本流程和原理。于是开启了hive源码的学习之路。&lt;/p&gt;
 
@@ -266,7 +266,7 @@
 
 &lt;h2 id=&quot;2-2-编译hive源码&quot;&gt;2.2 编译hive源码&lt;/h2&gt;
 
-&lt;p&gt;运行一下命令，采用maven对hive源码进行编译：&lt;/p&gt;
+&lt;p&gt;进入解压目录，运行以下命令，采用maven对hive源码进行编译：&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;mvn clean package -DskipTests -Phadoop-2 -Pdist
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;编译过程会下载jar包，可能较慢，请耐心等待。&lt;/p&gt;
@@ -334,7 +334,7 @@
 
 &lt;h2 id=&quot;2-4-配置mysql环境&quot;&gt;2.4 配置MySQL环境&lt;/h2&gt;
 
-&lt;p&gt;Hive默认将元数据存储在derbyDB数据库中，但derbyDB只能允许一个会话连接，只适合简单的测试。在实际的生产环境中，一般选择MySQL作为hive存储元数据的数据库。&lt;/p&gt;
+&lt;p&gt;Hive默认将元数据存储在Derby数据库中，但Derby只能允许一个会话连接，只适合简单的测试。在实际的生产环境中，一般选择MySQL作为hive存储元数据的数据库。&lt;/p&gt;
 
 &lt;h3 id=&quot;2-4-1-建立hive_meta数据库和hive_user用户&quot;&gt;2.4.1 建立hive_meta数据库和hive_user用户&lt;/h3&gt;
 
@@ -345,10 +345,10 @@
 &lt;span class=&quot;n&quot;&gt;mysql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;GRANT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ALL&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;PRIVILEGES&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TO&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;hive_user&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;localhost&amp;#39;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IDENTIFIED&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;hive_user_password&amp;#39;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WITH&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;GRANT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;OPTION&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;mysql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flush&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;privileges&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;即：&lt;/p&gt;
-
-&lt;p&gt;用户名：hive_user&lt;br&gt;
-  密码：hive_user_password&lt;/p&gt;
+&lt;p&gt;即：&lt;br&gt;
+数据库：hive_meta&lt;br&gt;
+用户名：hive_user&lt;br&gt;
+密码：hive_user_password&lt;/p&gt;
 
 &lt;h3 id=&quot;2-4-2-复制jdbc驱动包&quot;&gt;2.4.2 复制JDBC驱动包&lt;/h3&gt;
 
@@ -362,6 +362,9 @@
 
 &lt;p&gt;这一点非常关键，因为不同机器上会有不同的结果：查看MySQL的端口号。&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-SQL&quot; data-lang=&quot;SQL&quot;&gt;&lt;span class=&quot;n&quot;&gt;mysql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;show&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;global&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;variables&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;like&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;port&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;注：也可以使用下面的shell命令查看MySQL的端口：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;ps -ef | grep mysqld
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;strong&gt;虽然MySQL的默认端口号为3306，网上很多教程在配置hive-site.xml时也使用3306端口。但在我的机器上，运行上述MySQL命令后得到的端口号为3307。所以大家需要根据自己的实际情况来选择，避免走弯路！！！&lt;/strong&gt;&lt;/p&gt;
 
@@ -383,6 +386,14 @@
         &lt;span class=&quot;nt&quot;&gt;&amp;lt;value&amp;gt;&lt;/span&gt;hive_user_password&lt;span class=&quot;nt&quot;&gt;&amp;lt;/value&amp;gt;&lt;/span&gt;
     &lt;span class=&quot;nt&quot;&gt;&amp;lt;/property&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;解释：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;“jdbc:mysql://localhost:3307/hive_meta?=createDatabaseIfNotExist=true”： &lt;strong&gt;hive_meta&lt;/strong&gt;就是我们创建的数据库的名字&lt;br&gt;
+&lt;strong&gt;hive_user&lt;/strong&gt;：用户名&lt;br&gt;
+&lt;strong&gt;hive_user_password&lt;/strong&gt;：密码&lt;/p&gt;
+&lt;/blockquote&gt;
+
 &lt;p&gt;之后，启动hive：&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;bin/hive
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -408,7 +419,7 @@ Caused by: java.net.URISyntaxException: Relative path in absolute URI: ${system:
     at org.apache.hadoop.fs.Path.initialize(Path.java:203)
     ... 10 more
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;a href=&quot;http://blog.csdn.net/zwx19921215/article/details/42776589&quot;&gt;解决方法为&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;解决方法为：（参考:&lt;a href=&quot;http://blog.csdn.net/zwx19921215/article/details/42776589&quot;&gt;http://blog.csdn.net/zwx19921215/article/details/42776589&lt;/a&gt; ）&lt;/p&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;1.查看hive-site.xml配置，会看到配置值含有&amp;quot;system:java.io.tmpdir&amp;quot;的配置项&lt;br&gt;

@@ -66,7 +66,7 @@
                 </h1>
 
                 <div>
-                <p>在使用了hive一段时间后，对简单的hive基本原理和操作有了一些的了解。hive构建与hadoop之上，是非常流行的数据仓库工具。hive将结构化的数据映射为数据文件存储在hdfs上，并提供SQL查询功能对数据进行检索和处理。最终，hive将SQL查询转换为MapReduce任务。</p>
+                <p>在使用了hive一段时间后，对简单的hive基本原理和操作有了一些了解。hive构建与hadoop之上，是非常流行的数据仓库工具。hive将结构化的数据映射为数据文件存储在hdfs上，并提供SQL查询功能对数据进行检索和处理。最终，hive将SQL查询转换为MapReduce任务。</p>
 
 <p>面对hive强大的功能，总有一些冲动想搞清其“庐山真面目”，弄懂其运行的基本流程和原理。于是开启了hive源码的学习之路。</p>
 
@@ -110,7 +110,7 @@
 
 <h2 id="2-2-编译hive源码">2.2 编译hive源码</h2>
 
-<p>运行一下命令，采用maven对hive源码进行编译：</p>
+<p>进入解压目录，运行以下命令，采用maven对hive源码进行编译：</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">mvn clean package -DskipTests -Phadoop-2 -Pdist
 </code></pre></div>
 <p>编译过程会下载jar包，可能较慢，请耐心等待。</p>
@@ -178,7 +178,7 @@
 
 <h2 id="2-4-配置mysql环境">2.4 配置MySQL环境</h2>
 
-<p>Hive默认将元数据存储在derbyDB数据库中，但derbyDB只能允许一个会话连接，只适合简单的测试。在实际的生产环境中，一般选择MySQL作为hive存储元数据的数据库。</p>
+<p>Hive默认将元数据存储在Derby数据库中，但Derby只能允许一个会话连接，只适合简单的测试。在实际的生产环境中，一般选择MySQL作为hive存储元数据的数据库。</p>
 
 <h3 id="2-4-1-建立hive_meta数据库和hive_user用户">2.4.1 建立hive_meta数据库和hive_user用户</h3>
 
@@ -189,10 +189,10 @@
 <span class="n">mysql</span><span class="o">&gt;</span> <span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">ON</span> <span class="o">*</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="s1">&#39;hive_user&#39;</span><span class="o">@</span><span class="s1">&#39;localhost&#39;</span> <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">&#39;hive_user_password&#39;</span> <span class="k">WITH</span> <span class="k">GRANT</span> <span class="k">OPTION</span><span class="p">;</span>
 <span class="n">mysql</span><span class="o">&gt;</span> <span class="n">flush</span> <span class="k">privileges</span><span class="p">;</span>
 </code></pre></div>
-<p>即：</p>
-
-<p>用户名：hive_user<br>
-  密码：hive_user_password</p>
+<p>即：<br>
+数据库：hive_meta<br>
+用户名：hive_user<br>
+密码：hive_user_password</p>
 
 <h3 id="2-4-2-复制jdbc驱动包">2.4.2 复制JDBC驱动包</h3>
 
@@ -206,6 +206,9 @@
 
 <p>这一点非常关键，因为不同机器上会有不同的结果：查看MySQL的端口号。</p>
 <div class="highlight"><pre><code class="language-SQL" data-lang="SQL"><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">show</span> <span class="k">global</span> <span class="n">variables</span> <span class="k">like</span> <span class="s1">&#39;port&#39;</span>
+</code></pre></div>
+<p>注：也可以使用下面的shell命令查看MySQL的端口：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">ps -ef | grep mysqld
 </code></pre></div>
 <p><strong>虽然MySQL的默认端口号为3306，网上很多教程在配置hive-site.xml时也使用3306端口。但在我的机器上，运行上述MySQL命令后得到的端口号为3307。所以大家需要根据自己的实际情况来选择，避免走弯路！！！</strong></p>
 
@@ -227,6 +230,14 @@
         <span class="nt">&lt;value&gt;</span>hive_user_password<span class="nt">&lt;/value&gt;</span>
     <span class="nt">&lt;/property&gt;</span>
 </code></pre></div>
+<p>解释：</p>
+
+<blockquote>
+<p>“jdbc:mysql://localhost:3307/hive_meta?=createDatabaseIfNotExist=true”： <strong>hive_meta</strong>就是我们创建的数据库的名字<br>
+<strong>hive_user</strong>：用户名<br>
+<strong>hive_user_password</strong>：密码</p>
+</blockquote>
+
 <p>之后，启动hive：</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">bin/hive
 </code></pre></div>
@@ -252,7 +263,7 @@ Caused by: java.net.URISyntaxException: Relative path in absolute URI: ${system:
     at org.apache.hadoop.fs.Path.initialize(Path.java:203)
     ... 10 more
 </code></pre></div>
-<p><a href="http://blog.csdn.net/zwx19921215/article/details/42776589">解决方法为</a></p>
+<p>解决方法为：（参考:<a href="http://blog.csdn.net/zwx19921215/article/details/42776589">http://blog.csdn.net/zwx19921215/article/details/42776589</a> ）</p>
 
 <blockquote>
 <p>1.查看hive-site.xml配置，会看到配置值含有&quot;system:java.io.tmpdir&quot;的配置项<br>
