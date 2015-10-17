@@ -4,7 +4,7 @@
   <title>Data Valley</title>
   <link href="//atom.xml" rel="self"/>
   <link href=""/>
-  <updated>2015-10-16T17:21:48+08:00</updated>
+  <updated>2015-10-17T09:50:44+08:00</updated>
   <id></id>
   <author>
     <name>小z</name>
@@ -23,6 +23,20 @@ OLAP（On-Line Analytical Processing），译为联机分析处理，权威的�
 目前数据处理大致可以分为两大类：OLAP和OLTP(On-Line Transaction Processing，联机事务处理)。OLTP的出现早于OLAP。
 
 OLTP是传统数据库的主要应用，面向当前的数据，主要是基本的、日常的事务处理。随着数据库技术的广泛应用，企业产生...</content>
+  </entry>
+  
+  <entry>
+    <title>Hive源码解析之本地环境搭建</title>
+    <link href="/2015/10/16/Hive%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E4%B9%8B%E6%9C%AC%E5%9C%B0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
+    <updated>2015-10-16T00:00:00+08:00</updated>
+    <id>/2015/10/16/Hive源码解析之本地环境搭建</id>
+    <content type="html">在使用了hive一段时间后，对简单的hive基本原理和操作有了一些的了解。hive构建与hadoop之上，是非常流行的数据仓库工具。hive将结构化的数据映射为数据文件存储在hdfs上，并提供SQL查询功能对数据进行检索和处理。最终，hive将SQL查询转换为MapReduce任务。
+
+面对hive强大的功能，总有一些冲动想搞清其“庐山真面目”，弄懂其运行的基本流程和原理。于是开启了hive源码的学习之路。
+
+在这里将学习过程中的经历和心得记录下来，希望对想学习hive的同学提供一些帮助。
+
+如果想学习hive的源码，个人感觉最好的方式就是在本地机器上搭建hive环境，以代码跟踪的方式学...</content>
   </entry>
   
   <entry>

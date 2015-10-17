@@ -4,8 +4,8 @@
     <title>Data Valley</title>
     <description>tagline</description>
     <link>http://datavalley.github.io/rss.xml</link>
-    <lastBuildDate>2015-10-16T17:21:48+08:00</lastBuildDate>
-    <pubDate>2015-10-16T17:21:48+08:00</pubDate>
+    <lastBuildDate>2015-10-17T09:50:44+08:00</lastBuildDate>
+    <pubDate>2015-10-17T09:50:44+08:00</pubDate>
     <ttl>1800</ttl>
 
     
@@ -217,6 +217,252 @@
 </description>
       <link>http://datavalley.github.io/2015/10/16/olap/</link>
       <guid>http://datavalley.github.io/2015/10/16/olap/</guid>
+      <pubDate>2015-10-16T00:00:00+08:00</pubDate>
+    </item>
+    
+    <item>
+      <title>Hive源码解析之本地环境搭建</title>
+      <description>&lt;p&gt;在使用了hive一段时间后，对简单的hive基本原理和操作有了一些的了解。hive构建与hadoop之上，是非常流行的数据仓库工具。hive将结构化的数据映射为数据文件存储在hdfs上，并提供SQL查询功能对数据进行检索和处理。最终，hive将SQL查询转换为MapReduce任务。&lt;/p&gt;
+
+&lt;p&gt;面对hive强大的功能，总有一些冲动想搞清其“庐山真面目”，弄懂其运行的基本流程和原理。于是开启了hive源码的学习之路。&lt;/p&gt;
+
+&lt;p&gt;在这里将学习过程中的经历和心得记录下来，希望对想学习hive的同学提供一些帮助。&lt;/p&gt;
+
+&lt;p&gt;如果想学习hive的源码，个人感觉最好的方式就是在本地机器上搭建hive环境，以代码跟踪的方式学习其运行流程。自己在搭建hive本地环境时参考了很多网上的教程，但也走了很多弯路。不是说网上的教程不对，参考别人的教程难免会遇到一些“意外的障碍”，这些障碍别人没有遇到，但自己遇到了，于是费了很多时间去解决这些障碍，但最终还是无法把环境搭建好。在这里把自己搭建hive本地环境的过程记录下来，希望对大家有所帮助。&lt;/p&gt;
+
+&lt;h1 id=&quot;1-准备&quot;&gt;1. 准备&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;建议大家在linux系统或者mac上运行hadoop和hive.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;1-1-hadoop&quot;&gt;1.1 hadoop&lt;/h2&gt;
+
+&lt;p&gt;由于hive运行在hadoop之上，所以需要在本地机器上安装并启动hadoop服务。hadoop的安装过程这里不在赘述，大家自行按照网上的教程安装。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;本地必须安装hadoop。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;1-2-intellij&quot;&gt;1.2 IntelliJ&lt;/h2&gt;
+
+&lt;p&gt;IntelliJ是一款综合的Java集成开发环境，使用范围非常广泛。之前本人使用eclipse作为集成开发环境，但在搭建hive本地环境的时候遇到很多困难。这里强烈推荐IntelliJ作为学习hive源码的集成开发环境。&lt;/p&gt;
+
+&lt;p&gt;不要把精力浪费在集成开发环境的选择上，就选择IntelliJ吧。&lt;/p&gt;
+
+&lt;h2 id=&quot;1-3-mysql&quot;&gt;1.3 MySQL&lt;/h2&gt;
+
+&lt;p&gt;hive默认将元数据存储在Derby数据库上，但其只允许一个会话连接。在实际生产过程中，一般选用MySQL作为hive元数据存储的数据库。&lt;/p&gt;
+
+&lt;h2 id=&quot;1-4-其他工具&quot;&gt;1.4 其他工具&lt;/h2&gt;
+
+&lt;p&gt;此外，需要使用maven来构建和管理hive项目，建议安装maven。&lt;/p&gt;
+
+&lt;p&gt;对于以上工具，大家请自行安装，安装过程较为简单，不在一一叙述。&lt;/p&gt;
+
+&lt;p&gt;下面，假设大家把上面的环境已经安装完成。&lt;/p&gt;
+
+&lt;h1 id=&quot;2-搭建hive本地环境&quot;&gt;2. 搭建hive本地环境&lt;/h1&gt;
+
+&lt;h2 id=&quot;2-1-下载hive源码&quot;&gt;2.1 下载hive源码&lt;/h2&gt;
+
+&lt;p&gt;我们可以选择直接下载hive的源码包，这里选定的版本1.2.1,其源码包为：&lt;a href=&quot;http://apache.fayea.com/hive/hive-1.2.1/&quot;&gt;apache-hive-1.2.1-src.tar.gz &lt;/a&gt;，解压。&lt;/p&gt;
+
+&lt;h2 id=&quot;2-2-编译hive源码&quot;&gt;2.2 编译hive源码&lt;/h2&gt;
+
+&lt;p&gt;运行一下命令，采用maven对hive源码进行编译：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;mvn clean package -DskipTests -Phadoop-2 -Pdist
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;编译过程会下载jar包，可能较慢，请耐心等待。&lt;/p&gt;
+
+&lt;p&gt;当出现下面的索引时，恭喜，hive源码编译完成。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://datavalley.github.io/img/hive/source_code/mvn-combile.png&quot; alt=&quot;hive编译完成&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;编译完成后的hive在哪呢？？&lt;/p&gt;
+
+&lt;p&gt;编译完成后的hive位于“packaging/target/apache-hive-1.2.1-bin/apache-hive-1.2.1-bin”目录下。&lt;/p&gt;
+
+&lt;h2 id=&quot;2-2-启动hive&quot;&gt;2.2 启动hive&lt;/h2&gt;
+
+&lt;p&gt;因为hive建立在hadoop之上，所以必须首先&lt;strong&gt;启动hadoop&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;假定hadoop服务已经启动。进入编译后hive所在的目录，即：HIVE_SOURCE_DIR/packaging/target/apache-hive-1.2.1-bin/apache-hive-1.2.1-bin，其中HIVE_SOURCE_DIR代表hive源码解压的目录。&lt;/p&gt;
+
+&lt;p&gt;进入上述目录后，运行一下命令：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;bin/hive
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;此时就进入hive的命令行，界面如下图所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://datavalley.github.io/img/hive/source_code/hive-cli.png&quot; alt=&quot;hive-cli&quot;&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2-3-导入intellij&quot;&gt;2.3 导入IntelliJ&lt;/h2&gt;
+
+&lt;h2 id=&quot;2-3-1-打开intellij，如下图所示，点击-quot-open-quot&quot;&gt;2.3.1 打开IntelliJ，如下图所示，点击&amp;quot;Open&amp;quot;&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://datavalley.github.io/img/hive/source_code/intellij.png&quot; alt=&quot;IntelliJ&quot;&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2-3-2-从hive的解压目录中选择pom-xml文件，如图所示：&quot;&gt;2.3.2 从hive的解压目录中选择pom.xml文件，如图所示：&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://datavalley.github.io/img/hive/source_code/hive-pom.xml.png&quot; alt=&quot;pom.xml&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;稍等片刻，IntelliJ就会导入hive所有的Project：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://datavalley.github.io/img/hive/source_code/hive-project.png&quot; alt=&quot;pom.xml&quot;&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2-3-3-调试代码&quot;&gt;2.3.3 调试代码&lt;/h2&gt;
+
+&lt;p&gt;进入编译后hive所在的目录，即：HIVE_SOURCE_DIR/packaging/target/apache-hive-1.2.1-bin/apache-hive-1.2.1-bin，运行如下命令启动hive：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;bin/hive --debug -hiveconf hive.root.logger=DEBUG,console
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;此时，界面会出现：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Listening for transport dt_socket at address: 8000
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;JVM会监听8000端口，等待客户端调试连接。&lt;/p&gt;
+
+&lt;p&gt;下面我们转到IntelliJ中进入如下配置，依次点击&amp;quot;Run&amp;quot;-&amp;gt;&amp;quot;Debug...&amp;quot;-&amp;gt;&amp;quot;Edit Configurations...&amp;quot;，然后点击左上角的&amp;quot;+&amp;quot;，选择&amp;quot;Remote&amp;quot;,会出现如下界面：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://datavalley.github.io/img/hive/source_code/hive-debugger.png&quot; alt=&quot;hive-debugger&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;在上图中，最重要的是配置Host和Port，记住Port为8000，想想为什么是8000呢？？（废话，因为后台jvm监听8000端口！！！）。并为我们配置的调试器起个响亮的名字：hive-debugger，最后点击右下角的&amp;quot;Debug&amp;quot;，就可以进行调试了。&lt;/p&gt;
+
+&lt;p&gt;hive的CLI的入口类为：cli/src/java/org.apache.hadoop.hive.cli/CliDriver.java。我们在该类的主函数中设置断点，并执行我们上面配置的hive-debugger（注意，此时后台必须执行：bin/hive --debug hive.root.logger=DEBUG,console），则出现下面的界面：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://datavalley.github.io/img/hive/source_code/debug1.png&quot; alt=&quot;debug1&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;我们输入的参数“hive.root.logger=DEBUG,console”，出现在debug的界面中，如上图最下方的红框内所示。&lt;/p&gt;
+
+&lt;p&gt;在后台输入SQL语句，就可以进行代码跟踪了。&lt;/p&gt;
+
+&lt;p&gt;至此，我们完成了hive源码导入IntelliJ的所有工作。&lt;/p&gt;
+
+&lt;h2 id=&quot;2-4-配置mysql环境&quot;&gt;2.4 配置MySQL环境&lt;/h2&gt;
+
+&lt;p&gt;Hive默认将元数据存储在derbyDB数据库中，但derbyDB只能允许一个会话连接，只适合简单的测试。在实际的生产环境中，一般选择MySQL作为hive存储元数据的数据库。&lt;/p&gt;
+
+&lt;h3 id=&quot;2-4-1-建立hive_meta数据库和hive_user用户&quot;&gt;2.4.1 建立hive_meta数据库和hive_user用户&lt;/h3&gt;
+
+&lt;p&gt;这里我们需要以&lt;strong&gt;管理员&lt;/strong&gt;的身份登陆MySQL，并建立hive_meta数据库。&lt;/p&gt;
+
+&lt;p&gt;建好hive_meta数据库后，在MySQL中建立hive连接使用的用户和密码，并赋予该用户所有权限，最后刷新权限：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-SQL&quot; data-lang=&quot;SQL&quot;&gt;&lt;span class=&quot;n&quot;&gt;mysql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;USER&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;hive_user&amp;#39;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IDENTIFIED&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;hive_user_password&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;mysql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;GRANT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ALL&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;PRIVILEGES&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TO&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;hive_user&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;@&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;localhost&amp;#39;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IDENTIFIED&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;hive_user_password&amp;#39;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WITH&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;GRANT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;OPTION&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;mysql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flush&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;privileges&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;即：&lt;/p&gt;
+
+&lt;p&gt;用户名：hive_user&lt;br&gt;
+  密码：hive_user_password&lt;/p&gt;
+
+&lt;h3 id=&quot;2-4-2-复制jdbc驱动包&quot;&gt;2.4.2 复制JDBC驱动包&lt;/h3&gt;
+
+&lt;p&gt;本文中使用的MySQL JDBC驱动包为：&lt;a href=&quot;http://pan.baidu.com/s/1nty7XXZ&quot;&gt;mysql-connector-java-5.0.8-bin.jar&lt;/a&gt;。JDBC包可能需要和自己机器上的MySQL版本相对应，如果上述版本不对，请尝试其他版本。&lt;/p&gt;
+
+&lt;p&gt;将mysql-connector-java-5.0.8-bin.jar复制到hive编译后所在目录的lib子目录下，即HIVE_SOURCE_DIR/packaging/target/apache-hive-1.2.1-bin/apache-hive-1.2.1-bin/lib。&lt;/p&gt;
+
+&lt;h3 id=&quot;2-4-3-配置hive-site-xml&quot;&gt;2.4.3 配置hive-site.xml&lt;/h3&gt;
+
+&lt;p&gt;在hive的conf子目录下包含hive-default.xml.template文件，将该文件拷贝一份并重命名为hive-site.xml，这样我们就有了文件：HIVE_SOURCE_DIR/packaging/target/apache-hive-1.2.1-bin/apache-hive-1.2.1-bin/hive-site.xml。&lt;/p&gt;
+
+&lt;p&gt;这一点非常关键，因为不同机器上会有不同的结果：查看MySQL的端口号。&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-SQL&quot; data-lang=&quot;SQL&quot;&gt;&lt;span class=&quot;n&quot;&gt;mysql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;show&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;global&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;variables&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;like&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;port&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;虽然MySQL的默认端口号为3306，网上很多教程在配置hive-site.xml时也使用3306端口。但在我的机器上，运行上述MySQL命令后得到的端口号为3307。所以大家需要根据自己的实际情况来选择，避免走弯路！！！&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;修改或增加hive-site.xml中下面的内容：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-XML&quot; data-lang=&quot;XML&quot;&gt;    &lt;span class=&quot;nt&quot;&gt;&amp;lt;property&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;name&amp;gt;&lt;/span&gt;javax.jdo.option.ConnectionURL&lt;span class=&quot;nt&quot;&gt;&amp;lt;/name&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;value&amp;gt;&lt;/span&gt;jdbc:mysql://localhost:3307/hive_meta?=createDatabaseIfNotExist=true&lt;span class=&quot;nt&quot;&gt;&amp;lt;/value&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/property&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;property&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;name&amp;gt;&lt;/span&gt;javax.jdo.option.ConnectionDriverName&lt;span class=&quot;nt&quot;&gt;&amp;lt;/name&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;value&amp;gt;&lt;/span&gt;com.mysql.jdbc.Driver&lt;span class=&quot;nt&quot;&gt;&amp;lt;/value&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/property&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;property&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;name&amp;gt;&lt;/span&gt;javax.jdo.option.ConnectionUserName&lt;span class=&quot;nt&quot;&gt;&amp;lt;/name&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;value&amp;gt;&lt;/span&gt;hive_user&lt;span class=&quot;nt&quot;&gt;&amp;lt;/value&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/property&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;property&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;name&amp;gt;&lt;/span&gt;javax.jdo.option.ConnectionPassword&lt;span class=&quot;nt&quot;&gt;&amp;lt;/name&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;value&amp;gt;&lt;/span&gt;hive_user_password&lt;span class=&quot;nt&quot;&gt;&amp;lt;/value&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/property&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;之后，启动hive：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;bin/hive
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;这里，可能会遇到如下错误：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Exception in thread &amp;quot;main&amp;quot; java.lang.RuntimeException: java.lang.IllegalArgumentException: java.net.URISyntaxException: Relative path in absolute URI: ${system:java.io.tmpdir%7D/$%7Bsystem:user.name%7D
+    at org.apache.hadoop.hive.ql.session.SessionState.start(SessionState.java:522)
+    at org.apache.hadoop.hive.cli.CliDriver.run(CliDriver.java:677)
+    at org.apache.hadoop.hive.cli.CliDriver.main(CliDriver.java:621)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:606)
+    at org.apache.hadoop.util.RunJar.main(RunJar.java:212)
+Caused by: java.lang.IllegalArgumentException: java.net.URISyntaxException: Relative path in absolute URI: ${system:java.io.tmpdir%7D/$%7Bsystem:user.name%7D
+    at org.apache.hadoop.fs.Path.initialize(Path.java:206)
+    at org.apache.hadoop.fs.Path.&amp;lt;init&amp;gt;(Path.java:172)
+    at org.apache.hadoop.hive.ql.session.SessionState.createSessionDirs(SessionState.java:563)
+    at org.apache.hadoop.hive.ql.session.SessionState.start(SessionState.java:508)
+    ... 7 more
+Caused by: java.net.URISyntaxException: Relative path in absolute URI: ${system:java.io.tmpdir%7D/$%7Bsystem:user.name%7D
+    at java.net.URI.checkPath(URI.java:1804)
+    at java.net.URI.&amp;lt;init&amp;gt;(URI.java:752)
+    at org.apache.hadoop.fs.Path.initialize(Path.java:203)
+    ... 10 more
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;http://blog.csdn.net/zwx19921215/article/details/42776589&quot;&gt;解决方法为&lt;/a&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;1.查看hive-site.xml配置，会看到配置值含有&amp;quot;system:java.io.tmpdir&amp;quot;的配置项&lt;br&gt;
+2.新建文件夹/home/grid/hive-0.14.0-bin/iotmp&lt;br&gt;
+3.将含有&amp;quot;system:java.io.tmpdir&amp;quot;的配置项的值修改为如上地址&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;2-4-4-查看hive_meta数据库&quot;&gt;2.4.4 查看hive_meta数据库&lt;/h3&gt;
+
+&lt;p&gt;启动hive后，hive_meta数据库中自动创建多个表，这些就是存储hive元数据的表：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-SQL&quot; data-lang=&quot;SQL&quot;&gt;&lt;span class=&quot;n&quot;&gt;mysql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;use&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hive_meta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Reading&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;information&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;completion&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;column&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;names&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;You&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;can&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;turn&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;off&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;this&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;feature&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;quicker&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;startup&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;A&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;Database&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;changed&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;mysql&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;show&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tables&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;---------------------------+&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Tables_in_hive_meta&lt;/span&gt;       &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;---------------------------+&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BUCKETING_COLS&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CDS&lt;/span&gt;                       &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;COLUMNS_V2&lt;/span&gt;                &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DATABASE_PARAMS&lt;/span&gt;           &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DBS&lt;/span&gt;                       &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FUNCS&lt;/span&gt;                     &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FUNC_RU&lt;/span&gt;                   &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;GLOBAL_PRIVS&lt;/span&gt;              &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PARTITIONS&lt;/span&gt;                &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PARTITION_KEYS&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PARTITION_KEY_VALS&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PARTITION_PARAMS&lt;/span&gt;          &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PART_COL_STATS&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ROLES&lt;/span&gt;                     &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SDS&lt;/span&gt;                       &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SD_PARAMS&lt;/span&gt;                 &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SEQUENCE_TABLE&lt;/span&gt;            &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SERDES&lt;/span&gt;                    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SERDE_PARAMS&lt;/span&gt;              &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SKEWED_COL_NAMES&lt;/span&gt;          &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SKEWED_COL_VALUE_LOC_MAP&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SKEWED_STRING_LIST&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SKEWED_STRING_LIST_VALUES&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SKEWED_VALUES&lt;/span&gt;             &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SORT_COLS&lt;/span&gt;                 &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TABLE_PARAMS&lt;/span&gt;              &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TAB_COL_STATS&lt;/span&gt;             &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TBLS&lt;/span&gt;                      &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;VERSION&lt;/span&gt;                   &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;---------------------------+&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;至此，hive本地环境搭建的工作就完成了。希望对大家有所帮助，谢谢。&lt;/p&gt;
+</description>
+      <link>http://datavalley.github.io/2015/10/16/Hive%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E4%B9%8B%E6%9C%AC%E5%9C%B0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</link>
+      <guid>http://datavalley.github.io/2015/10/16/Hive源码解析之本地环境搭建/</guid>
       <pubDate>2015-10-16T00:00:00+08:00</pubDate>
     </item>
     
