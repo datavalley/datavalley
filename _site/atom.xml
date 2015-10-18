@@ -4,7 +4,7 @@
   <title>Data Valley</title>
   <link href="//atom.xml" rel="self"/>
   <link href=""/>
-  <updated>2015-10-17T10:58:03+08:00</updated>
+  <updated>2015-10-17T22:28:58+08:00</updated>
   <id></id>
   <author>
     <name>小z</name>
@@ -26,7 +26,7 @@ OLTP是传统数据库的主要应用，面向当前的数据，主要是基本�
   </entry>
   
   <entry>
-    <title>Hive源码解析之本地环境搭建</title>
+    <title>Hive:源码解析之本地环境搭建</title>
     <link href="/2015/10/16/Hive%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E4%B9%8B%E6%9C%AC%E5%9C%B0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
     <updated>2015-10-16T00:00:00+08:00</updated>
     <id>/2015/10/16/Hive源码解析之本地环境搭建</id>
@@ -37,6 +37,20 @@ OLTP是传统数据库的主要应用，面向当前的数据，主要是基本�
 在这里将学习过程中的经历和心得记录下来，希望对想学习hive的同学提供一些帮助。
 
 如果想学习hive的源码，个人感觉最好的方式就是在本地机器上搭建hive环境，以代码跟踪的方式学习...</content>
+  </entry>
+  
+  <entry>
+    <title>Hive源码解析之Hive基本框架和执行入口[转]</title>
+    <link href="/2015/10/16/Hive%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E4%B9%8BHive%E5%9F%BA%E6%9C%AC%E6%A1%86%E6%9E%B6%E5%92%8C%E6%89%A7%E8%A1%8C%E5%85%A5%E5%8F%A3/"/>
+    <updated>2015-10-16T00:00:00+08:00</updated>
+    <id>/2015/10/16/Hive源码解析之Hive基本框架和执行入口</id>
+    <content type="html">原文：http://segmentfault.com/a/1190000002766035
+
+1.Hive简介
+
+在介绍Hive的框架和执行流程之前，这里首先对Hive进行简要的介绍。
+
+Hive 是建立在 Hadoop 上的数据仓库基础构架。它提供了一系列的工具，可以用来进行数据抽取，转化，加载（ETL），这是一种可以存储、查询和分析存储在 Hadoop 中的大规模数据的机制。Hive 定义了简单的类 SQL 查询语言，称为Hive QL，它允许熟悉 SQL 的用户查询数据。同时，这个语言也允许熟悉 MapReduce 开发者的开发自定义的 mapper 和 reducer 来处理内建...</content>
   </entry>
   
   <entry>
