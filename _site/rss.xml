@@ -4,10 +4,205 @@
     <title>Data Valley</title>
     <description>tagline</description>
     <link>http://datavalley.github.io/rss.xml</link>
-    <lastBuildDate>2015-10-17T22:28:58+08:00</lastBuildDate>
-    <pubDate>2015-10-17T22:28:58+08:00</pubDate>
+    <lastBuildDate>2015-10-26T19:44:58+08:00</lastBuildDate>
+    <pubDate>2015-10-26T19:44:58+08:00</pubDate>
     <ttl>1800</ttl>
 
+    
+    <item>
+      <title>Hive之mac环境中的Java路径问题</title>
+      <description>&lt;h1 id=&quot;1-问题描述&quot;&gt;1.问题描述&lt;/h1&gt;
+
+&lt;p&gt;在mac系统上，搭建了hadoop和hive运行环境。在hive命令行下，可以执行简单的SELECT、SHOW TABLES等操作。但是执行连接时，就会报错，报错信息如下：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Query ID = zmz_20151026191653_ea580dc6-ec94-4fcb-8058-b32f8045acfa
+Total jobs = 1
+15/10/26 19:16:56 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+15/10/26 19:16:57 WARN conf.Configuration: file:/var/folders/wt/7rnq2frd4hs7bhpvn4jvjq7r0000gn/T/zmz/5040e8a2-fcf9-4bc9-8130-7bfd7b9a6156/hive_2015-10-26_19-16-53_444_13558021487523789-1/-local-10006/jobconf.xml:an attempt to override final parameter: mapreduce.job.end-notification.max.retry.interval;  Ignoring.
+15/10/26 19:16:57 WARN conf.Configuration: file:/var/folders/wt/7rnq2frd4hs7bhpvn4jvjq7r0000gn/T/zmz/5040e8a2-fcf9-4bc9-8130-7bfd7b9a6156/hive_2015-10-26_19-16-53_444_13558021487523789-1/-local-10006/jobconf.xml:an attempt to override final parameter: mapreduce.job.end-notification.max.attempts;  Ignoring.
+Execution log at: /var/folders/wt/7rnq2frd4hs7bhpvn4jvjq7r0000gn/T//zmz/zmz_20151026191653_ea580dc6-ec94-4fcb-8058-b32f8045acfa.log
+2015-10-26 19:16:57 Starting to launch local task to process map join;  maximum memory = 477102080
+2015-10-26 19:16:58 Dump the side-table for tag: 1 with group count: 2 into file: file:/var/folders/wt/7rnq2frd4hs7bhpvn4jvjq7r0000gn/T/zmz/5040e8a2-fcf9-4bc9-8130-7bfd7b9a6156/hive_2015-10-26_19-16-53_444_13558021487523789-1/-local-10003/HashTable-Stage-3/MapJoin-mapfile01--.hashtable
+2015-10-26 19:16:58 Uploaded 1 File to: file:/var/folders/wt/7rnq2frd4hs7bhpvn4jvjq7r0000gn/T/zmz/5040e8a2-fcf9-4bc9-8130-7bfd7b9a6156/hive_2015-10-26_19-16-53_444_13558021487523789-1/-local-10003/HashTable-Stage-3/MapJoin-mapfile01--.hashtable (311 bytes)
+2015-10-26 19:16:58 End of local task; Time Taken: 0.749 sec.
+Execution completed successfully
+MapredLocal task succeeded
+Launching Job 1 out of 1
+Number of reduce tasks is set to 0 since there&amp;#39; s no reduce operator
+Starting Job = job_1445858122039_0001, Tracking URL = http://zhaomingzhendeMacBook-Pro.local:8088/proxy/application_1445858122039_0001/
+Kill Command = /Users/zmz/hadoop-2.5.2/bin/hadoop job  -kill job_1445858122039_0001
+Hadoop job information for Stage-3: number of mappers: 0; number of reducers: 0
+2015-10-26 19:17:05,269 Stage-3 map = 0%,  reduce = 0%
+Ended Job = job_1445858122039_0001 with errors
+Error during job, obtaining debugging information...
+FAILED: Execution Error, return code 2 from org.apache.hadoop.hive.ql.exec.mr.MapRedTask
+MapReduce Jobs Launched:
+Stage-Stage-3:  HDFS Read: 0 HDFS Write: 0 FAIL
+Total MapReduce CPU Time Spent: 0 msec
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;在浏览器中打开Tracking URL，则看到如下信息：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;/bin/bash: /bin/java: No such file or directory
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;该怎么解决呢？？&lt;/p&gt;
+
+&lt;h1 id=&quot;2-解决方法&quot;&gt;2.解决方法&lt;/h1&gt;
+
+&lt;p&gt;从根本上说，这不是hive的问题，而是hadoop的问题。hadoop默认检查的java路径为：/bin/java。可是在mac中，java的路径为/usr/bin/java。所以，只需建立软连接就可以解决上述问题，执行以下命令：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;sudo ln -s /usr/bin/java /bin/java
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;运行上述命令后，上述问题就可以解决了。其实，最关键的就是将/bin/java连接到java所在的路径。&lt;/p&gt;
+</description>
+      <link>http://datavalley.github.io/2015/10/26/Hive%E4%B9%8Bmac%E7%8E%AF%E5%A2%83%E4%B8%AD%E7%9A%84Java%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98/</link>
+      <guid>http://datavalley.github.io/2015/10/26/Hive之mac环境中的Java路径问题/</guid>
+      <pubDate>2015-10-26T00:00:00+08:00</pubDate>
+    </item>
+    
+    <item>
+      <title>Hive:JOIN原理、JOIN优化与执行计划</title>
+      <description>&lt;h1 id=&quot;1-join的基本原理&quot;&gt;1. Join的基本原理&lt;/h1&gt;
+
+&lt;p&gt;大家都知道，Hive会将所有的SQL查询转化为Map/Reduce作业运行于Hadoop集群之上。在这里简要介绍Hive将Join转化为Map/Reduce的基本原理（其它查询的原理请参考&lt;a href=&quot;http://tech.meituan.com/hive-sql-to-mapreduce.html&quot;&gt;这里&lt;/a&gt;）。&lt;/p&gt;
+
+&lt;p&gt;假定有user和order两张表，分别如下：&lt;/p&gt;
+
+&lt;p&gt;user表：&lt;/p&gt;
+
+&lt;table&gt;&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;sid&lt;/th&gt;
+&lt;th&gt;name&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;apple&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;orange&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+
+&lt;p&gt;order表：&lt;/p&gt;
+
+&lt;table&gt;&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;uid&lt;/th&gt;
+&lt;th&gt;orderid&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;1001&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;1002&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;1003&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+
+&lt;p&gt;现在想做student和sc两张表上的连接操作：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-SQL&quot; data-lang=&quot;SQL&quot;&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;o&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;orderid&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;JOIN&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;order&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;o&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;ON&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;u&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;o&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Hive是利用hadoop的Map/Reduce计算框架执行上述查询的呢？？&lt;/p&gt;
+
+&lt;p&gt;Hive会将出现在连接条件ON之后的所有字段作为Map输出的key，将所需的字段作为value，构建(key, value)，同时为每张表打上不同的标记tag，输出到Reduce端。在Reduce端，根据tag区分参与连接的表，实现连接操作。&lt;/p&gt;
+
+&lt;p&gt;我们使用下图来模拟这个过程：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://tech.meituan.com/img/hive/join.png&quot; alt=&quot;join原理图&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;在Map端分别扫描user和order的两张表。对于user表，在连接条件ON之后的字段为uid，所以以uid作为Map输出的key，在SELECT语句中还需要name字段，所以name字段作为value的一部分，同时为user表赋予标记tag=1，这样处理user表的mapper地输出形式为：(uid, &amp;quot;1&amp;quot; + name)。类似的，处理order表的mapper地输出形式为：(uid, &amp;quot;2&amp;quot; + orderid)，注意，order表的标记为2。&lt;/p&gt;
+
+&lt;p&gt;具有相同uid的地(key, value)字段在reduce端“集合”，根据value中tag字段区分来自不同表的数据，使用两层循环完成连接操作。&lt;/p&gt;
+
+&lt;p&gt;上面就是将Join操作转换为Map/Reduce作业的基本原理： 在map端扫描表，在reduce端完成连接操作。&lt;/p&gt;
+
+&lt;h1 id=&quot;2-hive中的各种join&quot;&gt;2. Hive中的各种Join&lt;/h1&gt;
+
+&lt;p&gt;我们使用例子讲述各种Join的区别。假设user和order两张表的数据变为：&lt;/p&gt;
+
+&lt;p&gt;user表：&lt;/p&gt;
+
+&lt;table&gt;&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;sid&lt;/th&gt;
+&lt;th&gt;name&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;apple&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;orange&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;3&lt;/td&gt;
+&lt;td&gt;banana&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+
+&lt;p&gt;order表：&lt;/p&gt;
+
+&lt;table&gt;&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;uid&lt;/th&gt;
+&lt;th&gt;orderid&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;1001&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;1&lt;/td&gt;
+&lt;td&gt;1002&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;2&lt;/td&gt;
+&lt;td&gt;1003&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;2001&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;&lt;/table&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;“不要考虑例子在现实中的意义，这里这是为了演示各种JOIN的区别”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;inner-join&quot;&gt;INNER JOIN&lt;/h2&gt;
+
+&lt;h2 id=&quot;2-1-left-outer-join&quot;&gt;2.1 LEFT OUTER JOIN&lt;/h2&gt;
+
+&lt;h2 id=&quot;outer-join&quot;&gt;OUTER JOIN&lt;/h2&gt;
+
+&lt;h2 id=&quot;2-2-right-outer-join&quot;&gt;2.2 RIGHT OUTER JOIN&lt;/h2&gt;
+
+&lt;h2 id=&quot;2-3-full-outer-join&quot;&gt;2.3 FULL OUTER JOIN&lt;/h2&gt;
+
+&lt;h2 id=&quot;2-4-left-smei-join&quot;&gt;2.4 LEFT SMEI JOIN&lt;/h2&gt;
+
+&lt;h1 id=&quot;3-执行计划总结&quot;&gt;3. 执行计划总结&lt;/h1&gt;
+
+&lt;h2 id=&quot;参考资料&quot;&gt;参考资料&lt;/h2&gt;
+
+&lt;p&gt;[1]. &lt;a href=&quot;http://tech.meituan.com/hive-sql-to-mapreduce.html&quot;&gt;http://tech.meituan.com/hive-sql-to-mapreduce.html&lt;/a&gt;&lt;/p&gt;
+</description>
+      <link>http://datavalley.github.io/2015/10/25/Hive%E4%B9%8BJOIN%E5%8E%9F%E7%90%86%E3%80%81JOIN%E4%BC%98%E5%8C%96%E4%B8%8E%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92/</link>
+      <guid>http://datavalley.github.io/2015/10/25/Hive之JOIN原理、JOIN优化与执行计划/</guid>
+      <pubDate>2015-10-25T00:00:00+08:00</pubDate>
+    </item>
     
     <item>
       <title>OLAP</title>
