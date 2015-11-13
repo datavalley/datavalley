@@ -158,6 +158,15 @@
 <span class="o">)</span>
 <span class="n">Fail</span> <span class="n">in</span> <span class="n">Action</span> <span class="n">load</span>
 </code></pre></div>
+<p>上述错误信息中，最主要的信息为:</p>
+<div class="highlight"><pre><code class="language-SQL" data-lang="SQL"><span class="n">java</span><span class="p">.</span><span class="k">sql</span><span class="p">.</span><span class="k">SQLException</span><span class="p">:</span> <span class="n">Illegal</span> <span class="n">mix</span> <span class="k">of</span> <span class="n">collations</span> <span class="p">(</span><span class="n">latin1_bin</span><span class="p">,</span><span class="k">IMPLICIT</span><span class="p">)</span> <span class="k">and</span> <span class="p">(</span><span class="n">utf8_general_ci</span><span class="p">,</span><span class="n">COERCIBLE</span><span class="p">)</span> <span class="k">for</span> <span class="k">operation</span> <span class="s1">&#39;=&#39;</span>
+</code></pre></div>
+<p>查看分区数据后，会看到下面类型的数据：</p>
+
+<p><img src="http://datavalley.github.io/img/hive/partition_fail/partition_fail" alt="分区字段异常"></p>
+
+<h1 id="2-解决办法">2 解决办法</h1>
+
 <h2 id="参考资料">参考资料</h2>
 
                 </div>
