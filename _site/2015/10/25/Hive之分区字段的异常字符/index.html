@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>Hive:分区字段的异常字符 - Data Valley</title>
+      <meta name="author" content="小z">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" >
+      <link rel="canonical" href="http://datavalley.github.io/2015/10/25/Hive%E4%B9%8B%E5%88%86%E5%8C%BA%E5%AD%97%E6%AE%B5%E7%9A%84%E5%BC%82%E5%B8%B8%E5%AD%97%E7%AC%A6/">
+      <link rel="stylesheet" href="/static/css/bootstrap.min.css" media="all">
+      <link rel="stylesheet" href="/static/css/style.css" media="all">
+      <link rel="stylesheet" href="/static/css/pygments.css" media="all">
+      <link rel="stylesheet" href="/static/css/font-awesome.css" media="all">
+
+      <!-- atom & rss feed -->
+      <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Data Valley RSS Feed">
+      <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Data Valley ATOM Feed">
+    </head>
+
+
+  <body>
+    <div class="container">
+    <!--[if lte IE 9]>
+<div class="alert alert-warning">
+  <p>Your Internet Explorer is not supported. Please upgrade your Internet Explorer to version 9+, or use latest <a href="http://www.google.com/chrome/" target="_blank" class="alert-link">Google chrome</a>、<a href="http://www.mozilla.org/firefox/" target="_blank" class="alert-link">Mozilla Firefox</a>.</p>
+  <p>If you are using IE 9 or later, make sure you <a href="http://windows.microsoft.com/en-us/internet-explorer/use-compatibility-view#ie=ie-8" target="_blank" class="alert-link">turn off "Compatibility view"</a>.</p>
+</div>
+<![endif]-->
+<header class="header">
+  <div class="title"><a title="Data Valley" href="/">Data Valley</a></div>
+  <ul class="nav navbar-nav navbar-right visible-lg visible-md">
+    <li>
+    <form id="search-form" class="form-group has-success visible-lg" role="form">
+      <input type="text" class="form-control input-sm" placeholder="Search" id="query" style="width: 160px;">
+    </form>
+    </li>
+    <li><a href="/archive.html" title="Archive"><span class='fa fa-archive fa-2x'></span></a></li>
+    <li><a href="/categories.html" title="Categories"><span class='fa fa-navicon fa-2x'></span></a></li>
+    <li><a href="/tags.html" title="Tags"><span class='fa fa-tags fa-2x'></span></a></li>
+    <li><a href="/about.html" title="About"><span class='fa fa-user fa-2x'></span></a></li>
+    
+    <li><a href="https://github.com/datavalley/datavalley.github.io" target="_blank" title="Github"><span class='fa fa-github fa-2x'></span></a></li>
+    
+    
+    
+    
+    
+
+    <li><a href="/rss.xml" target="_blank" title="RSS"><span class='fa fa-rss fa-2x'></span></a></li>
+  </ul>
+</header>
+
+
+      <div class="wrapper">
+        <div class="row">
+          <div id="search-loader" style="display:none;text-align:center">
+            <img src="/static/images/loading.gif">
+          </div>
+          <div class="col-md-12">
+            <article class="news-item">
+
+                <h1  class="news-item"> Hive:分区字段的异常字符  
+                  <time class="small">2015.10.25</time>
+                </h1>
+
+                <div>
+                <h1 id="1-问题描述">1. 问题描述</h1>
+
+<p>hive支持动态分区技术，可以将SELECT出来的数据根据分区字段的取值动态的插入到目标分区中。例如：</p>
+<div class="highlight"><pre><code class="language-SQL" data-lang="SQL"><span class="k">set</span> <span class="n">hive</span><span class="p">.</span><span class="k">exec</span><span class="p">.</span><span class="k">dynamic</span><span class="p">.</span><span class="n">partition</span><span class="p">.</span><span class="k">mode</span><span class="o">=</span><span class="n">nonstrict</span><span class="p">;</span>
+<span class="k">set</span> <span class="n">hive</span><span class="p">.</span><span class="k">exec</span><span class="p">.</span><span class="k">dynamic</span><span class="p">.</span><span class="n">partition</span><span class="o">=</span><span class="k">true</span><span class="p">;</span>
+
+<span class="k">INSERT</span> <span class="n">OVERWRITE</span> <span class="k">TABLE</span> <span class="n">target_table_name</span> <span class="n">PARTITION</span><span class="p">(</span><span class="n">partition_field_name</span><span class="p">)</span>
+<span class="k">SELECT</span>
+  <span class="p">...</span>
+  <span class="n">partition_field_name</span>
+<span class="k">FROM</span> <span class="n">source_table_name</span>
+<span class="k">WHERE</span> <span class="p">...</span>
+</code></pre></div>
+<p>注意，使用动态分区时，必须设置两个属性：</p>
+<div class="highlight"><pre><code class="language-SQL" data-lang="SQL"><span class="k">set</span> <span class="n">hive</span><span class="p">.</span><span class="k">exec</span><span class="p">.</span><span class="k">dynamic</span><span class="p">.</span><span class="n">partition</span><span class="p">.</span><span class="k">mode</span><span class="o">=</span><span class="n">nonstrict</span><span class="p">;</span>
+<span class="k">set</span> <span class="n">hive</span><span class="p">.</span><span class="k">exec</span><span class="p">.</span><span class="k">dynamic</span><span class="p">.</span><span class="n">partition</span><span class="o">=</span><span class="k">true</span><span class="p">;</span>
+</code></pre></div>
+<p>如果SELECT出来的partition_field_name字段出现异常字符，就会出现下面的错误：</p>
+<div class="highlight"><pre><code class="language-Java" data-lang="Java"><span class="nl">NestedThrowablesStackTrace:</span>
+<span class="n">java</span><span class="o">.</span><span class="na">sql</span><span class="o">.</span><span class="na">SQLException</span><span class="o">:</span> <span class="n">Illegal</span> <span class="n">mix</span> <span class="n">of</span> <span class="nf">collations</span> <span class="o">(</span><span class="n">latin1_bin</span><span class="o">,</span><span class="n">IMPLICIT</span><span class="o">)</span> <span class="n">and</span> <span class="o">(</span><span class="n">utf8_general_ci</span><span class="o">,</span><span class="n">COERCIBLE</span><span class="o">)</span> <span class="k">for</span> <span class="n">operation</span> <span class="sc">&#39;=&#39;</span>
+    <span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">mysql</span><span class="o">.</span><span class="na">jdbc</span><span class="o">.</span><span class="na">SQLError</span><span class="o">.</span><span class="na">createSQLException</span><span class="o">(</span><span class="n">SQLError</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">1072</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">mysql</span><span class="o">.</span><span class="na">jdbc</span><span class="o">.</span><span class="na">MysqlIO</span><span class="o">.</span><span class="na">checkErrorPacket</span><span class="o">(</span><span class="n">MysqlIO</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">3563</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">mysql</span><span class="o">.</span><span class="na">jdbc</span><span class="o">.</span><span class="na">MysqlIO</span><span class="o">.</span><span class="na">checkErrorPacket</span><span class="o">(</span><span class="n">MysqlIO</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">3495</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">mysql</span><span class="o">.</span><span class="na">jdbc</span><span class="o">.</span><span class="na">MysqlIO</span><span class="o">.</span><span class="na">sendCommand</span><span class="o">(</span><span class="n">MysqlIO</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">1959</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">mysql</span><span class="o">.</span><span class="na">jdbc</span><span class="o">.</span><span class="na">MysqlIO</span><span class="o">.</span><span class="na">sqlQueryDirect</span><span class="o">(</span><span class="n">MysqlIO</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">2113</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">mysql</span><span class="o">.</span><span class="na">jdbc</span><span class="o">.</span><span class="na">ConnectionImpl</span><span class="o">.</span><span class="na">execSQL</span><span class="o">(</span><span class="n">ConnectionImpl</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">2693</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">mysql</span><span class="o">.</span><span class="na">jdbc</span><span class="o">.</span><span class="na">PreparedStatement</span><span class="o">.</span><span class="na">executeInternal</span><span class="o">(</span><span class="n">PreparedStatement</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">2102</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">mysql</span><span class="o">.</span><span class="na">jdbc</span><span class="o">.</span><span class="na">PreparedStatement</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">(</span><span class="n">PreparedStatement</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">2261</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">jolbox</span><span class="o">.</span><span class="na">bonecp</span><span class="o">.</span><span class="na">PreparedStatementHandle</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">(</span><span class="n">PreparedStatementHandle</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">174</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">datanucleus</span><span class="o">.</span><span class="na">store</span><span class="o">.</span><span class="na">rdbms</span><span class="o">.</span><span class="na">ParamLoggingPreparedStatement</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">(</span><span class="n">ParamLoggingPreparedStatement</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">381</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">datanucleus</span><span class="o">.</span><span class="na">store</span><span class="o">.</span><span class="na">rdbms</span><span class="o">.</span><span class="na">SQLController</span><span class="o">.</span><span class="na">executeStatementQuery</span><span class="o">(</span><span class="n">SQLController</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">504</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">datanucleus</span><span class="o">.</span><span class="na">store</span><span class="o">.</span><span class="na">rdbms</span><span class="o">.</span><span class="na">query</span><span class="o">.</span><span class="na">JDOQLQuery</span><span class="o">.</span><span class="na">performExecute</span><span class="o">(</span><span class="n">JDOQLQuery</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">651</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">datanucleus</span><span class="o">.</span><span class="na">store</span><span class="o">.</span><span class="na">query</span><span class="o">.</span><span class="na">Query</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">(</span><span class="n">Query</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">1786</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">datanucleus</span><span class="o">.</span><span class="na">store</span><span class="o">.</span><span class="na">query</span><span class="o">.</span><span class="na">Query</span><span class="o">.</span><span class="na">executeWithArray</span><span class="o">(</span><span class="n">Query</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">1672</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">datanucleus</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">jdo</span><span class="o">.</span><span class="na">JDOQuery</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">JDOQuery</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">290</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">metastore</span><span class="o">.</span><span class="na">ObjectStore</span><span class="o">.</span><span class="na">getMPartition</span><span class="o">(</span><span class="n">ObjectStore</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">1369</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">metastore</span><span class="o">.</span><span class="na">ObjectStore</span><span class="o">.</span><span class="na">getPartitionWithAuth</span><span class="o">(</span><span class="n">ObjectStore</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">1613</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">sun</span><span class="o">.</span><span class="na">reflect</span><span class="o">.</span><span class="na">GeneratedMethodAccessor30</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">Unknown</span> <span class="n">Source</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">sun</span><span class="o">.</span><span class="na">reflect</span><span class="o">.</span><span class="na">DelegatingMethodAccessorImpl</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">DelegatingMethodAccessorImpl</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">43</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">reflect</span><span class="o">.</span><span class="na">Method</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">606</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">metastore</span><span class="o">.</span><span class="na">RawStoreProxy</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">RawStoreProxy</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">108</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">sun</span><span class="o">.</span><span class="na">proxy</span><span class="o">.</span><span class="na">$Proxy8</span><span class="o">.</span><span class="na">getPartitionWithAuth</span><span class="o">(</span><span class="n">Unknown</span> <span class="n">Source</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">metastore</span><span class="o">.</span><span class="na">HiveMetaStore$HMSHandler</span><span class="o">.</span><span class="na">get_partition_with_auth</span><span class="o">(</span><span class="n">HiveMetaStore</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">2544</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">sun</span><span class="o">.</span><span class="na">reflect</span><span class="o">.</span><span class="na">GeneratedMethodAccessor29</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">Unknown</span> <span class="n">Source</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">sun</span><span class="o">.</span><span class="na">reflect</span><span class="o">.</span><span class="na">DelegatingMethodAccessorImpl</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">DelegatingMethodAccessorImpl</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">43</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">reflect</span><span class="o">.</span><span class="na">Method</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">606</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">metastore</span><span class="o">.</span><span class="na">RetryingHMSHandler</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">RetryingHMSHandler</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">105</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">sun</span><span class="o">.</span><span class="na">proxy</span><span class="o">.</span><span class="na">$Proxy9</span><span class="o">.</span><span class="na">get_partition_with_auth</span><span class="o">(</span><span class="n">Unknown</span> <span class="n">Source</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">metastore</span><span class="o">.</span><span class="na">HiveMetaStoreClient</span><span class="o">.</span><span class="na">getPartitionWithAuthInfo</span><span class="o">(</span><span class="n">HiveMetaStoreClient</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">979</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">sun</span><span class="o">.</span><span class="na">reflect</span><span class="o">.</span><span class="na">GeneratedMethodAccessor28</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">Unknown</span> <span class="n">Source</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">sun</span><span class="o">.</span><span class="na">reflect</span><span class="o">.</span><span class="na">DelegatingMethodAccessorImpl</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">DelegatingMethodAccessorImpl</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">43</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">reflect</span><span class="o">.</span><span class="na">Method</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">606</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">metastore</span><span class="o">.</span><span class="na">RetryingMetaStoreClient</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">RetryingMetaStoreClient</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">89</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">com</span><span class="o">.</span><span class="na">sun</span><span class="o">.</span><span class="na">proxy</span><span class="o">.</span><span class="na">$Proxy10</span><span class="o">.</span><span class="na">getPartitionWithAuthInfo</span><span class="o">(</span><span class="n">Unknown</span> <span class="n">Source</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">ql</span><span class="o">.</span><span class="na">metadata</span><span class="o">.</span><span class="na">Hive</span><span class="o">.</span><span class="na">getPartition</span><span class="o">(</span><span class="n">Hive</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">1608</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">ql</span><span class="o">.</span><span class="na">metadata</span><span class="o">.</span><span class="na">Hive</span><span class="o">.</span><span class="na">getPartition</span><span class="o">(</span><span class="n">Hive</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">1562</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">ql</span><span class="o">.</span><span class="na">metadata</span><span class="o">.</span><span class="na">Hive</span><span class="o">.</span><span class="na">loadPartition</span><span class="o">(</span><span class="n">Hive</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">1215</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">ql</span><span class="o">.</span><span class="na">metadata</span><span class="o">.</span><span class="na">Hive</span><span class="o">.</span><span class="na">loadDynamicPartitions</span><span class="o">(</span><span class="n">Hive</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">1438</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">ql</span><span class="o">.</span><span class="na">exec</span><span class="o">.</span><span class="na">MoveTask</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">MoveTask</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">346</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">ql</span><span class="o">.</span><span class="na">exec</span><span class="o">.</span><span class="na">Task</span><span class="o">.</span><span class="na">executeTask</span><span class="o">(</span><span class="n">Task</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">153</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">ql</span><span class="o">.</span><span class="na">exec</span><span class="o">.</span><span class="na">TaskRunner</span><span class="o">.</span><span class="na">runSequential</span><span class="o">(</span><span class="n">TaskRunner</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">85</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">ql</span><span class="o">.</span><span class="na">Driver</span><span class="o">.</span><span class="na">launchTask</span><span class="o">(</span><span class="n">Driver</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">1519</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">ql</span><span class="o">.</span><span class="na">Driver</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">Driver</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">1279</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">ql</span><span class="o">.</span><span class="na">Driver</span><span class="o">.</span><span class="na">runInternal</span><span class="o">(</span><span class="n">Driver</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">1091</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">ql</span><span class="o">.</span><span class="na">Driver</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">Driver</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">914</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">ql</span><span class="o">.</span><span class="na">Driver</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">Driver</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">904</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">cli</span><span class="o">.</span><span class="na">CliDriver</span><span class="o">.</span><span class="na">processLocalCmd</span><span class="o">(</span><span class="n">CliDriver</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">268</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">cli</span><span class="o">.</span><span class="na">CliDriver</span><span class="o">.</span><span class="na">processCmd</span><span class="o">(</span><span class="n">CliDriver</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">220</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">cli</span><span class="o">.</span><span class="na">CliDriver</span><span class="o">.</span><span class="na">processLine</span><span class="o">(</span><span class="n">CliDriver</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">423</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">cli</span><span class="o">.</span><span class="na">CliDriver</span><span class="o">.</span><span class="na">processLine</span><span class="o">(</span><span class="n">CliDriver</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">359</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">cli</span><span class="o">.</span><span class="na">CliDriver</span><span class="o">.</span><span class="na">processReader</span><span class="o">(</span><span class="n">CliDriver</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">456</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">cli</span><span class="o">.</span><span class="na">CliDriver</span><span class="o">.</span><span class="na">processFile</span><span class="o">(</span><span class="n">CliDriver</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">466</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">cli</span><span class="o">.</span><span class="na">CliDriver</span><span class="o">.</span><span class="na">executeDriver</span><span class="o">(</span><span class="n">CliDriver</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">748</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">cli</span><span class="o">.</span><span class="na">CliDriver</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">CliDriver</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">686</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">cli</span><span class="o">.</span><span class="na">CliDriver</span><span class="o">.</span><span class="na">main</span><span class="o">(</span><span class="n">CliDriver</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">625</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">sun</span><span class="o">.</span><span class="na">reflect</span><span class="o">.</span><span class="na">NativeMethodAccessorImpl</span><span class="o">.</span><span class="na">invoke0</span><span class="o">(</span><span class="n">Native</span> <span class="n">Method</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">sun</span><span class="o">.</span><span class="na">reflect</span><span class="o">.</span><span class="na">NativeMethodAccessorImpl</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">NativeMethodAccessorImpl</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">57</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">sun</span><span class="o">.</span><span class="na">reflect</span><span class="o">.</span><span class="na">DelegatingMethodAccessorImpl</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">DelegatingMethodAccessorImpl</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">43</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">reflect</span><span class="o">.</span><span class="na">Method</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">Method</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">606</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">RunJar</span><span class="o">.</span><span class="na">_main</span><span class="o">(</span><span class="n">RunJar</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">227</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">RunJar</span><span class="o">.</span><span class="na">access$000</span><span class="o">(</span><span class="n">RunJar</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">49</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">RunJar$1</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">RunJar</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">126</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">security</span><span class="o">.</span><span class="na">AccessController</span><span class="o">.</span><span class="na">doPrivileged</span><span class="o">(</span><span class="n">Native</span> <span class="n">Method</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">javax</span><span class="o">.</span><span class="na">security</span><span class="o">.</span><span class="na">auth</span><span class="o">.</span><span class="na">Subject</span><span class="o">.</span><span class="na">doAs</span><span class="o">(</span><span class="n">Subject</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">415</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">security</span><span class="o">.</span><span class="na">UserGroupInformation</span><span class="o">.</span><span class="na">doAs</span><span class="o">(</span><span class="n">UserGroupInformation</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">1556</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">security</span><span class="o">.</span><span class="na">SecurityUtil</span><span class="o">.</span><span class="na">doAsConfigUser</span><span class="o">(</span><span class="n">SecurityUtil</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">646</span><span class="o">)</span>
+    <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">RunJar</span><span class="o">.</span><span class="na">main</span><span class="o">(</span><span class="n">RunJar</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="mi">123</span><span class="o">)</span>
+<span class="o">)</span>
+<span class="nl">FAILED:</span> <span class="n">Execution</span> <span class="n">Error</span><span class="o">,</span> <span class="k">return</span> <span class="n">code</span> <span class="mi">1</span> <span class="n">from</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">hive</span><span class="o">.</span><span class="na">ql</span><span class="o">.</span><span class="na">exec</span><span class="o">.</span><span class="na">MoveTask</span>
+<span class="o">)</span>
+<span class="n">Fail</span> <span class="n">in</span> <span class="n">Action</span> <span class="n">load</span>
+</code></pre></div>
+<h2 id="参考资料">参考资料</h2>
+
+                </div>
+
+
+                <div id="pay" style="text-align:center;">
+                  ----EOF-----
+                  <br>
+                  
+                </div>
+
+                <p class="meta">
+                	
+                      Categories:
+                	    
+                    	<a class="btn btn-default btn-xs" href="/categories.html#hive">hive</a>
+                    
+                	
+
+                	
+                      Tags:
+                	    
+                    	<a class="btn btn-default btn-xs" href="/tags.html#hive join">hive join</a>
+                    
+                	
+                </p>
+          	</article>
+
+          	<ul class="pager">
+          	  
+          	  <li class="previous"><a class="btn btn-xs" href="/2015/10/25/Hive%E4%B9%8BJOIN%E5%8F%8AJOIN%E4%BC%98%E5%8C%96" title="Hive:JOIN及JOIN优化">&larr; Prev</a></li>
+          	  
+          	  
+          	  <li class="next"><a class="btn btn-xs" href="/2015/10/26/Hive%E4%B9%8Bmac%E7%8E%AF%E5%A2%83%E4%B8%AD%E7%9A%84Java%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98" title="Hive之mac环境中的Java路径问题">Next &rarr;</a></li>
+          	  
+          	</ul>
+
+            <!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="/2015/10/25/Hive之分区字段的异常字符" data-title="Hive:分区字段的异常字符" data-url="/2015/10/25/Hive%E4%B9%8B%E5%88%86%E5%8C%BA%E5%AD%97%E6%AE%B5%E7%9A%84%E5%BC%82%E5%B8%B8%E5%AD%97%E7%AC%A6"></div>
+<!-- 多说评论框 end -->
+
+
+          </div>
+
+        </div>
+      </div>
+
+      <footer class="footer text-center">
+        <p>&copy; 2009-2015 <a href="/" target="_blank" title="">小z</a> CC BY-NC-SA 3.0. <a href="https://github.com/javachen/javachen-blog-theme" target="_blank" title="https://github.com/javachen/javachen-blog-theme">Theme</a> build with <a href="//jekyllrb.com/" target="_blank" title="Transform your plain text into static websites and blogs.">Jekyll</a>.
+      	            
+            
+        </p>
+        <div id="toTop" style="display: block;">  <a href="#">▲</a><a href="#footer">▼</a>  </div>
+      </footer>
+
+      <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+      <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="/static/js/core.js"></script>
+      
+      <!-- duoshuo Begin -->
+      <script type="text/javascript">
+        var duoshuoQuery = {short_name:"datavalley"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+      </script>
+      <!-- duoshuo End -->
+      
+
+
+    </div>
+  </body>
+</html>

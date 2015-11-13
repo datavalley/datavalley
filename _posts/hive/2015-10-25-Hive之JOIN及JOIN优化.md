@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Hive:JOIN及JOIN"
+title:  "Hive:JOIN及JOIN优化"
 keywords: "hive"
 description: "JOIN基本原理，各种JOIN的区别，JOIN优化"
 category: Hive
