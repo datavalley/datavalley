@@ -154,11 +154,16 @@ Total MapReduce CPU Time Spent: 0 msec
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;查看分区数据后，会看到下面类型的数据：&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://datavalley.github.io/img/hive/partition_fail/partition_fail&quot; alt=&quot;分区字段异常&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://datavalley.github.io/img/hive/partition_fail/partition_fail.png&quot; alt=&quot;分区字段异常&quot;&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;2-解决办法&quot;&gt;2 解决办法&lt;/h1&gt;
 
+&lt;p&gt;我们使用正则表达式将异常值过滤掉即可，例如：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-SQL&quot; data-lang=&quot;SQL&quot;&gt;&lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;partition_field_name&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;RLIKE&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;^\\w*$&amp;#39;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;h2 id=&quot;参考资料&quot;&gt;参考资料&lt;/h2&gt;
+
+&lt;p&gt;[1]. &lt;a href=&quot;http://blog.csdn.net/yfkiss/article/details/8212050&quot;&gt;http://blog.csdn.net/yfkiss/article/details/8212050&lt;/a&gt;&lt;/p&gt;
 </description>
       </item>
     

@@ -163,11 +163,16 @@
 </code></pre></div>
 <p>查看分区数据后，会看到下面类型的数据：</p>
 
-<p><img src="http://datavalley.github.io/img/hive/partition_fail/partition_fail" alt="分区字段异常"></p>
+<p><img src="http://datavalley.github.io/img/hive/partition_fail/partition_fail.png" alt="分区字段异常"></p>
 
 <h1 id="2-解决办法">2 解决办法</h1>
 
+<p>我们使用正则表达式将异常值过滤掉即可，例如：</p>
+<div class="highlight"><pre><code class="language-SQL" data-lang="SQL"><span class="k">WHERE</span> <span class="n">partition_field_name</span> <span class="n">RLIKE</span> <span class="s1">&#39;^\\w*$&#39;</span>
+</code></pre></div>
 <h2 id="参考资料">参考资料</h2>
+
+<p>[1]. <a href="http://blog.csdn.net/yfkiss/article/details/8212050">http://blog.csdn.net/yfkiss/article/details/8212050</a></p>
 
                 </div>
 
