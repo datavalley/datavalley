@@ -6,6 +6,43 @@
     <description></description>
     
       <item>
+        <title>MAC挂载NTFS硬盘或U盘</title>
+        <link>http://datavalley.github.io/2016/02/14/MAC%E6%8C%82%E8%BD%BDNTFS%E7%A1%AC%E7%9B%98%E6%88%96U%E7%9B%98</link>
+        <guid isPermaLink="true">http://datavalley.github.io/2016/02/14/MAC%E6%8C%82%E8%BD%BDNTFS%E7%A1%AC%E7%9B%98%E6%88%96U%E7%9B%98</guid>
+        <pubDate>Sun, 14 Feb 2016 00:00:00 +0800</pubDate>
+        <description>&lt;p&gt;在平时工作和生活中，经常需要在windows和mac之间进行文件拷贝，对于较小的文件可以利用QQ的文件传输功能完成。但是对于较大的文件来说，由于网络带宽的限制，使用QQ等借助网络进行传输的软件就变得得不偿失。这时候就需要借助U盘或者硬盘来进行文件的拷贝。&lt;/p&gt;
+
+&lt;p&gt;现在大多数情况下，U盘或者硬盘都是在windows进行格式化得，文件系统的格式一般为NTFS。mac对于NTFS可以直接进行读取操作，但对于写操作，就需要额外的手段来支持了。&lt;/p&gt;
+
+&lt;p&gt;我也曾经尝试过使用一些软件，使得mac可以直接对NTFS的U盘进行写操作，但过了试用期就无法使用了。又不想买正版（穷。。。。），怎么办呢？？&lt;/p&gt;
+
+&lt;p&gt;这怎么能难住程序员，哈哈哈。经过查询，找到一个很好的方法来解决mac写普通NTFS格式的U盘的方法。&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;diskutil info /Volumes/YOUR_NTFS_DISK_NAME &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;找到 Device Node&lt;br&gt;
+Device Node:              /dev/disk1s1&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;hdiutil eject /Volumes/YOUR_NTFS_DISK_NAME&lt;br&gt;
+&amp;quot;disk1&amp;quot; unmounted.&lt;br&gt;
+&amp;quot;disk1&amp;quot; ejected.&lt;br&gt;
+弹出你的硬盘&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;创建一个目录，稍后将mount到这个目录 &lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;sudo mkdir /Volumes/MYHD&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;将NTFS硬盘 挂载 mount 到mac
+sudo mount_ntfs -o rw,nobrowse /dev/disk1s1 /Volumes/MYHD/&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+      </item>
+    
+      <item>
         <title>Hive之mac环境中的Java路径问题</title>
         <link>http://datavalley.github.io/2015/10/26/Hive%E4%B9%8Bmac%E7%8E%AF%E5%A2%83%E4%B8%AD%E7%9A%84Java%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98</link>
         <guid isPermaLink="true">http://datavalley.github.io/2015/10/26/Hive%E4%B9%8Bmac%E7%8E%AF%E5%A2%83%E4%B8%AD%E7%9A%84Java%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98</guid>

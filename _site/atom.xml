@@ -4,12 +4,26 @@
   <title>Data Valley</title>
   <link href="//atom.xml" rel="self"/>
   <link href=""/>
-  <updated>2015-11-13T09:51:54+08:00</updated>
+  <updated>2016-02-14T09:16:37+08:00</updated>
   <id></id>
   <author>
     <name>小z</name>
   </author>
 
+  
+  <entry>
+    <title>MAC挂载NTFS硬盘或U盘</title>
+    <link href="/2016/02/14/MAC%E6%8C%82%E8%BD%BDNTFS%E7%A1%AC%E7%9B%98%E6%88%96U%E7%9B%98/"/>
+    <updated>2016-02-14T00:00:00+08:00</updated>
+    <id>/2016/02/14/MAC挂载NTFS硬盘或U盘</id>
+    <content type="html">在平时工作和生活中，经常需要在windows和mac之间进行文件拷贝，对于较小的文件可以利用QQ的文件传输功能完成。但是对于较大的文件来说，由于网络带宽的限制，使用QQ等借助网络进行传输的软件就变得得不偿失。这时候就需要借助U盘或者硬盘来进行文件的拷贝。
+
+现在大多数情况下，U盘或者硬盘都是在windows进行格式化得，文件系统的格式一般为NTFS。mac对于NTFS可以直接进行读取操作，但对于写操作，就需要额外的手段来支持了。
+
+我也曾经尝试过使用一些软件，使得mac可以直接对NTFS的U盘进行写操作，但过了试用期就无法使用了。又不想买正版（穷。。。。），怎么办呢？？
+
+这怎么能难住程...</content>
+  </entry>
   
   <entry>
     <title>Hive之mac环境中的Java路径问题</title>
