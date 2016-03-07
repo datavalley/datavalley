@@ -4,14 +4,144 @@
     <title>Data Valley</title>
     <description>tagline</description>
     <link>http://datavalley.github.io/rss.xml</link>
-    <lastBuildDate>2016-02-14T09:16:37+08:00</lastBuildDate>
-    <pubDate>2016-02-14T09:16:37+08:00</pubDate>
+    <lastBuildDate>2016-03-07T11:42:30+08:00</lastBuildDate>
+    <pubDate>2016-03-07T11:42:30+08:00</pubDate>
     <ttl>1800</ttl>
 
     
     <item>
+      <title>Hive之执行计划</title>
+      <description>&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;EXPLAIN&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;datekey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;topic&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;deal_date&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;datekey&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20160201&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;datekey&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;上述SQL的执行计划为：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;n&quot;&gt;STAGE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DEPENDENCIES&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;-- 上述SQL的执行阶段信息，在这里，Stage-1对应一个mapreduce job&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;Stage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;root&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stage&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;Stage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;root&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stage&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;STAGE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PLANS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;Stage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Stage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;Map&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Reduce&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;Map&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Operator&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;-- map阶段&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;TableScan&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;alias&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;deal_date&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;-- 表名&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;Statistics&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Num&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3010296064&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Data&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;24082368512&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Basic&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stats&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;COMPLETE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Column&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stats&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NONE&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;-- 统计信息，包括数据行数，以及数据大小&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;Filter&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Operator&lt;/span&gt;
+              &lt;span class=&quot;n&quot;&gt;predicate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;datekey&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;20160201&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;boolean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;-- 使用where条件进行过滤&lt;/span&gt;
+              &lt;span class=&quot;k&quot;&gt;Statistics&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Num&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1505148032&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Data&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;12041184256&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Basic&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stats&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;COMPLETE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Column&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stats&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NONE&lt;/span&gt;
+              &lt;span class=&quot;k&quot;&gt;Select&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Operator&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;expressions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;datekey&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;bigint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;-- select的列&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;outputColumnNames&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;datekey&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;Statistics&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Num&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1505148032&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Data&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;12041184256&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Basic&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stats&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;COMPLETE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Column&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stats&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NONE&lt;/span&gt;
+                &lt;span class=&quot;k&quot;&gt;Group&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;By&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Operator&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;-- map阶段进行group by操作，减少shuffle数据量&lt;/span&gt;
+                  &lt;span class=&quot;n&quot;&gt;aggregations&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;   
+                  &lt;span class=&quot;n&quot;&gt;keys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;datekey&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;bigint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                  &lt;span class=&quot;k&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hash&lt;/span&gt;
+                  &lt;span class=&quot;n&quot;&gt;outputColumnNames&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_col0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_col1&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;-- 输出datekey和count()两列&lt;/span&gt;
+                  &lt;span class=&quot;k&quot;&gt;Statistics&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Num&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1505148032&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Data&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;12041184256&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Basic&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stats&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;COMPLETE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Column&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stats&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NONE&lt;/span&gt;
+                  &lt;span class=&quot;n&quot;&gt;Reduce&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Output&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Operator&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;-- 这里描述map的输出，也即reduce的输入信息。&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;key&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expressions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_col0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;bigint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;-- map输出的key，在这里，_col0对应datekey&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;sort&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;order&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;-- 排序，+表示按一个字段进行排序，++表示按照两个字段排序，依次类推&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reduce&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;partition&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;columns&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_col0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;bigint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;-- map输出的partition信息，即根据_col0（datekey）进行分发&lt;/span&gt;
+                    &lt;span class=&quot;k&quot;&gt;Statistics&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Num&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1505148032&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Data&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;12041184256&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Basic&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stats&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;COMPLETE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Column&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stats&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NONE&lt;/span&gt;
+                    &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expressions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_col1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;bigint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;-- map输出的value字段，即count()值&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;Reduce&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Operator&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Tree&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;-- reduce阶段&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;Group&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;By&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Operator&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;-- reduce阶段进行group by操作&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;aggregations&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;VALUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_col0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;   
+          &lt;span class=&quot;n&quot;&gt;keys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;KEY&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_col0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;bigint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mergepartial&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;outputColumnNames&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_col0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_col1&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;Statistics&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Num&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;752574016&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Data&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6020592128&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Basic&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stats&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;COMPLETE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Column&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stats&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NONE&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;Select&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Operator&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;expressions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_col0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;bigint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_col1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;bigint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;outputColumnNames&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_col0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_col1&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;Statistics&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Num&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;752574016&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Data&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6020592128&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Basic&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stats&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;COMPLETE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Column&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stats&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NONE&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;File&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Output&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Operator&lt;/span&gt;
+              &lt;span class=&quot;n&quot;&gt;compressed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;false&lt;/span&gt;
+              &lt;span class=&quot;k&quot;&gt;Statistics&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Num&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;rows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;752574016&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Data&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6020592128&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Basic&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stats&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;COMPLETE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Column&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stats&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NONE&lt;/span&gt;
+              &lt;span class=&quot;k&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+                  &lt;span class=&quot;k&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;apache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hadoop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mapred&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TextInputFormat&lt;/span&gt;
+                  &lt;span class=&quot;k&quot;&gt;output&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;apache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hadoop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ql&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;io&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HiveIgnoreKeyTextOutputFormat&lt;/span&gt;
+                  &lt;span class=&quot;n&quot;&gt;serde&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;org&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;apache&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hadoop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;serde2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lazy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;LazySimpleSerDe&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;Stage&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Stage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;Fetch&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;Operator&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;limit&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;参考链接&quot;&gt;参考链接&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.cnblogs.com/halentest/p/3291076.html&quot;&gt;Hive 执行计划&lt;/a&gt;&lt;/p&gt;
+</description>
+      <link>http://datavalley.github.io/2016/02/16/Hive%E4%B9%8B%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92/</link>
+      <guid>http://datavalley.github.io/2016/02/16/Hive之执行计划/</guid>
+      <pubDate>2016-02-16T00:00:00+08:00</pubDate>
+    </item>
+    
+    <item>
+      <title>Hive之COUNT DISTINCT优化</title>
+      <description>&lt;p&gt;COUNT(DISTINCT xxx)在hive中很容易造成数据倾斜。针对这一情况，网上已有很多优化方法，这里不再赘述。&lt;/p&gt;
+
+&lt;p&gt;但有时，“数据倾斜”又几乎是必然的。我们来举个例子：&lt;/p&gt;
+
+&lt;p&gt;假设表detail_sdk_session中记录了访问某网站M的客户端会话信息，即：如果用户A打开app客户端，则会产生一条会话信息记录在该表中，该表的粒度为“一次”会话，其中每次会话都记录了用户的唯一标示uuid，uuid是一个很长的字符串，假定其长度为64位。现在的需求是：&lt;strong&gt;每天统计当月的活用用户数&lt;/strong&gt;——“月活跃用户数”（当月访问过app就为活跃用户）。我们以2016年1月为例进行说明，now表示当前日期。&lt;/p&gt;
+
+&lt;h2 id=&quot;最简单的方法&quot;&gt;最简单的方法&lt;/h2&gt;
+
+&lt;p&gt;这个问题逻辑上很简单，SQL也很容易写出来，例如：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;DISTINCT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;uuid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;detail_sdk_session&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;2016-01-01&amp;#39;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;date&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;上述SQL代码中，now表示当天的日期。很容易想到，越接近月末，上面的统计的数据量就会越大。更重要的是，在这种情况下，“数据倾斜”是必然的，因为只有一个reducer在进行COUNT(DISTINCT uuid)的计算，&lt;strong&gt;所有的数据都流向唯一的一个reducer&lt;/strong&gt;，不倾斜才怪。&lt;/p&gt;
+
+&lt;h2 id=&quot;另一种的方法&quot;&gt;另一种的方法&lt;/h2&gt;
+
+&lt;p&gt;其实，在COUNT(DISTINCT xxx)的时候，我们可以采用“分治”的思想来解决。对于上面的例子，首先我们按照uuid的前n位进行GROUP BY，并做COUNT(DISTINCT )操作，然后再对所有的COUNT(DISTINCT)结果进行求和。&lt;/p&gt;
+
+&lt;p&gt;我们先把SQL写出来，然后再做分析。&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span class=&quot;c1&quot;&gt;-- 外层SELECT求和&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;SUM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mau_part&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mau&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;-- 内层SELECT分别进行COUNT(DISTINCT)计算&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;substr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uuid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;uuid_part&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;COUNT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;DISTINCT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;substr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uuid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mau_part&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;detail_sdk_session&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;partition_date&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;2016-01-01&amp;#39;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;AND&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;partition_date&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;now&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;GROUP&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;BY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;substr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uuid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;上述SQL中，内层SELECT根据uuid的前3位进行GROUP BY，并计算相应的活跃用户数COUNT(DISTINCT)，外层SELECT求和，得到最终的月活跃用户数。&lt;/p&gt;
+
+&lt;p&gt;这种方法的好处在于，&lt;strong&gt;在不同的reducer各自进行COUNT(DISTINCT)计算&lt;/strong&gt;，充分发挥hadoop的优势，然后进行求和。&lt;/p&gt;
+
+&lt;p&gt;注意，上面SQL中，n设为3，不应过大。&lt;/p&gt;
+
+&lt;p&gt;为什么n不应该太大呢？&lt;/p&gt;
+
+&lt;p&gt;我们假定uuid是由字母和数字组成的：大写字母、小写字母和数字，字符总数为26+26+10=52。&lt;/p&gt;
+
+&lt;p&gt;理论上，内层SELECT进行GROUP BY时，会有 52&lt;sup&gt;n&lt;/sup&gt; 个分组，外层SELECT就会进行 52&lt;sup&gt;n&lt;/sup&gt; 次求和。所以n不宜过大。&lt;/p&gt;
+
+&lt;p&gt;当然，如果数据量十分巨大，n必须充分大，才能保证内层SELECT中的COUNT(DISTINCT)能够计算出来，此时可以再嵌套一层SELECT，这里不再赘述。&lt;/p&gt;
+</description>
+      <link>http://datavalley.github.io/2016/02/15/Hive%E4%B9%8BCOUNT%20DISTINCT%E4%BC%98%E5%8C%96/</link>
+      <guid>http://datavalley.github.io/2016/02/15/Hive之COUNT DISTINCT优化/</guid>
+      <pubDate>2016-02-15T00:00:00+08:00</pubDate>
+    </item>
+    
+    <item>
       <title>MAC挂载NTFS硬盘或U盘</title>
-      <description>&lt;p&gt;在平时工作和生活中，经常需要在windows和mac之间进行文件拷贝，对于较小的文件可以利用QQ的文件传输功能完成。但是对于较大的文件来说，由于网络带宽的限制，使用QQ等借助网络进行传输的软件就变得得不偿失。这时候就需要借助U盘或者硬盘来进行文件的拷贝。&lt;/p&gt;
+      <description>&lt;p&gt;在平时工作和生活中，经常需要在windows和mac之间进行文件拷贝，对于较小的文件可以利用QQ的文件传输功能完成。但是对于较大的文件来说，由于网络带宽的限制，使用QQ等借助网络进行传输的软件就变的得不偿失。这时候就需要借助U盘或者硬盘来进行文件的拷贝。&lt;/p&gt;
 
 &lt;p&gt;现在大多数情况下，U盘或者硬盘都是在windows进行格式化得，文件系统的格式一般为NTFS。mac对于NTFS可以直接进行读取操作，但对于写操作，就需要额外的手段来支持了。&lt;/p&gt;
 
@@ -19,6 +149,53 @@
 
 &lt;p&gt;这怎么能难住程序员，哈哈哈。经过查询，找到一个很好的方法来解决mac写普通NTFS格式的U盘的方法。&lt;/p&gt;
 
+&lt;h2 id=&quot;1-查询u盘或者硬盘分区的名字&quot;&gt;1. 查询U盘或者硬盘分区的名字&lt;/h2&gt;
+
+&lt;p&gt;当我们使用U盘时，mac会自动将其挂载，如下图所示，我的U盘名字是zmz，这个时候，我们可以把U盘中的文件拷贝到mac中，但是无法mac上的文件写入U盘。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://datavalley.github.io/img/mac/u.png&quot; alt=&quot;u盘&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;在这一步中，记住U盘或者硬盘分区的名字，这里，U盘的名字是：&lt;strong&gt;zmz&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;2-查看device-node&quot;&gt;2. 查看Device Node&lt;/h2&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;diskutil info /Volumes/YOUR_NTFS_DISK_NAME 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;YOUR_NTFS_DISK_NAME即为上一步中U盘的名字，在这里，上述命令为：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;diskutil info /Volumes/zmz 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;运行上述命令后，得到U盘的很多信息，如下图所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://datavalley.github.io/img/mac/device_node.png&quot; alt=&quot;device_node&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;上图中，最重要的信息为U盘的Device Node，这里为：&lt;strong&gt;/dev/disk1s4&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;3-推出u盘&quot;&gt;3. 推出U盘&lt;/h2&gt;
+
+&lt;p&gt;因为U盘或者硬盘已经被mac自动挂载，所以需要将其“推出”，然后进行重新挂载。推出命令为：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;hdiutil eject /Volumes/YOUR_NTFS_DISK_NAME
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;在这里，YOUR_NTFS_DISK_NAME为：zmz，所以实际的命令为：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;hdiutil eject /Volumes/zmz
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;得到的命令提示为：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&amp;quot;disk1&amp;quot; unmounted.
+&amp;quot;disk1&amp;quot; ejected.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;此时U盘已经被推出，在Finder中已经看不到U盘了。&lt;/p&gt;
+
+&lt;h2 id=&quot;4-创建一个目录&quot;&gt;4. 创建一个目录&lt;/h2&gt;
+
+&lt;p&gt;创建一个目录，作为U盘的挂载点，这里我们在home下创建一个名为ntfs的目录，作为挂载点。&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;mkdir ntfs
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;5-挂载u盘&quot;&gt;5. 挂载U盘&lt;/h2&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;sudo mount_ntfs -o rw,nobrowse DEVICE_NODE YOUR_OWN_DIR
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;这里，DEVICE_NODE为：&lt;strong&gt;/dev/disk1s4&lt;/strong&gt;；YOUR_OWN_DIR为：&lt;strong&gt;~/ntfs&lt;/strong&gt;，即上一步中创建的挂载点。&lt;/p&gt;
+
+&lt;p&gt;实际的命令为：&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;sudo mount_ntfs -o rw,nobrowse /dev/disk1s4 ~/ntfs
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;ol&gt;
 &lt;li&gt;diskutil info /Volumes/YOUR_NTFS_DISK_NAME &lt;/li&gt;
 &lt;/ol&gt;
@@ -37,8 +214,7 @@ Device Node:              /dev/disk1s1&lt;/p&gt;
 &lt;p&gt;sudo mkdir /Volumes/MYHD&lt;/p&gt;
 
 &lt;ol&gt;
-&lt;li&gt;将NTFS硬盘 挂载 mount 到mac
-sudo mount_ntfs -o rw,nobrowse /dev/disk1s1 /Volumes/MYHD/&lt;/li&gt;
+&lt;li&gt;将NTFS硬盘 挂载 mount 到mac&lt;/li&gt;
 &lt;/ol&gt;
 </description>
       <link>http://datavalley.github.io/2016/02/14/MAC%E6%8C%82%E8%BD%BDNTFS%E7%A1%AC%E7%9B%98%E6%88%96U%E7%9B%98/</link>

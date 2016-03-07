@@ -9,7 +9,7 @@ body {
 
 .container {
 	padding:0 5px;
-	width:90%;
+	width:65%;
 }
 
 :hover,:focus {
@@ -216,4 +216,32 @@ table tbody tr:hover {
 }
 #pay h4{
 	display:none;
+}
+
+#content {
+  width: 250px;
+  margin: 0 auto;
+  line-height: 2em; 
+}
+
+#content .main-listing {
+    margin-bottom: 5em; 
+}
+
+#menuIndex {
+  position: fixed;
+  margin-left: 750px;
+}
+#menuIndex ol, ul {
+  list-style-position: outside; }
+
+#menuIndex .h3{
+  font-size:0.8em;
+  margin-left:10px;
+}
+#menuIndex .h2{
+  font-size:1.2em;
+}	
+#menuIndex a:hover {
+  color: #dd1144;
 }
