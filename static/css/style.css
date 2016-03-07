@@ -93,7 +93,7 @@ blockquote p{margin:0;padding:.5em 0;}
 	border:1px solid rgba(0,0,0,0.17);
 	box-shadow:0 1px 10px rgba(170,170,170,0.8);
 	background:rgba(253,253,253,0.9);
-	padding:20px 20px 20px 20px;
+	padding:20px 40px 20px 40px;
 	margin:20px 0;
 }
 .wrapper a:visited {
@@ -219,7 +219,7 @@ table tbody tr:hover {
 }
 
 #content {
-  width: 250px;
+  width: 65%;
   margin: 0 auto;
   line-height: 2em; 
 }
@@ -230,7 +230,7 @@ table tbody tr:hover {
 
 #menuIndex {
   position: fixed;
-  margin-left: 750px;
+  margin-left: 66%;
 }
 #menuIndex ol, ul {
   list-style-position: outside; }
