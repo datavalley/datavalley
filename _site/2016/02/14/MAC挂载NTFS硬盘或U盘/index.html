@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>MAC挂载NTFS硬盘或U盘 - Data Valley</title>
+      <meta name="author" content="小z">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" >
+      <link rel="canonical" href="http://datavalley.github.io/2016/02/14/MAC%E6%8C%82%E8%BD%BDNTFS%E7%A1%AC%E7%9B%98%E6%88%96U%E7%9B%98/">
+      <link rel="stylesheet" href="/static/css/bootstrap.min.css" media="all">
+      <link rel="stylesheet" href="/static/css/style.css" media="all">
+      <link rel="stylesheet" href="/static/css/pygments.css" media="all">
+      <link rel="stylesheet" href="/static/css/font-awesome.css" media="all">
+
+      <!-- atom & rss feed -->
+      <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Data Valley RSS Feed">
+      <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Data Valley ATOM Feed">
+
+      <script type="text/javascript" src="/static/js/jquery.min.js"  charset="utf-8"></script>
+      <script type="text/javascript" src="/static/js/sidenav.js" charset="utf-8"></script>
+    </head>
+
+
+  <body>
+  <div id="content"></div>
+    <div class="container">
+
+    <!--[if lte IE 9]>
+<div class="alert alert-warning">
+  <p>Your Internet Explorer is not supported. Please upgrade your Internet Explorer to version 9+, or use latest <a href="http://www.google.com/chrome/" target="_blank" class="alert-link">Google chrome</a>、<a href="http://www.mozilla.org/firefox/" target="_blank" class="alert-link">Mozilla Firefox</a>.</p>
+  <p>If you are using IE 9 or later, make sure you <a href="http://windows.microsoft.com/en-us/internet-explorer/use-compatibility-view#ie=ie-8" target="_blank" class="alert-link">turn off "Compatibility view"</a>.</p>
+</div>
+<![endif]-->
+<header class="header">
+  <div class="title"><a title="Data Valley" href="/">Data Valley</a></div>
+  <ul class="nav navbar-nav navbar-right visible-lg visible-md">
+    <li>
+    <form id="search-form" class="form-group has-success visible-lg" role="form">
+      <input type="text" class="form-control input-sm" placeholder="Search" id="query" style="width: 160px;">
+    </form>
+    </li>
+    <li><a href="/archive.html" title="Archive"><span class='fa fa-archive fa-2x'></span></a></li>
+    <li><a href="/categories.html" title="Categories"><span class='fa fa-navicon fa-2x'></span></a></li>
+    <li><a href="/tags.html" title="Tags"><span class='fa fa-tags fa-2x'></span></a></li>
+    <li><a href="/about.html" title="About"><span class='fa fa-user fa-2x'></span></a></li>
+    
+    <li><a href="https://github.com/datavalley/datavalley.github.io" target="_blank" title="Github"><span class='fa fa-github fa-2x'></span></a></li>
+    
+    
+    
+    
+    
+
+    <li><a href="/rss.xml" target="_blank" title="RSS"><span class='fa fa-rss fa-2x'></span></a></li>
+  </ul>
+</header>
+
+
+      <div class="wrapper">
+        <div class="row">
+          <div id="search-loader" style="display:none;text-align:center">
+            <img src="/static/images/loading.gif">
+          </div>
+          <div class="col-md-12">
+            <div id="content"></div>
+            <article class="news-item">
+                <h1  class="news-item"> MAC挂载NTFS硬盘或U盘  
+                  <time class="small">2016.02.14</time>
+                </h1>
+
+                <div>
+                <p>在平时工作和生活中，经常需要在windows和mac之间进行文件拷贝，对于较小的文件可以利用QQ的文件传输功能完成。但是对于较大的文件来说，由于网络带宽的限制，使用QQ等借助网络进行传输的软件就变的得不偿失。这时候就需要借助U盘或者硬盘来进行文件的拷贝。</p>
+
+<p>现在大多数情况下，U盘或者硬盘都是在windows进行格式化得，文件系统的格式一般为NTFS。mac对于NTFS可以直接进行读取操作，但对于写操作，就需要额外的手段来支持了。</p>
+
+<p>我也曾经尝试过使用一些软件，使得mac可以直接对NTFS的U盘进行写操作，但过了试用期就无法使用了。又不想买正版（穷。。。。），怎么办呢？？</p>
+
+<p>这怎么能难住程序员，哈哈哈。经过查询，找到一个很好的方法来解决mac写普通NTFS格式的U盘的方法。</p>
+
+<h2 id="1-查询u盘或者硬盘分区的名字">1. 查询U盘或者硬盘分区的名字</h2>
+
+<p>当我们使用U盘时，mac会自动将其挂载，如下图所示，我的U盘名字是zmz，这个时候，我们可以把U盘中的文件拷贝到mac中，但是无法mac上的文件写入U盘。</p>
+
+<p><img src="http://datavalley.github.io/img/mac/u.png" alt="u盘"></p>
+
+<p>在这一步中，记住U盘或者硬盘分区的名字，这里，U盘的名字是：<strong>zmz</strong></p>
+
+<h2 id="2-查看device-node">2. 查看Device Node</h2>
+<div class="highlight"><pre><code class="language-text" data-lang="text">diskutil info /Volumes/YOUR_NTFS_DISK_NAME 
+</code></pre></div>
+<p>YOUR_NTFS_DISK_NAME即为上一步中U盘的名字，在这里，上述命令为：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">diskutil info /Volumes/zmz 
+</code></pre></div>
+<p>运行上述命令后，得到U盘的很多信息，如下图所示：</p>
+
+<p><img src="http://datavalley.github.io/img/mac/device_node.png" alt="device_node"></p>
+
+<p>上图中，最重要的信息为U盘的Device Node，这里为：<strong>/dev/disk1s4</strong></p>
+
+<h2 id="3-推出u盘">3. 推出U盘</h2>
+
+<p>因为U盘或者硬盘已经被mac自动挂载，所以需要将其“推出”，然后进行重新挂载。推出命令为：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">hdiutil eject /Volumes/YOUR_NTFS_DISK_NAME
+</code></pre></div>
+<p>在这里，YOUR_NTFS_DISK_NAME为：zmz，所以实际的命令为：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">hdiutil eject /Volumes/zmz
+</code></pre></div>
+<p>得到的命令提示为：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">&quot;disk1&quot; unmounted.
+&quot;disk1&quot; ejected.
+</code></pre></div>
+<p>此时U盘已经被推出，在Finder中已经看不到U盘了。</p>
+
+<h2 id="4-创建一个目录">4. 创建一个目录</h2>
+
+<p>创建一个目录，作为U盘的挂载点，这里我们在home下创建一个名为ntfs的目录，作为挂载点。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">mkdir ntfs
+</code></pre></div>
+<h2 id="5-挂载u盘">5. 挂载U盘</h2>
+<div class="highlight"><pre><code class="language-text" data-lang="text">sudo mount_ntfs -o rw,nobrowse DEVICE_NODE YOUR_OWN_DIR
+</code></pre></div>
+<p>这里，DEVICE_NODE为：<strong>/dev/disk1s4</strong>；YOUR_OWN_DIR为：<strong>~/ntfs</strong>，即上一步中创建的挂载点。</p>
+
+<p>实际的命令为：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">sudo mount_ntfs -o rw,nobrowse /dev/disk1s4 ~/ntfs
+</code></pre></div>
+<ol>
+<li>diskutil info /Volumes/YOUR_NTFS_DISK_NAME </li>
+</ol>
+
+<p>找到 Device Node<br>
+Device Node:              /dev/disk1s1</p>
+
+<ol>
+<li><p>hdiutil eject /Volumes/YOUR_NTFS_DISK_NAME<br>
+&quot;disk1&quot; unmounted.<br>
+&quot;disk1&quot; ejected.<br>
+弹出你的硬盘</p></li>
+<li><p>创建一个目录，稍后将mount到这个目录 </p></li>
+</ol>
+
+<p>sudo mkdir /Volumes/MYHD</p>
+
+<ol>
+<li>将NTFS硬盘 挂载 mount 到mac</li>
+</ol>
+
+                </div>
+
+
+                <div id="pay" style="text-align:center;">
+                  ----EOF-----
+                  <br>
+                  
+                </div>
+
+                <p class="meta">
+                	
+                      Categories:
+                	    
+                    	<a class="btn btn-default btn-xs" href="/categories.html#mac">mac</a>
+                    
+                	
+
+                	
+                      Tags:
+                	    
+                    	<a class="btn btn-default btn-xs" href="/tags.html#MAC NTFS 硬盘 U盘">MAC NTFS 硬盘 U盘</a>
+                    
+                	
+                </p>
+          	</article>
+
+          	<ul class="pager">
+          	  
+          	  <li class="previous"><a class="btn btn-xs" href="/2015/10/26/Hive%E4%B9%8Bmac%E7%8E%AF%E5%A2%83%E4%B8%AD%E7%9A%84Java%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98" title="Hive之mac环境中的Java路径问题">&larr; Prev</a></li>
+          	  
+          	  
+          	  <li class="next"><a class="btn btn-xs" href="/2016/02/15/Hive%E4%B9%8BCOUNT%20DISTINCT%E4%BC%98%E5%8C%96" title="Hive之COUNT DISTINCT优化">Next &rarr;</a></li>
+          	  
+          	</ul>
+
+            <!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="/2016/02/14/MAC挂载NTFS硬盘或U盘" data-title="MAC挂载NTFS硬盘或U盘" data-url="/2016/02/14/MAC%E6%8C%82%E8%BD%BDNTFS%E7%A1%AC%E7%9B%98%E6%88%96U%E7%9B%98"></div>
+<!-- 多说评论框 end -->
+
+
+          </div>
+
+        </div>
+      </div>
+
+      <footer class="footer text-center">
+        <p>&copy; 2009-2016 <a href="/" target="_blank" title="">小z</a> CC BY-NC-SA 3.0. <a href="https://github.com/javachen/javachen-blog-theme" target="_blank" title="https://github.com/javachen/javachen-blog-theme">Theme</a> build with <a href="//jekyllrb.com/" target="_blank" title="Transform your plain text into static websites and blogs.">Jekyll</a>.
+      	            
+            
+        </p>
+        <div id="toTop" style="display: block;">  <a href="#">▲</a><a href="#footer">▼</a>  </div>
+      </footer>
+
+      <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+      <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="/static/js/core.js"></script>
+      
+      <!-- duoshuo Begin -->
+      <script type="text/javascript">
+        var duoshuoQuery = {short_name:"datavalley"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+      </script>
+      <!-- duoshuo End -->
+      
+
+
+    </div>
+  </body>
+</html>

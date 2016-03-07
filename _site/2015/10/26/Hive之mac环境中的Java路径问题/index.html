@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>Hive之mac环境中的Java路径问题 - Data Valley</title>
+      <meta name="author" content="小z">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" >
+      <link rel="canonical" href="http://datavalley.github.io/2015/10/26/Hive%E4%B9%8Bmac%E7%8E%AF%E5%A2%83%E4%B8%AD%E7%9A%84Java%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98/">
+      <link rel="stylesheet" href="/static/css/bootstrap.min.css" media="all">
+      <link rel="stylesheet" href="/static/css/style.css" media="all">
+      <link rel="stylesheet" href="/static/css/pygments.css" media="all">
+      <link rel="stylesheet" href="/static/css/font-awesome.css" media="all">
+
+      <!-- atom & rss feed -->
+      <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Data Valley RSS Feed">
+      <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Data Valley ATOM Feed">
+
+      <script type="text/javascript" src="/static/js/jquery.min.js"  charset="utf-8"></script>
+      <script type="text/javascript" src="/static/js/sidenav.js" charset="utf-8"></script>
+    </head>
+
+
+  <body>
+  <div id="content"></div>
+    <div class="container">
+
+    <!--[if lte IE 9]>
+<div class="alert alert-warning">
+  <p>Your Internet Explorer is not supported. Please upgrade your Internet Explorer to version 9+, or use latest <a href="http://www.google.com/chrome/" target="_blank" class="alert-link">Google chrome</a>、<a href="http://www.mozilla.org/firefox/" target="_blank" class="alert-link">Mozilla Firefox</a>.</p>
+  <p>If you are using IE 9 or later, make sure you <a href="http://windows.microsoft.com/en-us/internet-explorer/use-compatibility-view#ie=ie-8" target="_blank" class="alert-link">turn off "Compatibility view"</a>.</p>
+</div>
+<![endif]-->
+<header class="header">
+  <div class="title"><a title="Data Valley" href="/">Data Valley</a></div>
+  <ul class="nav navbar-nav navbar-right visible-lg visible-md">
+    <li>
+    <form id="search-form" class="form-group has-success visible-lg" role="form">
+      <input type="text" class="form-control input-sm" placeholder="Search" id="query" style="width: 160px;">
+    </form>
+    </li>
+    <li><a href="/archive.html" title="Archive"><span class='fa fa-archive fa-2x'></span></a></li>
+    <li><a href="/categories.html" title="Categories"><span class='fa fa-navicon fa-2x'></span></a></li>
+    <li><a href="/tags.html" title="Tags"><span class='fa fa-tags fa-2x'></span></a></li>
+    <li><a href="/about.html" title="About"><span class='fa fa-user fa-2x'></span></a></li>
+    
+    <li><a href="https://github.com/datavalley/datavalley.github.io" target="_blank" title="Github"><span class='fa fa-github fa-2x'></span></a></li>
+    
+    
+    
+    
+    
+
+    <li><a href="/rss.xml" target="_blank" title="RSS"><span class='fa fa-rss fa-2x'></span></a></li>
+  </ul>
+</header>
+
+
+      <div class="wrapper">
+        <div class="row">
+          <div id="search-loader" style="display:none;text-align:center">
+            <img src="/static/images/loading.gif">
+          </div>
+          <div class="col-md-12">
+            <div id="content"></div>
+            <article class="news-item">
+                <h1  class="news-item"> Hive之mac环境中的Java路径问题  
+                  <time class="small">2015.10.26</time>
+                </h1>
+
+                <div>
+                <h1 id="1-问题描述">1.问题描述</h1>
+
+<p>在mac系统上，搭建了hadoop和hive运行环境。在hive命令行下，可以执行简单的SELECT、SHOW TABLES等操作。但是执行连接时，就会报错，报错信息如下：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">Query ID = zmz_20151026191653_ea580dc6-ec94-4fcb-8058-b32f8045acfa
+Total jobs = 1
+15/10/26 19:16:56 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+15/10/26 19:16:57 WARN conf.Configuration: file:/var/folders/wt/7rnq2frd4hs7bhpvn4jvjq7r0000gn/T/zmz/5040e8a2-fcf9-4bc9-8130-7bfd7b9a6156/hive_2015-10-26_19-16-53_444_13558021487523789-1/-local-10006/jobconf.xml:an attempt to override final parameter: mapreduce.job.end-notification.max.retry.interval;  Ignoring.
+15/10/26 19:16:57 WARN conf.Configuration: file:/var/folders/wt/7rnq2frd4hs7bhpvn4jvjq7r0000gn/T/zmz/5040e8a2-fcf9-4bc9-8130-7bfd7b9a6156/hive_2015-10-26_19-16-53_444_13558021487523789-1/-local-10006/jobconf.xml:an attempt to override final parameter: mapreduce.job.end-notification.max.attempts;  Ignoring.
+Execution log at: /var/folders/wt/7rnq2frd4hs7bhpvn4jvjq7r0000gn/T//zmz/zmz_20151026191653_ea580dc6-ec94-4fcb-8058-b32f8045acfa.log
+2015-10-26 19:16:57 Starting to launch local task to process map join;  maximum memory = 477102080
+2015-10-26 19:16:58 Dump the side-table for tag: 1 with group count: 2 into file: file:/var/folders/wt/7rnq2frd4hs7bhpvn4jvjq7r0000gn/T/zmz/5040e8a2-fcf9-4bc9-8130-7bfd7b9a6156/hive_2015-10-26_19-16-53_444_13558021487523789-1/-local-10003/HashTable-Stage-3/MapJoin-mapfile01--.hashtable
+2015-10-26 19:16:58 Uploaded 1 File to: file:/var/folders/wt/7rnq2frd4hs7bhpvn4jvjq7r0000gn/T/zmz/5040e8a2-fcf9-4bc9-8130-7bfd7b9a6156/hive_2015-10-26_19-16-53_444_13558021487523789-1/-local-10003/HashTable-Stage-3/MapJoin-mapfile01--.hashtable (311 bytes)
+2015-10-26 19:16:58 End of local task; Time Taken: 0.749 sec.
+Execution completed successfully
+MapredLocal task succeeded
+Launching Job 1 out of 1
+Number of reduce tasks is set to 0 since there&#39; s no reduce operator
+Starting Job = job_1445858122039_0001, Tracking URL = http://zhaomingzhendeMacBook-Pro.local:8088/proxy/application_1445858122039_0001/
+Kill Command = /Users/zmz/hadoop-2.5.2/bin/hadoop job  -kill job_1445858122039_0001
+Hadoop job information for Stage-3: number of mappers: 0; number of reducers: 0
+2015-10-26 19:17:05,269 Stage-3 map = 0%,  reduce = 0%
+Ended Job = job_1445858122039_0001 with errors
+Error during job, obtaining debugging information...
+FAILED: Execution Error, return code 2 from org.apache.hadoop.hive.ql.exec.mr.MapRedTask
+MapReduce Jobs Launched:
+Stage-Stage-3:  HDFS Read: 0 HDFS Write: 0 FAIL
+Total MapReduce CPU Time Spent: 0 msec
+</code></pre></div>
+<p>在浏览器中打开Tracking URL，则看到如下信息：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">/bin/bash: /bin/java: No such file or directory
+</code></pre></div>
+<p>该怎么解决呢？？</p>
+
+<h1 id="2-解决方法">2.解决方法</h1>
+
+<p>从根本上说，这不是hive的问题，而是hadoop的问题。hadoop默认检查的java路径为：/bin/java。可是在mac中，java的路径为/usr/bin/java。所以，只需建立软连接就可以解决上述问题，执行以下命令：</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">sudo ln -s /usr/bin/java /bin/java
+</code></pre></div>
+<p>运行上述命令后，上述问题就可以解决了。其实，最关键的就是将/bin/java连接到java所在的路径。</p>
+
+                </div>
+
+
+                <div id="pay" style="text-align:center;">
+                  ----EOF-----
+                  <br>
+                  
+                </div>
+
+                <p class="meta">
+                	
+                      Categories:
+                	    
+                    	<a class="btn btn-default btn-xs" href="/categories.html#hive">hive</a>
+                    
+                	
+
+                	
+                      Tags:
+                	    
+                    	<a class="btn btn-default btn-xs" href="/tags.html#hive mac">hive mac</a>
+                    
+                	
+                </p>
+          	</article>
+
+          	<ul class="pager">
+          	  
+          	  <li class="previous"><a class="btn btn-xs" href="/2015/10/25/Hive%E4%B9%8B%E5%88%86%E5%8C%BA%E5%AD%97%E6%AE%B5%E7%9A%84%E5%BC%82%E5%B8%B8%E5%AD%97%E7%AC%A6" title="Hive:分区字段的异常字符">&larr; Prev</a></li>
+          	  
+          	  
+          	  <li class="next"><a class="btn btn-xs" href="/2016/02/14/MAC%E6%8C%82%E8%BD%BDNTFS%E7%A1%AC%E7%9B%98%E6%88%96U%E7%9B%98" title="MAC挂载NTFS硬盘或U盘">Next &rarr;</a></li>
+          	  
+          	</ul>
+
+            <!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="/2015/10/26/Hive之mac环境中的Java路径问题" data-title="Hive之mac环境中的Java路径问题" data-url="/2015/10/26/Hive%E4%B9%8Bmac%E7%8E%AF%E5%A2%83%E4%B8%AD%E7%9A%84Java%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98"></div>
+<!-- 多说评论框 end -->
+
+
+          </div>
+
+        </div>
+      </div>
+
+      <footer class="footer text-center">
+        <p>&copy; 2009-2016 <a href="/" target="_blank" title="">小z</a> CC BY-NC-SA 3.0. <a href="https://github.com/javachen/javachen-blog-theme" target="_blank" title="https://github.com/javachen/javachen-blog-theme">Theme</a> build with <a href="//jekyllrb.com/" target="_blank" title="Transform your plain text into static websites and blogs.">Jekyll</a>.
+      	            
+            
+        </p>
+        <div id="toTop" style="display: block;">  <a href="#">▲</a><a href="#footer">▼</a>  </div>
+      </footer>
+
+      <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+      <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="/static/js/core.js"></script>
+      
+      <!-- duoshuo Begin -->
+      <script type="text/javascript">
+        var duoshuoQuery = {short_name:"datavalley"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+      </script>
+      <!-- duoshuo End -->
+      
+
+
+    </div>
+  </body>
+</html>

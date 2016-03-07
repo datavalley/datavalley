@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>Hive源码解析之Hive基本框架和执行入口[转] - Data Valley</title>
+      <meta name="author" content="小z">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" >
+      <link rel="canonical" href="http://datavalley.github.io/2015/10/16/Hive%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E4%B9%8BHive%E5%9F%BA%E6%9C%AC%E6%A1%86%E6%9E%B6%E5%92%8C%E6%89%A7%E8%A1%8C%E5%85%A5%E5%8F%A3/">
+      <link rel="stylesheet" href="/static/css/bootstrap.min.css" media="all">
+      <link rel="stylesheet" href="/static/css/style.css" media="all">
+      <link rel="stylesheet" href="/static/css/pygments.css" media="all">
+      <link rel="stylesheet" href="/static/css/font-awesome.css" media="all">
+
+      <!-- atom & rss feed -->
+      <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Data Valley RSS Feed">
+      <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Data Valley ATOM Feed">
+
+      <script type="text/javascript" src="/static/js/jquery.min.js"  charset="utf-8"></script>
+      <script type="text/javascript" src="/static/js/sidenav.js" charset="utf-8"></script>
+    </head>
+
+
+  <body>
+  <div id="content"></div>
+    <div class="container">
+
+    <!--[if lte IE 9]>
+<div class="alert alert-warning">
+  <p>Your Internet Explorer is not supported. Please upgrade your Internet Explorer to version 9+, or use latest <a href="http://www.google.com/chrome/" target="_blank" class="alert-link">Google chrome</a>、<a href="http://www.mozilla.org/firefox/" target="_blank" class="alert-link">Mozilla Firefox</a>.</p>
+  <p>If you are using IE 9 or later, make sure you <a href="http://windows.microsoft.com/en-us/internet-explorer/use-compatibility-view#ie=ie-8" target="_blank" class="alert-link">turn off "Compatibility view"</a>.</p>
+</div>
+<![endif]-->
+<header class="header">
+  <div class="title"><a title="Data Valley" href="/">Data Valley</a></div>
+  <ul class="nav navbar-nav navbar-right visible-lg visible-md">
+    <li>
+    <form id="search-form" class="form-group has-success visible-lg" role="form">
+      <input type="text" class="form-control input-sm" placeholder="Search" id="query" style="width: 160px;">
+    </form>
+    </li>
+    <li><a href="/archive.html" title="Archive"><span class='fa fa-archive fa-2x'></span></a></li>
+    <li><a href="/categories.html" title="Categories"><span class='fa fa-navicon fa-2x'></span></a></li>
+    <li><a href="/tags.html" title="Tags"><span class='fa fa-tags fa-2x'></span></a></li>
+    <li><a href="/about.html" title="About"><span class='fa fa-user fa-2x'></span></a></li>
+    
+    <li><a href="https://github.com/datavalley/datavalley.github.io" target="_blank" title="Github"><span class='fa fa-github fa-2x'></span></a></li>
+    
+    
+    
+    
+    
+
+    <li><a href="/rss.xml" target="_blank" title="RSS"><span class='fa fa-rss fa-2x'></span></a></li>
+  </ul>
+</header>
+
+
+      <div class="wrapper">
+        <div class="row">
+          <div id="search-loader" style="display:none;text-align:center">
+            <img src="/static/images/loading.gif">
+          </div>
+          <div class="col-md-12">
+            <div id="content"></div>
+            <article class="news-item">
+                <h1  class="news-item"> Hive源码解析之Hive基本框架和执行入口[转]  
+                  <time class="small">2015.10.16</time>
+                </h1>
+
+                <div>
+                <p>原文：<a href="http://segmentfault.com/a/1190000002766035">http://segmentfault.com/a/1190000002766035</a></p>
+
+<h1 id="1-hive简介">1.Hive简介</h1>
+
+<p>在介绍Hive的框架和执行流程之前，这里首先对Hive进行简要的介绍。</p>
+
+<p>Hive 是建立在 Hadoop 上的数据仓库基础构架。它提供了一系列的工具，可以用来进行数据抽取，转化，加载（ETL），这是一种可以存储、查询和分析存储在 Hadoop 中的大规模数据的机制。Hive 定义了简单的类 SQL 查询语言，称为Hive QL，它允许熟悉 SQL 的用户查询数据。同时，这个语言也允许熟悉 MapReduce 开发者的开发自定义的 mapper 和 reducer 来处理内建的 mapper 和 reducer 无法完成的复杂的分析工作。</p>
+
+<p>这里假设已经对Hive的各个组成部分、作用以及Hive QL语言有了基本的认识，不再做详细的解释，更加关注的是Hive源码级别的解析。下面是从网络上摘取的两个关于Hive框架的解析图：</p>
+
+<p><img src="http://datavalley.github.io/img/hive/source_code/hive-architecture.png" alt="hive-architecture"></p>
+
+<p><img src="http://datavalley.github.io/img/hive/source_code/hive-architecture1.png" alt="hive-architecture1"></p>
+
+<p>从框架图中我们可以看见从用户提交一个查询（假设通过CLI入口）直到获取最终结果，Hive内部的执行流程主要包括：</p>
+
+<ol>
+<li>CLI 获取用户查询，解析用户输入的命令，提交给Driver；</li>
+<li>Driver 结合编译器（COMPILER）和元数据库（METASTORE），对用户查询进行编译解析；</li>
+<li>根据解析结果（查询计划）生成MR任务提交给Hadoop执行；</li>
+<li>获取最终结果；</li>
+</ol>
+
+<h1 id="2-源码分析">2. 源码分析</h1>
+
+<p>我们试图根据Hive的源码对上述过程的每一步进行解析, 使用的源码版本1.1.0。话不多说，首先看看CLI如何解析用户的输入，并提交给Driver类执行的。这个过程主要涉及的类是：org\apache\hadoop\hive\cli\CliDriver.java。</p>
+
+<h2 id="2-1-main">2.1 main</h2>
+
+<p>执行入口，main函数，创建CliDriver实例，接受用户输入参数，开始运行。</p>
+<div class="highlight"><pre><code class="language-Java" data-lang="Java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+   <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">CliDriver</span><span class="o">().</span><span class="na">run</span><span class="o">(</span><span class="n">args</span><span class="o">);</span>
+   <span class="n">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="n">ret</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>这里用到了创建CliDriver实例，看看CliDriver的构造函数内部都做了什么操作：</p>
+<div class="highlight"><pre><code class="language-Java" data-lang="Java"><span class="kd">public</span> <span class="nf">CliDriver</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">SessionState</span> <span class="n">ss</span> <span class="o">=</span> <span class="n">SessionState</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+    <span class="n">conf</span> <span class="o">=</span> <span class="o">(</span><span class="n">ss</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">?</span> <span class="n">ss</span><span class="o">.</span><span class="na">getConf</span><span class="o">()</span> <span class="o">:</span> <span class="k">new</span> <span class="nf">Configuration</span><span class="o">();</span>
+    <span class="n">Log</span> <span class="n">LOG</span> <span class="o">=</span> <span class="n">LogFactory</span><span class="o">.</span><span class="na">getLog</span><span class="o">(</span><span class="s">&quot;CliDriver&quot;</span><span class="o">);</span>
+    <span class="n">console</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">LogHelper</span><span class="o">(</span><span class="n">LOG</span><span class="o">);</span>
+  <span class="o">}</span>
+</code></pre></div>
+<p>首先获取一个SessionState， SessionState封装了一个会话的关联的数据，包括配置信息HiveConf，输入输出流，指令类型，用户名称、IP地址等等。SessionState 是一个与线程关联的静态本地变量ThreadLocal，任何一个线程都对应一个SessionState，能够在Hive代码的任何地方获取到（大量被使用到），以返回用户相关或者配置信息等。</p>
+<div class="highlight"><pre><code class="language-Java" data-lang="Java"><span class="kd">private</span> <span class="kd">static</span> <span class="n">ThreadLocal</span><span class="o">&lt;</span><span class="n">SessionState</span><span class="o">&gt;</span> <span class="n">tss</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ThreadLocal</span><span class="o">&lt;</span><span class="n">SessionState</span><span class="o">&gt;();</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">SessionState</span> <span class="nf">get</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">tss</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+  <span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">SessionState</span> <span class="nf">start</span><span class="o">(</span><span class="n">HiveConf</span> <span class="n">conf</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">//创建一个SessionState</span>
+    <span class="n">SessionState</span> <span class="n">ss</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">SessionState</span><span class="o">(</span><span class="n">conf</span><span class="o">);</span>
+    <span class="k">return</span> <span class="nf">start</span><span class="o">(</span><span class="n">ss</span><span class="o">);</span>
+  <span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="n">SessionState</span> <span class="nf">start</span><span class="o">(</span><span class="n">SessionState</span> <span class="n">startSs</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">setCurrentSessionState</span><span class="o">(</span><span class="n">startSs</span><span class="o">);</span>
+     <span class="o">.....</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">setCurrentSessionState</span><span class="o">(</span><span class="n">SessionState</span> <span class="n">startSs</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">//将SessionState与线程本地变量tss关联</span>
+    <span class="n">tss</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">startSs</span><span class="o">);</span>
+    <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">setContextClassLoader</span><span class="o">(</span><span class="n">startSs</span><span class="o">.</span><span class="na">getConf</span><span class="o">().</span><span class="na">getClassLoader</span><span class="o">());</span>
+ <span class="o">}</span>
+</code></pre></div>
+<p>接着CliDriver的构造函数来说，获取到SessionState之后，就初始化配置信息org.apache.hadoop.conf.Configuration conf.</p>
+
+<h2 id="2-2-run">2.2 run</h2>
+
+<p>CliDriver实例创建完毕，调用run（args）, 开始处理用户输入。run方法的函数体比较长，为了方便阅读，下面按照代码的出现顺序，依次解析。</p>
+
+<p>1.对输入的指令进行初步解析，提取-e -h hiveconf hivevar等参数信息，设置用户提供的系统和Hive环境变量。详细实现，参考OptionsProcessor类，不再详细描述。</p>
+<div class="highlight"><pre><code class="language-Java" data-lang="Java">  <span class="n">OptionsProcessor</span> <span class="n">oproc</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">OptionsProcessor</span><span class="o">();</span>
+  <span class="k">if</span> <span class="o">(!</span><span class="n">oproc</span><span class="o">.</span><span class="na">process_stage1</span><span class="o">(</span><span class="n">args</span><span class="o">))</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="mi">1</span><span class="o">;</span>
+  <span class="o">}</span>
+</code></pre></div>
+<p>2.初始化Log4j日志组件</p>
+<div class="highlight"><pre><code class="language-Java" data-lang="Java">  <span class="kt">boolean</span> <span class="n">logInitFailed</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+  <span class="n">String</span> <span class="n">logInitDetailMessage</span><span class="o">;</span>
+  <span class="k">try</span> <span class="o">{</span>
+      <span class="n">logInitDetailMessage</span> <span class="o">=</span> <span class="n">LogUtils</span><span class="o">.</span><span class="na">initHiveLog4j</span><span class="o">();</span>
+   <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">LogInitializationException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">logInitFailed</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+      <span class="n">logInitDetailMessage</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">();</span>
+   <span class="o">}</span>
+</code></pre></div>
+<p>3.初始化HiveConf，并根据HiveConf实例化CliSessionState，设置输入输出流为标准控制台。<br>
+CliSessionState 继承了SessionState类，创建了一些记录用户输入的字符串，在实例化的过程中，主要是用来记录HiveConf，并生成一个会话ID，参见SessionState构造函数.</p>
+<div class="highlight"><pre><code class="language-Java" data-lang="Java">  <span class="n">CliSessionState</span> <span class="n">ss</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">CliSessionState</span><span class="o">(</span><span class="k">new</span> <span class="nf">HiveConf</span><span class="o">(</span><span class="n">SessionState</span><span class="o">.</span><span class="na">class</span><span class="o">));</span>
+  <span class="n">ss</span><span class="o">.</span><span class="na">in</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">in</span><span class="o">;</span>
+  <span class="k">try</span> <span class="o">{</span>
+     <span class="n">ss</span><span class="o">.</span><span class="na">out</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">PrintStream</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="s">&quot;UTF-8&quot;</span><span class="o">);</span>
+     <span class="n">ss</span><span class="o">.</span><span class="na">info</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">PrintStream</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="s">&quot;UTF-8&quot;</span><span class="o">);</span>
+     <span class="n">ss</span><span class="o">.</span><span class="na">err</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">CachingPrintStream</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="s">&quot;UTF-8&quot;</span><span class="o">);</span>
+  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">UnsupportedEncodingException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+     <span class="k">return</span> <span class="mi">3</span><span class="o">;</span>
+  <span class="o">}</span>
+</code></pre></div>
+<p>4.根据stage1解析的参数内容，填充CliSessionState的字符串，比如用户输入了-e 则这个stage就把-e 对应的字符串赋值给CliSessionState的 execString成员。</p>
+<div class="highlight"><pre><code class="language-Java" data-lang="Java">   <span class="k">if</span> <span class="o">(!</span><span class="n">oproc</span><span class="o">.</span><span class="na">process_stage2</span><span class="o">(</span><span class="n">ss</span><span class="o">))</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="mi">2</span><span class="o">;</span>
+   <span class="o">}</span>
+</code></pre></div>
+<p>5.在允许打印输出的模式下，如果日志初始化失败，打印失败信息</p>
+<div class="highlight"><pre><code class="language-Java" data-lang="Java">  <span class="k">if</span> <span class="o">(!</span><span class="n">ss</span><span class="o">.</span><span class="na">getIsSilent</span><span class="o">())</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">logInitFailed</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">logInitDetailMessage</span><span class="o">);</span>
+      <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="n">SessionState</span><span class="o">.</span><span class="na">getConsole</span><span class="o">().</span><span class="na">printInfo</span><span class="o">(</span><span class="n">logInitDetailMessage</span><span class="o">);</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div>
+<p>6.将用户命令行输入的配置信息和变量等，覆盖HiveConf的默认值</p>
+<div class="highlight"><pre><code class="language-Java" data-lang="Java">  <span class="n">HiveConf</span> <span class="n">conf</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="na">getConf</span><span class="o">();</span>
+  <span class="k">for</span> <span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">item</span> <span class="o">:</span> <span class="n">ss</span><span class="o">.</span><span class="na">cmdProperties</span><span class="o">.</span><span class="na">entrySet</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">conf</span><span class="o">.</span><span class="na">set</span><span class="o">((</span><span class="n">String</span><span class="o">)</span> <span class="n">item</span><span class="o">.</span><span class="na">getKey</span><span class="o">(),</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span> <span class="n">item</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+    <span class="n">ss</span><span class="o">.</span><span class="na">getOverriddenConfigurations</span><span class="o">().</span><span class="na">put</span><span class="o">((</span><span class="n">String</span><span class="o">)</span> <span class="n">item</span><span class="o">.</span><span class="na">getKey</span><span class="o">(),</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span> <span class="n">item</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+  <span class="o">}</span>
+</code></pre></div>
+<p>7.设置当前回话状态，执行CLI驱动</p>
+<div class="highlight"><pre><code class="language-Java" data-lang="Java"> <span class="n">SessionState</span><span class="o">.</span><span class="na">start</span><span class="o">(</span><span class="n">ss</span><span class="o">);</span>
+
+ <span class="k">try</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="nf">executeDriver</span><span class="o">(</span><span class="n">ss</span><span class="o">,</span> <span class="n">conf</span><span class="o">,</span> <span class="n">oproc</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+      <span class="n">ss</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+ <span class="o">}</span>
+</code></pre></div>
+<h2 id="2-3-executedriver">2.3 executeDriver</h2>
+
+<p>在进入executeDriver之前，我们可以认为Hive处理的是用户进入Hive程序的指令，到此用户已经进入了Hive，Cli的Driver将不断读取用户的HiveQL语句并解析，提交给Driver。executeDriver函数内部除了根据用户参数做出的一些执行响应外，还设置了用户HiveQL的执行历史记录，也就是方便我们使用上下标键查看之前执行的指令的功能，不再详述。executeDriver函数内部核心的代码是通过while循环不断按行读取用户的输入，然后调用ProcessLine拼接一条命令cmd，传递给processCmd处理用户输入。下面就来看看processCmd函数。</p>
+
+<h2 id="2-4-processcmd">2.4 processCmd</h2>
+
+<p>1.首先是设置当前clisession的用户上一条指令，然后使用正则表达式，将用户输入的指令从空格，制表符等出断开（tokenizeCmd函数），得到token数组。</p>
+<div class="highlight"><pre><code class="language-Java" data-lang="Java"> <span class="n">CliSessionState</span> <span class="n">ss</span> <span class="o">=</span> <span class="o">(</span><span class="n">CliSessionState</span><span class="o">)</span> <span class="n">SessionState</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+ <span class="n">ss</span><span class="o">.</span><span class="na">setLastCommand</span><span class="o">(</span><span class="n">cmd</span><span class="o">);</span>
+ <span class="c1">// Flush the print stream, so it doesn&#39;t include output from the last command</span>
+ <span class="n">ss</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+ <span class="n">String</span> <span class="n">cmd_trimmed</span> <span class="o">=</span> <span class="n">cmd</span><span class="o">.</span><span class="na">trim</span><span class="o">();</span>
+ <span class="n">String</span><span class="o">[]</span> <span class="n">tokens</span> <span class="o">=</span> <span class="n">tokenizeCmd</span><span class="o">(</span><span class="n">cmd_trimmed</span><span class="o">);</span>
+</code></pre></div>
+<p>2.然后根据用户的输入，进行不同的处理，这边的处理主要包括：</p>
+
+<ul>
+<li>quit或exit： 关闭回话，退出hive</li>
+<li>source： 文件处理？不清楚对应什么操作(本人注：执行文件中的SQL)</li>
+<li>! 开头： 调用Linux系统的shell执行指令</li>
+<li>本地模式：创建CommandProcessor, 执行用户指令</li>
+</ul>
+
+<p>限于篇幅原因，前面三种情况的代码不再详述，重点介绍Hive的本地模式执行，也就是我们常用的HiveQL语句，DFS命令等的处理方式：</p>
+<div class="highlight"><pre><code class="language-Java" data-lang="Java">  <span class="k">try</span> <span class="o">{</span>
+      <span class="n">CommandProcessor</span> <span class="n">proc</span> <span class="o">=</span> <span class="n">CommandProcessorFactory</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">tokens</span><span class="o">,</span> <span class="o">(</span><span class="n">HiveConf</span><span class="o">)</span> <span class="n">conf</span><span class="o">);</span>
+      <span class="n">ret</span> <span class="o">=</span> <span class="n">processLocalCmd</span><span class="o">(</span><span class="n">cmd</span><span class="o">,</span> <span class="n">proc</span><span class="o">,</span> <span class="n">ss</span><span class="o">);</span>
+  <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">console</span><span class="o">.</span><span class="na">printError</span><span class="o">(</span><span class="s">&quot;Failed processing command &quot;</span> <span class="o">+</span> <span class="n">tokens</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getLocalizedMessage</span><span class="o">(),</span>
+      <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">StringUtils</span><span class="o">.</span><span class="na">stringifyException</span><span class="o">(</span><span class="n">e</span><span class="o">));</span>
+      <span class="n">ret</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+  <span class="o">}</span>
+</code></pre></div>
+<p>其中，CommandProcessor是一个接口类，定义如下:</p>
+<div class="highlight"><pre><code class="language-Java" data-lang="Java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">CommandProcessor</span> <span class="o">{</span>
+ <span class="kt">void</span> <span class="nf">init</span><span class="o">();</span>
+ <span class="n">CommandProcessorResponse</span> <span class="nf">run</span><span class="o">(</span><span class="n">String</span> <span class="n">command</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">CommandNeedRetryException</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>CommandProcessorFactory根据用户指令生成的tokens和配置文件，返回CommandProcessor的一个具体实现。</p>
+<div class="highlight"><pre><code class="language-Java" data-lang="Java"> <span class="kd">public</span> <span class="kd">static</span> <span class="n">CommandProcessor</span> <span class="nf">get</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">cmd</span><span class="o">,</span> <span class="n">HiveConf</span> <span class="n">conf</span><span class="o">)</span>
+      <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+    <span class="n">CommandProcessor</span> <span class="n">result</span> <span class="o">=</span> <span class="n">getForHiveCommand</span><span class="o">(</span><span class="n">cmd</span><span class="o">,</span> <span class="n">conf</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">result</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">isBlank</span><span class="o">(</span><span class="n">cmd</span><span class="o">[</span><span class="mi">0</span><span class="o">]))</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">conf</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Driver</span><span class="o">();</span>
+      <span class="o">}</span>
+      <span class="n">Driver</span> <span class="n">drv</span> <span class="o">=</span> <span class="n">mapDrivers</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">conf</span><span class="o">);</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">drv</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">drv</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Driver</span><span class="o">();</span>
+        <span class="n">mapDrivers</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">conf</span><span class="o">,</span> <span class="n">drv</span><span class="o">);</span>
+      <span class="o">}</span>
+      <span class="n">drv</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
+      <span class="k">return</span> <span class="n">drv</span><span class="o">;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div>
+<p>其中getForHiveCommand函数首先根据tokens的第一个字串，也就是用户输入指令的第一个单词，在HiveCommand这个enum中定义的一些非SQL查询操作集合中进行匹配，确定相应的HiveCommand类型。在依据HiveCommand选择合适的CommandProcessor实现方式，比如dfs命令对应的DFSProcessor，set命令对应的SetProcessor等，如果用户输入的是诸如select之类的SQL查询， getForHiveCommand返回null，直接在get函数中根据配置文件conf选择或者生成一个Driver类实例，并作为CommandProcessor返回。详细的代码参考CommandProcessorFactory和HiveCommand类。</p>
+
+<h2 id="2-5-processlocalcmd">2.5 processLocalCmd</h2>
+
+<p>到此Hive对用户的一个指令cmd，配置了回话状态CliSessionState，选择了一个合适的CommandProcessor， CliDriver将进行他的最后一步操作，提交用户的查询到指定的CommandProcessor，并获取结果。这一切都是在processLocalCmd中执行的。</p>
+
+<p>processLocalCmd函数的主体是一个如下的循环：</p>
+<div class="highlight"><pre><code class="language-Java" data-lang="Java"><span class="k">do</span> <span class="o">{</span>
+      <span class="k">try</span> <span class="o">{</span>
+        <span class="n">needRetry</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">proc</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+          <span class="c1">//如果CommandProcessor是Driver实例</span>
+          <span class="k">if</span> <span class="o">(</span><span class="n">proc</span> <span class="k">instanceof</span> <span class="n">Driver</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">Driver</span> <span class="n">qp</span> <span class="o">=</span> <span class="o">(</span><span class="n">Driver</span><span class="o">)</span> <span class="n">proc</span><span class="o">;</span>
+            <span class="c1">//获取标准输出流，打印结果信息</span>
+            <span class="n">PrintStream</span> <span class="n">out</span> <span class="o">=</span> <span class="n">ss</span><span class="o">.</span><span class="na">out</span><span class="o">;</span>
+            <span class="kt">long</span> <span class="n">start</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">ss</span><span class="o">.</span><span class="na">getIsVerbose</span><span class="o">())</span> <span class="o">{</span>
+              <span class="n">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">cmd</span><span class="o">);</span>
+            <span class="o">}</span>
+
+            <span class="n">qp</span><span class="o">.</span><span class="na">setTryCount</span><span class="o">(</span><span class="n">tryCount</span><span class="o">);</span>
+            <span class="c1">//driver实例运行用户指令，获取运行结果响应码</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="n">qp</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">cmd</span><span class="o">).</span><span class="na">getResponseCode</span><span class="o">();</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">ret</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+              <span class="n">qp</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+              <span class="k">return</span> <span class="n">ret</span><span class="o">;</span>
+            <span class="o">}</span>
+
+            <span class="c1">// 统计指令的运行时间</span>
+            <span class="kt">long</span> <span class="n">end</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">();</span>
+            <span class="kt">double</span> <span class="n">timeTaken</span> <span class="o">=</span> <span class="o">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="o">)</span> <span class="o">/</span> <span class="mf">1000.0</span><span class="o">;</span>
+
+            <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;();</span>
+             <span class="c1">//打印查询结果的列名称</span>
+            <span class="n">printHeader</span><span class="o">(</span><span class="n">qp</span><span class="o">,</span> <span class="n">out</span><span class="o">);</span>
+
+            <span class="c1">// 打印查询结果</span>
+            <span class="kt">int</span> <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+            <span class="k">try</span> <span class="o">{</span>
+              <span class="k">if</span> <span class="o">(</span><span class="n">out</span> <span class="k">instanceof</span> <span class="n">FetchConverter</span><span class="o">)</span> <span class="o">{</span>
+                <span class="o">((</span><span class="n">FetchConverter</span><span class="o">)</span><span class="n">out</span><span class="o">).</span><span class="na">fetchStarted</span><span class="o">();</span>
+              <span class="o">}</span>
+              <span class="k">while</span> <span class="o">(</span><span class="n">qp</span><span class="o">.</span><span class="na">getResults</span><span class="o">(</span><span class="n">res</span><span class="o">))</span> <span class="o">{</span>
+                <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">r</span> <span class="o">:</span> <span class="n">res</span><span class="o">)</span> <span class="o">{</span>
+                  <span class="n">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">r</span><span class="o">);</span>
+                <span class="o">}</span>
+
+                <span class="n">counter</span> <span class="o">+=</span> <span class="n">res</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+                <span class="n">res</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">out</span><span class="o">.</span><span class="na">checkError</span><span class="o">())</span> <span class="o">{</span>
+                  <span class="k">break</span><span class="o">;</span>
+                <span class="o">}</span>
+              <span class="o">}</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+              <span class="n">console</span><span class="o">.</span><span class="na">printError</span><span class="o">(</span><span class="s">&quot;Failed with exception &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;:&quot;</span>
+                  <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">(),</span> <span class="s">&quot;\n&quot;</span>
+                  <span class="o">+</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">hadoop</span><span class="o">.</span><span class="na">util</span><span class="o">.</span><span class="na">StringUtils</span><span class="o">.</span><span class="na">stringifyException</span><span class="o">(</span><span class="n">e</span><span class="o">));</span>
+              <span class="n">ret</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="c1">//关闭结果</span>
+            <span class="kt">int</span> <span class="n">cret</span> <span class="o">=</span> <span class="n">qp</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">ret</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+              <span class="n">ret</span> <span class="o">=</span> <span class="n">cret</span><span class="o">;</span>
+            <span class="o">}</span>
+
+            <span class="k">if</span> <span class="o">(</span><span class="n">out</span> <span class="k">instanceof</span> <span class="n">FetchConverter</span><span class="o">)</span> <span class="o">{</span>
+              <span class="o">((</span><span class="n">FetchConverter</span><span class="o">)</span><span class="n">out</span><span class="o">).</span><span class="na">fetchFinished</span><span class="o">();</span>
+            <span class="o">}</span>
+
+            <span class="n">console</span><span class="o">.</span><span class="na">printInfo</span><span class="o">(</span><span class="s">&quot;Time taken: &quot;</span> <span class="o">+</span> <span class="n">timeTaken</span> <span class="o">+</span> <span class="s">&quot; seconds&quot;</span> <span class="o">+</span>
+                <span class="o">(</span><span class="n">counter</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">?</span> <span class="s">&quot;&quot;</span> <span class="o">:</span> <span class="s">&quot;, Fetched: &quot;</span> <span class="o">+</span> <span class="n">counter</span> <span class="o">+</span> <span class="s">&quot; row(s)&quot;</span><span class="o">));</span>
+          <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="c1">//如果proc不是Driver，也就是用户执行的是非SQL查询操作，直接执行语句，不自信FetchResult的操作</span>
+            <span class="n">String</span> <span class="n">firstToken</span> <span class="o">=</span> <span class="n">tokenizeCmd</span><span class="o">(</span><span class="n">cmd</span><span class="o">.</span><span class="na">trim</span><span class="o">())[</span><span class="mi">0</span><span class="o">];</span>
+            <span class="n">String</span> <span class="n">cmd_1</span> <span class="o">=</span> <span class="n">getFirstCmd</span><span class="o">(</span><span class="n">cmd</span><span class="o">.</span><span class="na">trim</span><span class="o">(),</span> <span class="n">firstToken</span><span class="o">.</span><span class="na">length</span><span class="o">());</span>
+
+            <span class="k">if</span> <span class="o">(</span><span class="n">ss</span><span class="o">.</span><span class="na">getIsVerbose</span><span class="o">())</span> <span class="o">{</span>
+              <span class="n">ss</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">firstToken</span> <span class="o">+</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">cmd_1</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="n">CommandProcessorResponse</span> <span class="n">res</span> <span class="o">=</span> <span class="n">proc</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">cmd_1</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">res</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+              <span class="n">ss</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Query returned non-zero code: &quot;</span> <span class="o">+</span> <span class="n">res</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">()</span> <span class="o">+</span>
+                  <span class="s">&quot;, cause: &quot;</span> <span class="o">+</span> <span class="n">res</span><span class="o">.</span><span class="na">getErrorMessage</span><span class="o">());</span>
+            <span class="o">}</span>
+            <span class="n">ret</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="na">getResponseCode</span><span class="o">();</span>
+          <span class="o">}</span>
+        <span class="o">}</span>
+      <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">CommandNeedRetryException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//如果执行过程中出现异常，修改needRetry标志，下次循环是retry。</span>
+        <span class="n">console</span><span class="o">.</span><span class="na">printInfo</span><span class="o">(</span><span class="s">&quot;Retry query with a different approach...&quot;</span><span class="o">);</span>
+        <span class="n">tryCount</span><span class="o">++;</span>
+        <span class="n">needRetry</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+      <span class="o">}</span>
+    <span class="o">}</span> <span class="k">while</span> <span class="o">(</span><span class="n">needRetry</span><span class="o">);</span>
+</code></pre></div>
+<p>前面对函数中关键的执行语句已经给出了注释，这里单独对printHeader进行一下说明。<br>
+printHeader函数通过调用driver.getSchema.getFiledSchema，获取查询结果的列集合 ，然后依次打印出列名。</p>
+<div class="highlight"><pre><code class="language-Java" data-lang="Java"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">printHeader</span><span class="o">(</span><span class="n">Driver</span> <span class="n">qp</span><span class="o">,</span> <span class="n">PrintStream</span> <span class="n">out</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">FieldSchema</span><span class="o">&gt;</span> <span class="n">fieldSchemas</span> <span class="o">=</span> <span class="n">qp</span><span class="o">.</span><span class="na">getSchema</span><span class="o">().</span><span class="na">getFieldSchemas</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">HiveConf</span><span class="o">.</span><span class="na">getBoolVar</span><span class="o">(</span><span class="n">conf</span><span class="o">,</span> <span class="n">HiveConf</span><span class="o">.</span><span class="na">ConfVars</span><span class="o">.</span><span class="na">HIVE_CLI_PRINT_HEADER</span><span class="o">)</span>
+          <span class="o">&amp;&amp;</span> <span class="n">fieldSchemas</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="c1">// Print the column names</span>
+      <span class="kt">boolean</span> <span class="n">first_col</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+      <span class="k">for</span> <span class="o">(</span><span class="n">FieldSchema</span> <span class="n">fs</span> <span class="o">:</span> <span class="n">fieldSchemas</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">first_col</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="sc">&#39;\t&#39;</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">fs</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+        <span class="n">first_col</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+      <span class="o">}</span>
+      <span class="n">out</span><span class="o">.</span><span class="na">println</span><span class="o">();</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div>
+<hr>
+
+<p>原文作者：SecondLife<br>
+原文地址：<a href="http://segmentfault.com/a/1190000002766035">http://segmentfault.com/a/1190000002766035</a></p>
+
+                </div>
+
+
+                <div id="pay" style="text-align:center;">
+                  ----EOF-----
+                  <br>
+                  
+                </div>
+
+                <p class="meta">
+                	
+                      Categories:
+                	    
+                    	<a class="btn btn-default btn-xs" href="/categories.html#hive">hive</a>
+                    
+                	
+
+                	
+                      Tags:
+                	    
+                    	<a class="btn btn-default btn-xs" href="/tags.html#hive CliDriver">hive CliDriver</a>
+                    
+                	
+                </p>
+          	</article>
+
+          	<ul class="pager">
+          	  
+          	  <li class="previous"><a class="btn btn-xs" href="/2015/10/14/hello-jekyll" title="Jekyll格式说明!">&larr; Prev</a></li>
+          	  
+          	  
+          	  <li class="next"><a class="btn btn-xs" href="/2015/10/16/Hive%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E4%B9%8B%E6%9C%AC%E5%9C%B0%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA" title="Hive:源码解析之本地环境搭建">Next &rarr;</a></li>
+          	  
+          	</ul>
+
+            <!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="/2015/10/16/Hive源码解析之Hive基本框架和执行入口" data-title="Hive源码解析之Hive基本框架和执行入口[转]" data-url="/2015/10/16/Hive%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E4%B9%8BHive%E5%9F%BA%E6%9C%AC%E6%A1%86%E6%9E%B6%E5%92%8C%E6%89%A7%E8%A1%8C%E5%85%A5%E5%8F%A3"></div>
+<!-- 多说评论框 end -->
+
+
+          </div>
+
+        </div>
+      </div>
+
+      <footer class="footer text-center">
+        <p>&copy; 2009-2016 <a href="/" target="_blank" title="">小z</a> CC BY-NC-SA 3.0. <a href="https://github.com/javachen/javachen-blog-theme" target="_blank" title="https://github.com/javachen/javachen-blog-theme">Theme</a> build with <a href="//jekyllrb.com/" target="_blank" title="Transform your plain text into static websites and blogs.">Jekyll</a>.
+      	            
+            
+        </p>
+        <div id="toTop" style="display: block;">  <a href="#">▲</a><a href="#footer">▼</a>  </div>
+      </footer>
+
+      <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+      <script type="text/javascript" src="/static/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="/static/js/core.js"></script>
+      
+      <!-- duoshuo Begin -->
+      <script type="text/javascript">
+        var duoshuoQuery = {short_name:"datavalley"};
+        (function() {
+          var ds = document.createElement('script');
+          ds.type = 'text/javascript';ds.async = true;
+          ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+          ds.charset = 'UTF-8';
+          (document.getElementsByTagName('head')[0] 
+           || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+      </script>
+      <!-- duoshuo End -->
+      
+
+
+    </div>
+  </body>
+</html>
