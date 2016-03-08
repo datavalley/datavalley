@@ -4,31 +4,12 @@
   <title>Data Valley</title>
   <link href="//atom.xml" rel="self"/>
   <link href=""/>
-  <updated>2016-03-08T10:11:45+08:00</updated>
+  <updated>2016-03-08T10:16:54+08:00</updated>
   <id></id>
   <author>
     <name>小z</name>
   </author>
 
-  
-  <entry>
-    <title>Scala学习笔记</title>
-    <link href="/2016/03/07/scala%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
-    <updated>2016-03-07T00:00:00+08:00</updated>
-    <id>/2016/03/07/scala学习笔记</id>
-    <content type="html">现在开头：
-
-
-Scala的向后兼容性没有Java那么谨慎，2.8+相对于2.7有很大变化，本文档针对2.8+
-
-
-“和别人分享你的知识，那才是永恒之道”——somebody
-
-前言：
-这只是份简单的笔记，本不应敝履自珍，但手痒难耐还是写点废话在前面。
-书籍浩如烟海，技术方面的书也汗牛充栋，可惜我们的阅读速度和理解力、记忆力太有限，往往费力学懂的知识转眼就变得非常陌生，“博闻强志、过目不忘”者毕竟罕见。对于大部分人来说，即便昔日信手拈来的东西，时间久了也会毫无头绪。所以知识不在于曾经学过多少，而在于你记住并还能运用多少。
-“好记性不如烂笔头”——近年来我慢慢习惯把费力学习的东西都做一个笔...</content>
-  </entry>
   
   <entry>
     <title>Hive之COUNT DISTINCT优化</title>
