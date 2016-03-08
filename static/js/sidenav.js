@@ -51,7 +51,7 @@ $(document).ready(function(){
 
         function getIndex(){
             var tmpl = genTmpl();
-            var indexCon = '<div id="menuIndex" class="sidenav"></div>';
+            var indexCon = '<div id="menuIndex" class="sidenav" ></div>';
 
             $('#content').append(indexCon);
 
@@ -75,6 +75,8 @@ $(document).ready(function(){
 				  $('#menuIndex').fadeOut();
 				}
 				$('#menuIndex').css("top",50);
+                $('#menuIndex').css("height",700);
+                $('#menuIndex').css("overflow-y","auto");
 			});
         }
     })();
