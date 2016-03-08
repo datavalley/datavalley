@@ -4,7 +4,7 @@
   <title>Data Valley</title>
   <link href="//atom.xml" rel="self"/>
   <link href=""/>
-  <updated>2016-03-07T13:13:17+08:00</updated>
+  <updated>2016-03-08T10:11:45+08:00</updated>
   <id></id>
   <author>
     <name>小z</name>
@@ -12,28 +12,22 @@
 
   
   <entry>
-    <title>Hive之执行计划</title>
-    <link href="/2016/02/16/Hive%E4%B9%8B%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92/"/>
-    <updated>2016-02-16T00:00:00+08:00</updated>
-    <id>/2016/02/16/Hive之执行计划</id>
-    <content type="html">EXPLAIN
-SELECT
-  datekey,
-  count(*)
-FROM topic.deal_date
-WHERE datekey = 20160201
-GROUP BY datekey
-;
+    <title>Scala学习笔记</title>
+    <link href="/2016/03/07/scala%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <updated>2016-03-07T00:00:00+08:00</updated>
+    <id>/2016/03/07/scala学习笔记</id>
+    <content type="html">现在开头：
 
-上述SQL的执行计划为：
-STAGE DEPENDENCIES:   -- 上述SQL的执行阶段信息，在这里，Stage-1对应一个mapreduce job
-  Stage-1 is a root stage
-  Stage-0 is a root stage
 
-STAGE PLANS:
-  Stage: Stage-1
-    Map Reduce
-      Map Operat...</content>
+Scala的向后兼容性没有Java那么谨慎，2.8+相对于2.7有很大变化，本文档针对2.8+
+
+
+“和别人分享你的知识，那才是永恒之道”——somebody
+
+前言：
+这只是份简单的笔记，本不应敝履自珍，但手痒难耐还是写点废话在前面。
+书籍浩如烟海，技术方面的书也汗牛充栋，可惜我们的阅读速度和理解力、记忆力太有限，往往费力学懂的知识转眼就变得非常陌生，“博闻强志、过目不忘”者毕竟罕见。对于大部分人来说，即便昔日信手拈来的东西，时间久了也会毫无头绪。所以知识不在于曾经学过多少，而在于你记住并还能运用多少。
+“好记性不如烂笔头”——近年来我慢慢习惯把费力学习的东西都做一个笔...</content>
   </entry>
   
   <entry>
@@ -48,20 +42,6 @@ STAGE PLANS:
 假设表detail_sdk_session中记录了访问某网站M的客户端会话信息，即：如果用户A打开app客户端，则会产生一条会话信息记录在该表中，该表的粒度为“一次”会话，其中每次会话都记录了用户的唯一标示uuid，uuid是一个很长的字符串，假定其长度为64位。现在的需求是：每天统计当月的活用用户数——“月活跃用户数”（当月访问过app就为活跃用户）。我们以2016年1月为例进行说明，now表示当前日期。
 
 ...</content>
-  </entry>
-  
-  <entry>
-    <title>MAC挂载NTFS硬盘或U盘</title>
-    <link href="/2016/02/14/MAC%E6%8C%82%E8%BD%BDNTFS%E7%A1%AC%E7%9B%98%E6%88%96U%E7%9B%98/"/>
-    <updated>2016-02-14T00:00:00+08:00</updated>
-    <id>/2016/02/14/MAC挂载NTFS硬盘或U盘</id>
-    <content type="html">在平时工作和生活中，经常需要在windows和mac之间进行文件拷贝，对于较小的文件可以利用QQ的文件传输功能完成。但是对于较大的文件来说，由于网络带宽的限制，使用QQ等借助网络进行传输的软件就变的得不偿失。这时候就需要借助U盘或者硬盘来进行文件的拷贝。
-
-现在大多数情况下，U盘或者硬盘都是在windows进行格式化得，文件系统的格式一般为NTFS。mac对于NTFS可以直接进行读取操作，但对于写操作，就需要额外的手段来支持了。
-
-我也曾经尝试过使用一些软件，使得mac可以直接对NTFS的U盘进行写操作，但过了试用期就无法使用了。又不想买正版（穷。。。。），怎么办呢？？
-
-这怎么能难住程...</content>
   </entry>
   
   <entry>
