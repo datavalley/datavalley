@@ -26,7 +26,7 @@ WHERE t.date >= '2016-01-01' AND t.date <= now
 
 上述SQL代码中，now表示当天的日期。很容易想到，越接近月末，上面的统计的数据量就会越大。更重要的是，在这种情况下，“数据倾斜”是必然的，因为只有一个reducer在进行COUNT(DISTINCT uuid)的计算，**所有的数据都流向唯一的一个reducer**，不倾斜才怪。
 
-## 另一种的方法
+## 优化1
 
 其实，在COUNT(DISTINCT xxx)的时候，我们可以采用“分治”的思想来解决。对于上面的例子，首先我们按照uuid的前n位进行GROUP BY，并做COUNT(DISTINCT )操作，然后再对所有的COUNT(DISTINCT)结果进行求和。
 
@@ -61,3 +61,40 @@ FROM
 理论上，内层SELECT进行GROUP BY时，会有 52^n 个分组，外层SELECT就会进行 52^n 次求和。所以n不宜过大。
 
 当然，如果数据量十分巨大，n必须充分大，才能保证内层SELECT中的COUNT(DISTINCT)能够计算出来，此时可以再嵌套一层SELECT，这里不再赘述。
+
+## 优化2
+
+其实，很多博客中都记录了使用```GROUP BY``` 操作代替 ```COUNT(DISTINCT)``` 操作，但有时仅仅使用GROUP BY操作还不够，还需要加点小技巧。
+
+还是先来看一下代码：
+
+```sql
+--  第三层SELECT
+SELECT
+  SUM(s.mau_part) mau
+FROM
+(
+  -- 第二层SELECT
+  SELECT
+    tag,
+    COUNT(*) mau_part
+  FROM
+  (
+  	-- 第一层SELECT
+    SELECT
+      uuid, 
+      CAST(RAND() * 100 AS BIGINT) tag  -- 为去重后的uuid打上标记，标记为：0-100之间的整数。
+    FROM detail_sdk_session
+    WHERE partition_date >= '2016-01-01' AND partition_date <= now
+    GROUP BY uuid   -- 通过GROUP BY，保证去重
+   ) t
+  GROUP BY tag
+) s
+;
+```
+
+1. 第一层SELECT：对uuid进行去重，并为去重后的uuid打上整数标记
+2. 第二层SELECT：按照标记进行分组，统计每个分组下uuid的个数
+3. 第三层SELECT：对所有分组进行求和
+
+上面这个方法最关键的是为每个uuid进行标记，这样就可以对其进行分组，分别计数，最后去和。如果数据量确实很大，也可以增加分组的个数。例如：```CAST(RAND() * 1000 AS BIGINT) tag```
