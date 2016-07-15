@@ -228,10 +228,16 @@ table tbody tr:hover {
     margin-bottom: 5em; 
 }
 
+#directoryTile {
+  position: fixed;
+  margin-left: 53%;
+}
+
 #menuIndex {
   position: fixed;
   margin-left: 53%;
 }
+
 #menuIndex ol, ul {
   list-style-position: outside; }
 

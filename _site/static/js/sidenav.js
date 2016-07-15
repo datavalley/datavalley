@@ -29,7 +29,7 @@ $(document).ready(function(){
         }
 
         function genTmpl(){
-            var tmpl = '<ul><li style="list-style-type:none;"><h2>目录<h2></li>';
+            var tmpl = '<ul>';
 
             var heading = initHeading();
             var h2 = heading.h2;
@@ -51,8 +51,10 @@ $(document).ready(function(){
 
         function getIndex(){
             var tmpl = genTmpl();
-            var indexCon = '<div id="menuIndex" class="sidenav"></div>';
+            var indexCon = '<div id="menuIndex" class="sidenav" ></div>';
+            var directory = '<div id="directoryTile" class="sidenav"><ul><li style="list-style-type:none;"><h2>目录<h2></li></ul></div>';
 
+            $('#content').append(directory);
             $('#content').append(indexCon);
 
             $('#menuIndex')
@@ -68,13 +70,18 @@ $(document).ready(function(){
         if($('h2').length >= 2){
             getIndex();
             $("#menuIndex").hide();
+            $("#directoryTile").hide();
 			$(window).scroll(function () {
 				if ($(this).scrollTop() > 50) {
 				  $('#menuIndex').fadeIn();
+                  $("#directoryTile").fadeIn();
 				} else {
 				  $('#menuIndex').fadeOut();
+                  $("#directoryTile").fadeOut();
 				}
-				$('#menuIndex').css("top",50);
+				$('#menuIndex').css("top",150);
+                $('#menuIndex').css("height",600);
+                $('#menuIndex').css("overflow-y","auto");
 			});
         }
     })();
