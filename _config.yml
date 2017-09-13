@@ -38,7 +38,8 @@ whitelist: []
 gems:      ['jekyll-paginate']
 
 # Conversion
-markdown:    redcarpet
+# markdown:    redcarpet
+markdown:    kramdown
 highlighter: pygments
 lsi:         false
 excerpt_separator: "\n\n"
