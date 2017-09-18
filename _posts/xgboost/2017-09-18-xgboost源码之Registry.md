@@ -227,7 +227,7 @@ class Registry {
 
 宏```DMLC_REGISTRY_ENABLE```用于完善Registry<EntryType>的定义：即给出```Registry<EntryType>::Get()```函数的定义，具体的：
 
-```c
+```
 #define DMLC_REGISTRY_ENABLE(EntryType)                                 \
   template<>                                                            \
   Registry<EntryType > *Registry<EntryType >::Get() {                   \
@@ -238,7 +238,7 @@ class Registry {
   
 ### 2.2 注册宏
 
-```c
+```
 #define DMLC_REGISTRY_REGISTER(EntryType, EntryTypeName, Name)          \
   static EntryType & __make_ ## EntryTypeName ## _ ## Name ## __ = \
       ::dmlc::Registry<EntryType>::Get()->__REGISTER__(#Name)  
@@ -252,7 +252,7 @@ class Registry {
 
 ### 3.1 Metric和MetricReg
 
-```Metric```是xgboost中**指标**的父类，其代码较为简单，如下所示：
+**Metric**是xgboost中**指标**的父类，其代码较为简单，如下所示：
 
 ```c
 /*!
